@@ -18,14 +18,24 @@ namespace AWGAEventTracker
             InitializeComponent();
         }
 
+        // Called when the form loads.
         private void ManageEvents1_Load(object sender, EventArgs e)
         {
             //TODO: populate dropdown list with events from databse
 
         }
 
+        //Called on Cancel btn click
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            //TODO: Check for unsaved changes and promnpt user "are you suer"
+            this.Close();
+        }
+
+        // Called on OK btn click
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            //TODO: save changes
             this.Close();
         }
     }
