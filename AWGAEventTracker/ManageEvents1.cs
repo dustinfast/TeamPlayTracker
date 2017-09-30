@@ -38,5 +38,10 @@ namespace AWGAEventTracker
             //TODO: save changes
             this.Close();
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
