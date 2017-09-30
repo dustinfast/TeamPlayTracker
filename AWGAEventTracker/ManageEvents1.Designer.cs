@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageEvents1));
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
@@ -42,7 +43,15 @@
             this.eventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.aWGADataSet = new AWGAEventTracker.AWGADataSet();
             this.eventsTableAdapter = new AWGAEventTracker.AWGADataSetTableAdapters.EventsTableAdapter();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aWGADataSet)).BeginInit();
             this.SuspendLayout();
@@ -106,6 +115,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Location = new System.Drawing.Point(8, 39);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -116,6 +126,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(8, 39);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -126,6 +137,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(8, 39);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(719, 476);
@@ -135,6 +147,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label5);
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(719, 476);
@@ -155,6 +168,45 @@
             // 
             this.eventsTableAdapter.ClearBeforeFill = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(559, 100);
+            this.label2.TabIndex = 0;
+            this.label2.Text = resources.GetString("label2.Text");
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(506, 75);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "This is where the user can view players assigned to\r\nthis event. The user can add" +
+    " existing players to the\r\nevent and/or create new players. ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(559, 50);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Here we will display event details, such as the number\r\nof players/teams, and if " +
+    "the rounds have points assigned.";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(474, 75);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "This is where the event results will be displayed.\r\nIt will be disabled until poi" +
+    "nts for all the rounds \r\nhave been entered.\r\n";
+            // 
             // ManageEvents1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -171,6 +223,14 @@
             this.Text = "Team-Play Event Management";
             this.Load += new System.EventHandler(this.ManageEvents1_Load);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aWGADataSet)).EndInit();
             this.ResumeLayout(false);
@@ -193,5 +253,9 @@
         private System.Windows.Forms.BindingSource eventsBindingSource;
         private AWGADataSetTableAdapters.EventsTableAdapter eventsTableAdapter;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
