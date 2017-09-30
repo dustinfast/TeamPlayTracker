@@ -45,15 +45,12 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.eventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.aWGADataSet = new AWGAEventTracker.AWGADataSet();
-            this.eventsTableAdapter = new AWGAEventTracker.AWGADataSetTableAdapters.EventsTableAdapter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aWGADataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -198,16 +195,8 @@
             // eventsBindingSource
             // 
             this.eventsBindingSource.DataMember = "Events";
-            this.eventsBindingSource.DataSource = this.aWGADataSet;
             // 
-            // aWGADataSet
-            // 
-            this.aWGADataSet.DataSetName = "AWGADataSet";
-            this.aWGADataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // eventsTableAdapter
-            // 
-            this.eventsTableAdapter.ClearBeforeFill = true;
+    
             // 
             // ManageEvents1
             // 
@@ -234,7 +223,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aWGADataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,9 +239,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private AWGADataSet aWGADataSet;
         private System.Windows.Forms.BindingSource eventsBindingSource;
-        private AWGADataSetTableAdapters.EventsTableAdapter eventsTableAdapter;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
