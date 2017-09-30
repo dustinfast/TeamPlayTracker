@@ -90,6 +90,7 @@
             this.btnCreateNewEvent.TabIndex = 4;
             this.btnCreateNewEvent.Text = "Create New...";
             this.btnCreateNewEvent.UseVisualStyleBackColor = true;
+            this.btnCreateNewEvent.Click += new System.EventHandler(this.btnCreateNewEvent_Click);
             // 
             // comboBox1
             // 
@@ -127,7 +128,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(559, 100);
+            this.label2.Size = new System.Drawing.Size(653, 100);
             this.label2.TabIndex = 0;
             this.label2.Text = resources.GetString("label2.Text");
             // 
@@ -190,13 +191,10 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "This is where the event results will be displayed.\r\nIt will be disabled until poi" +
     "nts for all the rounds \r\nhave been entered.\r\n";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // eventsBindingSource
             // 
             this.eventsBindingSource.DataMember = "Events";
-            // 
-    
             // 
             // ManageEvents1
             // 

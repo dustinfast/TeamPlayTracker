@@ -21,8 +21,8 @@ namespace AWGAEventTracker
         //Called when form loads 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //TODO: ini database here -DF  
-           
+            //TODO: ini database here
+            
         }
         
         //Called on user click File->Exit

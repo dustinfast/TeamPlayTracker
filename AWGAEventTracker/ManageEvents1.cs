@@ -25,7 +25,7 @@ namespace AWGAEventTracker
 
         }
 
-        //Called on Cancel btn click
+        // Called on Cancel btn click
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //TODO: Check for unsaved changes and promnpt user "are you suer"
@@ -39,9 +39,11 @@ namespace AWGAEventTracker
             this.Close();
         }
 
-        private void label5_Click(object sender, EventArgs e)
+        // Called on 'Create New Event' btn click
+        private void btnCreateNewEvent_Click(object sender, EventArgs e)
         {
-
+            CreateNewEvent newevent = new CreateNewEvent();
+            newevent.Show();
         }
     }
 }
