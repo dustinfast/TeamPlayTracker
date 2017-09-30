@@ -14,6 +14,7 @@ namespace AWGAEventTracker
         // such as when a user enteres a new player name or points. The tick mark would break the insert statement, so we
         // remove it by calling this function on the user input - DF
         // Testing a push and commit to the repo -TR
+        // testing again -DF
         public static string InvalidCharacterFlag(string strIn)
         {
             strIn.Replace("'", "");
