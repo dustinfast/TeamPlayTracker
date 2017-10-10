@@ -73,5 +73,11 @@ namespace AWGAEventTracker
             ManageEvents1 dlgManageEvents = new ManageEvents1();
             dlgManageEvents.ShowDialog();
         }
+
+        private void playersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ManagePlayers dlgManagePlayers = new ManagePlayers();
+            dlgManagePlayers.ShowDialog();
+        }
     }
 }
