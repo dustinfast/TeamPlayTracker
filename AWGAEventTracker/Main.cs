@@ -21,10 +21,38 @@ namespace AWGAEventTracker
         //Called when form loads 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //TODO: ini database here
-            
+            //Open the database
+            Globals.g_dbConnection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=AWGA.mdb;Jet OLEDB:Database Password=AWGA");
+
+            try
+            {
+                Globals.g_dbConnection.Open();
+            }
+            catch (Exception ex0)
+            {
+                if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); //Close db if it was opened
+                MessageBox.Show("Error! Unable to connect to database!\n\nError Info: " + ex0.ToString());
+                this.Close();
+            }
+
+            //Do a test SELECT from the DB, to ensure we can read from it.
+            string dbCmd = "SELECT * FROM Event'";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter thisAdapter = new OleDbDataAdapter(dbComm);
+            DataSet thisDataSet = new DataSet();
+            try
+            {
+                thisAdapter.Fill(thisDataSet, "Events");
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show("Error! Unable to read from database!\n\nError Info: " + ex1.ToString());
+                if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); //Close the db
+                this.Close();
+            }
         }
-        
+
         //Called on user click File->Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
