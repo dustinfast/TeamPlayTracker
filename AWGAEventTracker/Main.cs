@@ -36,14 +36,14 @@ namespace AWGAEventTracker
             }
 
             //Do a test SELECT from the DB, to ensure we can read from it.
-            string dbCmd = "SELECT * FROM Event'";
+            string dbCmd = "SELECT * FROM Events'";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
-            OleDbDataAdapter thisAdapter = new OleDbDataAdapter(dbComm);
-            DataSet thisDataSet = new DataSet();
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
             try
             {
-                thisAdapter.Fill(thisDataSet, "Events");
+                adapter.Fill(dataSet, "Events");
             }
             catch (Exception ex1)
             {
@@ -51,6 +51,12 @@ namespace AWGAEventTracker
                 if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); //Close the db
                 this.Close();
             }
+        }
+
+        //Called when the form closes
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); //Close the db
         }
 
         //Called on user click File->Exit

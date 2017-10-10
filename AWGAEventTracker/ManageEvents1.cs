@@ -18,11 +18,30 @@ namespace AWGAEventTracker
             InitializeComponent();
         }
 
-        // Called when the form loads.
-        private void ManageEvents1_Load(object sender, EventArgs e)
+        //Called when the Event Selector drop down box is clicked.
+        private void comboBoxEventSelector_Enter(object sender, EventArgs e)
         {
-            //TODO: populate dropdown list with events from databse
+            //Populate drop down box with team-play events from the database
+            string dbCmd = "SELECT * FROM Events";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Events");
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show("Error! Unable to read from database!\n\nError Info: " + ex1.ToString());
+                return;
+            }
+
+            comboBoxEventSelector.Items.Clear(); //clear existing items from Team-Play events dropdown
+            foreach (DataRow dRow in dataSet.Tables["Events"].Rows)
+            {
+                comboBoxEventSelector.Items.Add(dRow["eventName"].ToString()); //Add each item to dropdown 
+            }
         }
 
         // Called on Cancel btn click
@@ -45,5 +64,7 @@ namespace AWGAEventTracker
             CreateNewEvent newevent = new CreateNewEvent();
             newevent.Show();
         }
+
+        
     }
 }

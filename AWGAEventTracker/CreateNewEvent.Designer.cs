@@ -31,12 +31,16 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxEventYear = new System.Windows.Forms.TextBox();
+            this.textBoxEventName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(219, 131);
+            this.btnOk.Location = new System.Drawing.Point(439, 161);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(138, 65);
             this.btnOk.TabIndex = 4;
@@ -46,7 +50,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(75, 131);
+            this.btnCancel.Location = new System.Drawing.Point(295, 161);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(138, 65);
             this.btnCancel.TabIndex = 3;
@@ -57,31 +61,67 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(34, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(420, 25);
+            this.label1.Size = new System.Drawing.Size(177, 25);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Enter the year of the new event (ex: 2017):";
+            this.label1.Text = "Name (ex: 2017):";
             // 
-            // textBoxEventYear
+            // textBoxEventName
             // 
-            this.textBoxEventYear.Location = new System.Drawing.Point(159, 65);
-            this.textBoxEventYear.Name = "textBoxEventYear";
-            this.textBoxEventYear.Size = new System.Drawing.Size(100, 31);
-            this.textBoxEventYear.TabIndex = 6;
+            this.textBoxEventName.Location = new System.Drawing.Point(217, 26);
+            this.textBoxEventName.Name = "textBoxEventName";
+            this.textBoxEventName.Size = new System.Drawing.Size(360, 31);
+            this.textBoxEventName.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(97, 72);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(114, 25);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Start Date:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(104, 112);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 25);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "End Date:";
+            // 
+            // dateTimePickerStartDate
+            // 
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(217, 67);
+            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(360, 31);
+            this.dateTimePickerStartDate.TabIndex = 9;
+            // 
+            // dateTimePickerEndDate
+            // 
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(217, 107);
+            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(360, 31);
+            this.dateTimePickerEndDate.TabIndex = 10;
             // 
             // CreateNewEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 226);
+            this.ClientSize = new System.Drawing.Size(620, 238);
             this.ControlBox = false;
-            this.Controls.Add(this.textBoxEventYear);
+            this.Controls.Add(this.dateTimePickerEndDate);
+            this.Controls.Add(this.dateTimePickerStartDate);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBoxEventName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
             this.Name = "CreateNewEvent";
-            this.Text = "Create New Event";
+            this.Text = "Create New Team-Play Event";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,6 +132,10 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxEventYear;
+        private System.Windows.Forms.TextBox textBoxEventName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
+        private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
     }
 }

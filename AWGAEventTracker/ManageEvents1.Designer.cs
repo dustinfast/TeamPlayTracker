@@ -34,7 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCreateNewEvent = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxEventSelector = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(491, 637);
+            this.btnCancel.Location = new System.Drawing.Point(470, 619);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(138, 65);
             this.btnCancel.TabIndex = 0;
@@ -74,7 +74,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(635, 637);
+            this.btnOk.Location = new System.Drawing.Point(614, 619);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(138, 65);
             this.btnOk.TabIndex = 2;
@@ -92,13 +92,14 @@
             this.btnCreateNewEvent.UseVisualStyleBackColor = true;
             this.btnCreateNewEvent.Click += new System.EventHandler(this.btnCreateNewEvent_Click);
             // 
-            // comboBox1
+            // comboBoxEventSelector
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(292, 13);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(157, 33);
-            this.comboBox1.TabIndex = 5;
+            this.comboBoxEventSelector.FormattingEnabled = true;
+            this.comboBoxEventSelector.Location = new System.Drawing.Point(292, 13);
+            this.comboBoxEventSelector.Name = "comboBoxEventSelector";
+            this.comboBoxEventSelector.Size = new System.Drawing.Size(157, 33);
+            this.comboBoxEventSelector.TabIndex = 5;
+            this.comboBoxEventSelector.Enter += new System.EventHandler(this.comboBoxEventSelector_Enter);
             // 
             // tabControl1
             // 
@@ -200,17 +201,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 714);
+            this.ClientSize = new System.Drawing.Size(764, 700);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxEventSelector);
             this.Controls.Add(this.btnCreateNewEvent);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Name = "ManageEvents1";
             this.Text = "Team-Play Event Management";
-            this.Load += new System.EventHandler(this.ManageEvents1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -232,7 +232,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCreateNewEvent;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxEventSelector;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
