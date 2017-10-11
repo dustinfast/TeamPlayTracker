@@ -80,6 +80,7 @@ namespace AWGAEventTracker
                 return;
             }
 
+            tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
             textBoxSelectedEventID.Text = dataSet.Tables["Events"].Rows[0]["eventID"].ToString();
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
