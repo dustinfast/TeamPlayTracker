@@ -112,6 +112,7 @@
     <Compile Include="ManagePlayers.Designer.cs">
       <DependentUpon>ManagePlayers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CreateNewEvent.resx">

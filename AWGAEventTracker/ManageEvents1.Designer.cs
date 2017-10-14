@@ -54,6 +54,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonUnassign = new System.Windows.Forms.Button();
+            this.buttonAssign = new System.Windows.Forms.Button();
+            this.listBoxAssignedPlayers = new System.Windows.Forms.ListBox();
+            this.buttonShowAddPlayersDlg = new System.Windows.Forms.Button();
+            this.listBoxUnassignedPlayers = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
@@ -62,14 +69,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.textBoxSelectedEventID = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonAssignAll = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -325,12 +325,12 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.listBox2);
-            this.tabPage2.Controls.Add(this.button1);
-            this.tabPage2.Controls.Add(this.listBox1);
+            this.tabPage2.Controls.Add(this.buttonAssignAll);
+            this.tabPage2.Controls.Add(this.buttonUnassign);
+            this.tabPage2.Controls.Add(this.buttonAssign);
+            this.tabPage2.Controls.Add(this.listBoxAssignedPlayers);
+            this.tabPage2.Controls.Add(this.buttonShowAddPlayersDlg);
+            this.tabPage2.Controls.Add(this.listBoxUnassignedPlayers);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(8, 39);
@@ -341,12 +341,78 @@
             this.tabPage2.Text = "Players";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonUnassign
+            // 
+            this.buttonUnassign.Location = new System.Drawing.Point(345, 243);
+            this.buttonUnassign.Name = "buttonUnassign";
+            this.buttonUnassign.Size = new System.Drawing.Size(55, 53);
+            this.buttonUnassign.TabIndex = 6;
+            this.buttonUnassign.Text = "<";
+            this.buttonUnassign.UseVisualStyleBackColor = true;
+            this.buttonUnassign.Click += new System.EventHandler(this.buttonUnassign_Click);
+            // 
+            // buttonAssign
+            // 
+            this.buttonAssign.Location = new System.Drawing.Point(345, 184);
+            this.buttonAssign.Name = "buttonAssign";
+            this.buttonAssign.Size = new System.Drawing.Size(55, 53);
+            this.buttonAssign.TabIndex = 5;
+            this.buttonAssign.Text = ">";
+            this.buttonAssign.UseVisualStyleBackColor = true;
+            this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
+            // 
+            // listBoxAssignedPlayers
+            // 
+            this.listBoxAssignedPlayers.FormattingEnabled = true;
+            this.listBoxAssignedPlayers.ItemHeight = 25;
+            this.listBoxAssignedPlayers.Location = new System.Drawing.Point(424, 53);
+            this.listBoxAssignedPlayers.Name = "listBoxAssignedPlayers";
+            this.listBoxAssignedPlayers.Size = new System.Drawing.Size(319, 504);
+            this.listBoxAssignedPlayers.TabIndex = 4;
+            // 
+            // buttonShowAddPlayersDlg
+            // 
+            this.buttonShowAddPlayersDlg.Location = new System.Drawing.Point(11, 571);
+            this.buttonShowAddPlayersDlg.Name = "buttonShowAddPlayersDlg";
+            this.buttonShowAddPlayersDlg.Size = new System.Drawing.Size(254, 55);
+            this.buttonShowAddPlayersDlg.TabIndex = 3;
+            this.buttonShowAddPlayersDlg.Text = "Add/Modify Players";
+            this.buttonShowAddPlayersDlg.UseVisualStyleBackColor = true;
+            this.buttonShowAddPlayersDlg.Click += new System.EventHandler(this.buttonShowAddPlayersDlg_Click);
+            // 
+            // listBoxUnassignedPlayers
+            // 
+            this.listBoxUnassignedPlayers.FormattingEnabled = true;
+            this.listBoxUnassignedPlayers.ItemHeight = 25;
+            this.listBoxUnassignedPlayers.Location = new System.Drawing.Point(7, 53);
+            this.listBoxUnassignedPlayers.Name = "listBoxUnassignedPlayers";
+            this.listBoxUnassignedPlayers.Size = new System.Drawing.Size(319, 504);
+            this.listBoxUnassignedPlayers.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(424, 25);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(174, 25);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Players in Event:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(208, 25);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Players not in event:";
+            // 
             // tabPage5
             // 
             this.tabPage5.Location = new System.Drawing.Point(8, 39);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(719, 507);
+            this.tabPage5.Size = new System.Drawing.Size(749, 641);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "Teams";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -356,7 +422,7 @@
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(8, 39);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(719, 507);
+            this.tabPage3.Size = new System.Drawing.Size(749, 641);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rounds";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -376,7 +442,7 @@
             this.tabPage4.Controls.Add(this.label5);
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(719, 507);
+            this.tabPage4.Size = new System.Drawing.Size(749, 641);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Results";
             // 
@@ -418,77 +484,15 @@
             this.textBoxSelectedEventID.TabIndex = 9;
             this.textBoxSelectedEventID.Visible = false;
             // 
-            // label3
+            // buttonAssignAll
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(208, 25);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Players not in event:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(424, 25);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(174, 25);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Players in Event:";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(7, 53);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(319, 504);
-            this.listBox1.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(11, 571);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(254, 55);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Add/Modify Players";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 25;
-            this.listBox2.Location = new System.Drawing.Point(424, 53);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(319, 504);
-            this.listBox2.TabIndex = 4;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(350, 195);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 53);
-            this.button2.TabIndex = 5;
-            this.button2.Text = ">";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(350, 254);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 53);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "<";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(350, 329);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(50, 53);
-            this.button4.TabIndex = 7;
-            this.button4.Text = ">>";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonAssignAll.Location = new System.Drawing.Point(345, 329);
+            this.buttonAssignAll.Name = "buttonAssignAll";
+            this.buttonAssignAll.Size = new System.Drawing.Size(55, 53);
+            this.buttonAssignAll.TabIndex = 7;
+            this.buttonAssignAll.Text = ">>";
+            this.buttonAssignAll.UseVisualStyleBackColor = true;
+            this.buttonAssignAll.Click += new System.EventHandler(this.buttonAssignAll_Click);
             // 
             // ManageEvents1
             // 
@@ -555,13 +559,13 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBoxSelectedEventID;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button buttonUnassign;
+        private System.Windows.Forms.Button buttonAssign;
+        private System.Windows.Forms.ListBox listBoxAssignedPlayers;
+        private System.Windows.Forms.Button buttonShowAddPlayersDlg;
+        private System.Windows.Forms.ListBox listBoxUnassignedPlayers;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonAssignAll;
     }
 }
