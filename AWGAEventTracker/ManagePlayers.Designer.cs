@@ -259,18 +259,18 @@
             // textBoxEditHandicap
             // 
             this.textBoxEditHandicap.Enabled = false;
-            this.textBoxEditHandicap.Location = new System.Drawing.Point(986, 590);
+            this.textBoxEditHandicap.Location = new System.Drawing.Point(740, 590);
             this.textBoxEditHandicap.Name = "textBoxEditHandicap";
             this.textBoxEditHandicap.Size = new System.Drawing.Size(151, 31);
-            this.textBoxEditHandicap.TabIndex = 17;
+            this.textBoxEditHandicap.TabIndex = 16;
             // 
             // textBoxEditPhone
             // 
             this.textBoxEditPhone.Enabled = false;
-            this.textBoxEditPhone.Location = new System.Drawing.Point(704, 590);
+            this.textBoxEditPhone.Location = new System.Drawing.Point(996, 590);
             this.textBoxEditPhone.Name = "textBoxEditPhone";
             this.textBoxEditPhone.Size = new System.Drawing.Size(151, 31);
-            this.textBoxEditPhone.TabIndex = 16;
+            this.textBoxEditPhone.TabIndex = 17;
             // 
             // textBoxEditLN
             // 
@@ -291,7 +291,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(618, 593);
+            this.label5.Location = new System.Drawing.Point(910, 593);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 25);
             this.label5.TabIndex = 13;
@@ -309,7 +309,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(871, 593);
+            this.label7.Location = new System.Drawing.Point(625, 593);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(109, 25);
             this.label7.TabIndex = 11;

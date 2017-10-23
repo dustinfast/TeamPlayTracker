@@ -305,7 +305,21 @@ namespace AWGAEventTracker
                 return;
             }
 
-            if (strPhone.Length != 10 || !double.TryParse(strPhone, out dTemp))
+            if (strHandicap == "")
+            {
+                MessageBox.Show("ERROR: Handicap must be populated.");
+                return;
+            }
+            else
+            {
+                if (!double.TryParse(strHandicap, out dTemp))
+                {
+                    MessageBox.Show("ERROR: Handicap must be a numeric value.");
+                    return;
+                }
+            }
+
+            if (strPhone != "" && (strPhone.Length != 10 || !double.TryParse(strPhone, out dTemp)))
             {
                 MessageBox.Show("ERROR: Phone must contain 10 digits");
                 return;
@@ -322,14 +336,6 @@ namespace AWGAEventTracker
                         strPhone += "-" + strTemp[i];
                     else
                         strPhone += strTemp[i];
-                }
-            }
-            if (strHandicap != "")
-            {
-                if (!double.TryParse(strHandicap, out dTemp))
-                {
-                    MessageBox.Show("ERROR: Handicap must be a numeric value.");
-                    return;
                 }
             }
 
