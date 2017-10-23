@@ -114,14 +114,20 @@ namespace AWGAEventTracker
             }
 
             tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
-            //textBoxSelectedEventID.Text = dataSet.Tables["Events"].Rows[0]["eventID"].ToString();
             g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
-            g_strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the g_strAssignedPlayers global var
+
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
             labelEndDate.Text = strEndDate.Substring(0, strEndDate.IndexOf(' '));
+
+            g_strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the g_strAssignedPlayers global var, removing the leading and trailing commas
+            if (g_strAssignedPlayers.Length != 0)
+            {
+                g_strAssignedPlayers = g_strAssignedPlayers.Remove(0, 1); //leading
+                g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
+            }
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
@@ -237,24 +243,33 @@ namespace AWGAEventTracker
         }
 
         //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
+        //Note that the string is stored in the database with a leading, delimiting, and trailing comma. Though
+        //the g_strAssignedPlayers string only has delimiting commas. This is for convenience in using LIKE and IN SQL statements.
         private void populateAssignedPlayersString()
         {
             //build assigned players string
-            g_strAssignedPlayers = "";
+            g_strAssignedPlayers = ","; //ini with leading comma
             for (int i = 0; i < listBoxAssignedPlayers.Items.Count; i++)
                 g_strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).playerID + ",";
-            if (g_strAssignedPlayers.Length != 0)
-                if (g_strAssignedPlayers[g_strAssignedPlayers.Length - 1] == ',')
-                    g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //remove trailing comma
+
+            //if all the string contains is the leading comma, just make it ""
+            if (g_strAssignedPlayers.Length == 1) g_strAssignedPlayers = "";
 
             //update events db table 
             string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID; ;
              OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
             if (command.ExecuteNonQuery() == 0)
             {
-                MessageBox.Show("ERROR: Could modify user due to an unspecified database error.");
+                MessageBox.Show("ERROR: Could not modify user due to an unspecified database error.");
                 return;
             }
-}
+
+            //remove trailing comma
+            if (g_strAssignedPlayers.Length != 0)
+            {
+                g_strAssignedPlayers = g_strAssignedPlayers.Remove(0, 1); //leading
+                g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
+            }
+        }
     }
 }

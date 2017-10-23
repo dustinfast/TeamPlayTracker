@@ -229,12 +229,33 @@ namespace AWGAEventTracker
         //Called on user click Delete Player
         private void buttonDeletePlayer_Click(object sender, EventArgs e)
         {
+            //Ensure player to be deleted is not already assigned to an event
+            string dbCmd = "SELECT * FROM Events WHERE players LIKE '%," + textBoxEditID.Text + ",%'";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Events");
+                if (dataSet.Tables["Events"].Rows.Count > 0)
+                {
+                    MessageBox.Show("Cannot Delete: Player is currently assigned to an event.");
+                    return;
+                }
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
             //Prompt to confirm delete
             if (MessageBox.Show("Are you sure you wish to delete this player? This cannot be undone.", "Delete Player?", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            string strCmd = "DELETE FROM Players WHERE playerID = " + textBoxEditID.Text;
-            OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
+            dbCmd = "DELETE FROM Players WHERE playerID = " + textBoxEditID.Text;
+            OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             if (command.ExecuteNonQuery() == 0)
             {
