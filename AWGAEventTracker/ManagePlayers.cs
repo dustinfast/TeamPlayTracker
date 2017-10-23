@@ -14,7 +14,7 @@ namespace AWGAEventTracker
 
     public partial class ManagePlayers : Form
     {
-        private string strLastSelectCmd;
+        private string g_strLastSelectCmd;
 
         public ManagePlayers()
         {
@@ -63,7 +63,7 @@ namespace AWGAEventTracker
                 dataGridView.ClearSelection();
 
                 //Set the last used command, to be used later if we need it.
-                strLastSelectCmd = sqlselectcmd;
+                g_strLastSelectCmd = sqlselectcmd;
 
             }
             catch (OleDbException)
@@ -154,7 +154,7 @@ namespace AWGAEventTracker
             }
 
             //Update display and set focus back to the name field.
-            showPlayerData(strLastSelectCmd); //refresh datagrid
+            showPlayerData(g_strLastSelectCmd); //refresh datagrid
             textBoxAddFN.Text = "";
             textBoxAddLN.Text = "";
             textBoxAddPhone.Text = "";
@@ -243,7 +243,7 @@ namespace AWGAEventTracker
             }
 
             //Set edit controls back to disabled until another player is selected
-            showPlayerData(strLastSelectCmd); //refresh datagrid
+            showPlayerData(g_strLastSelectCmd); //refresh datagrid
             textBoxEditFN.Text = "";
             textBoxEditLN.Text = "";
             textBoxEditPhone.Text = "";
@@ -328,7 +328,7 @@ namespace AWGAEventTracker
             }
 
             //Update display and set focus back to the name field.
-            showPlayerData(strLastSelectCmd); //refresh datagrid
+            showPlayerData(g_strLastSelectCmd); //refresh datagrid
             textBoxEditFN.Text = "";
             textBoxEditLN.Text = "";
             textBoxEditPhone.Text = "";

@@ -14,10 +14,10 @@ namespace AWGAEventTracker
     public partial class ManageEvents1 : Form
     {
         //Class Globals
-        private string strSelectedEventID; //The ID of the currently selected event.
-        private string strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event.
-        private BindingList<Player> lstAssignedPlayers = new BindingList<Player>(); //All players objects assigned to currently selected event. Populated on Event select OR Assigned Player change
-        private BindingList<Player> lstUnassignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
+        private string g_g_strSelectedEventID; //The ID of the currently selected event.
+        private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event.
+        private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects assigned to currently selected event. Populated on Event select OR Assigned Player change
+        private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
 
         public ManageEvents1()
         {
@@ -84,7 +84,7 @@ namespace AWGAEventTracker
             //TODO Details Tab: Calculate and display "Rounds with Results"
             //TODO Details Tab: Update Final Results display
 
-            populateEventDetails(); //Populates event details tab and strAssignedPlayers
+            populateEventDetails(); //Populates event details tab and g_strAssignedPlayers
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
 
             //TODO Populate Teams tab
@@ -95,7 +95,7 @@ namespace AWGAEventTracker
 
         }
 
-        //Populates the event details tab and also sets the strAssignedPlayers global var
+        //Populates the event details tab and also sets the g_strAssignedPlayers global var
         void populateEventDetails()
         {
             string dbCmd = "SELECT * FROM Events WHERE eventName = '" + comboBoxEventSelector.Text + "'";
@@ -115,21 +115,21 @@ namespace AWGAEventTracker
 
             tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
             //textBoxSelectedEventID.Text = dataSet.Tables["Events"].Rows[0]["eventID"].ToString();
-            strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the strSelectedEventID global var
+            g_g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
-            strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the strAssignedPlayers global var
+            g_strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the g_strAssignedPlayers global var
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
             labelEndDate.Text = strEndDate.Substring(0, strEndDate.IndexOf(' '));
         }
 
-        //Populates the Players tab lists with the assigned and unassigned players. Should be called after strAssignedPlayers is populated.
+        //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
         void populatePlayersLists()
         {
             //Clear existing lists
-            lstUnassignedPlayers = new BindingList<Player>();
-            lstAssignedPlayers = new BindingList<Player>();
+            g_lstAssignedPlayers = new BindingList<Player>();
+            g_lstAssignedPlayers = new BindingList<Player>();
 
             
             string dbCmd = "";
@@ -139,9 +139,9 @@ namespace AWGAEventTracker
             DataSet dataSet = new DataSet();
 
             //Populate Assigned players
-            if (strAssignedPlayers.Length > 0)
+            if (g_strAssignedPlayers.Length > 0)
             {
-                dbCmd = "SELECT * FROM Players WHERE playerID in (" + strAssignedPlayers + ")";
+                dbCmd = "SELECT * FROM Players WHERE playerID in (" + g_strAssignedPlayers + ")";
                 dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
                 adapter = new OleDbDataAdapter(dbComm);
 
@@ -162,17 +162,17 @@ namespace AWGAEventTracker
                                           Convert.ToInt16(dRow["handicap"].ToString()), 
                                           dRow["fName"].ToString(), dRow["lName"].ToString(), 
                                           dRow["phone"].ToString(), "");
-                    lstAssignedPlayers.Add(p);
+                    g_lstAssignedPlayers.Add(p);
                 }
                 listBoxAssignedPlayers.DisplayMember = "displayName";
                 listBoxAssignedPlayers.ValueMember = "playerID";
-                listBoxAssignedPlayers.DataSource = lstAssignedPlayers;
+                listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
             }
 
             //Populate Unassigned players
             dbCmd = "SELECT * FROM Players";
-            if (strAssignedPlayers.Length != 0)
-                dbCmd += " WHERE playerID not in (" + strAssignedPlayers + ")";
+            if (g_strAssignedPlayers.Length != 0)
+                dbCmd += " WHERE playerID not in (" + g_strAssignedPlayers + ")";
 
             dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             adapter = new OleDbDataAdapter(dbComm);
@@ -194,12 +194,12 @@ namespace AWGAEventTracker
                                       Convert.ToInt16(dRow["handicap"].ToString()),
                                       dRow["fName"].ToString(), dRow["lName"].ToString(),
                                       dRow["phone"].ToString(), "");
-                lstUnassignedPlayers.Add(p);
+                g_lstAssignedPlayers.Add(p);
             }
 
             listBoxUnassignedPlayers.DisplayMember = "displayName";
             listBoxUnassignedPlayers.ValueMember = "playerID";
-            listBoxUnassignedPlayers.DataSource = lstUnassignedPlayers;
+            listBoxUnassignedPlayers.DataSource = g_lstAssignedPlayers;
         }
 
         //Moves a player from the Players:Unassigned list to the Players:Assignedlist
@@ -208,8 +208,8 @@ namespace AWGAEventTracker
             if (listBoxUnassignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxUnassignedPlayers.SelectedItem as Player;
-                lstUnassignedPlayers.Remove(p);
-                lstAssignedPlayers.Add(p);
+                g_lstAssignedPlayers.Remove(p);
+                g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
         }
@@ -220,35 +220,35 @@ namespace AWGAEventTracker
             if (listBoxAssignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxAssignedPlayers.SelectedItem as Player;
-                lstAssignedPlayers.Remove(p);
-                lstUnassignedPlayers.Add(p);
+                g_lstAssignedPlayers.Remove(p);
+                g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
         }
 
         private void buttonAssignAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < lstUnassignedPlayers.Count; i++)
+            for (int i = 0; i < g_lstAssignedPlayers.Count; i++)
             {
-                lstAssignedPlayers.Add(lstUnassignedPlayers[i] as Player);
+                g_lstAssignedPlayers.Add(g_lstAssignedPlayers[i] as Player);
             }
             populateAssignedPlayersString();
             populatePlayersLists(); 
         }
 
-        //Populates strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
+        //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
         private void populateAssignedPlayersString()
         {
             //build assigned players string
-            strAssignedPlayers = "";
+            g_strAssignedPlayers = "";
             for (int i = 0; i < listBoxAssignedPlayers.Items.Count; i++)
-                strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).playerID + ",";
-            if (strAssignedPlayers.Length != 0)
-                if (strAssignedPlayers[strAssignedPlayers.Length - 1] == ',')
-                    strAssignedPlayers.Remove(strAssignedPlayers.Length - 1, 1); //remove trailing comma
+                g_strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).playerID + ",";
+            if (g_strAssignedPlayers.Length != 0)
+                if (g_strAssignedPlayers[g_strAssignedPlayers.Length - 1] == ',')
+                    g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //remove trailing comma
 
             //update events db table 
-            string strCmd = "UPDATE events SET players = '" + strAssignedPlayers + "' where eventID = " + strSelectedEventID; ;
+            string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID; ;
              OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
             if (command.ExecuteNonQuery() == 0)
             {
