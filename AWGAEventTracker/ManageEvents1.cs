@@ -14,10 +14,10 @@ namespace AWGAEventTracker
     public partial class ManageEvents1 : Form
     {
         //Class Globals
-        private string g_g_strSelectedEventID; //The ID of the currently selected event.
+        private string g_strSelectedEventID; //The ID of the currently selected event.
         private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event.
         private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects assigned to currently selected event. Populated on Event select OR Assigned Player change
-        private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
+        private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
 
         public ManageEvents1()
         {
@@ -115,7 +115,7 @@ namespace AWGAEventTracker
 
             tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
             //textBoxSelectedEventID.Text = dataSet.Tables["Events"].Rows[0]["eventID"].ToString();
-            g_g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
+            g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             g_strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the g_strAssignedPlayers global var
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
@@ -128,7 +128,7 @@ namespace AWGAEventTracker
         void populatePlayersLists()
         {
             //Clear existing lists
-            g_lstAssignedPlayers = new BindingList<Player>();
+            g_lstUnassignedPlayers = new BindingList<Player>();
             g_lstAssignedPlayers = new BindingList<Player>();
 
             
@@ -194,12 +194,12 @@ namespace AWGAEventTracker
                                       Convert.ToInt16(dRow["handicap"].ToString()),
                                       dRow["fName"].ToString(), dRow["lName"].ToString(),
                                       dRow["phone"].ToString(), "");
-                g_lstAssignedPlayers.Add(p);
+                g_lstUnassignedPlayers.Add(p);
             }
 
             listBoxUnassignedPlayers.DisplayMember = "displayName";
             listBoxUnassignedPlayers.ValueMember = "playerID";
-            listBoxUnassignedPlayers.DataSource = g_lstAssignedPlayers;
+            listBoxUnassignedPlayers.DataSource = g_lstUnassignedPlayers;
         }
 
         //Moves a player from the Players:Unassigned list to the Players:Assignedlist
@@ -208,7 +208,7 @@ namespace AWGAEventTracker
             if (listBoxUnassignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxUnassignedPlayers.SelectedItem as Player;
-                g_lstAssignedPlayers.Remove(p);
+                g_lstUnassignedPlayers.Remove(p);
                 g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
@@ -221,16 +221,16 @@ namespace AWGAEventTracker
             {
                 Player p = listBoxAssignedPlayers.SelectedItem as Player;
                 g_lstAssignedPlayers.Remove(p);
-                g_lstAssignedPlayers.Add(p);
+                g_lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
         }
 
         private void buttonAssignAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < g_lstAssignedPlayers.Count; i++)
+            for (int i = 0; i < g_lstUnassignedPlayers.Count; i++)
             {
-                g_lstAssignedPlayers.Add(g_lstAssignedPlayers[i] as Player);
+                g_lstAssignedPlayers.Add(g_lstUnassignedPlayers[i] as Player);
             }
             populateAssignedPlayersString();
             populatePlayersLists(); 
