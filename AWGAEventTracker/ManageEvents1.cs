@@ -116,7 +116,7 @@ namespace AWGAEventTracker
             tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
             g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
-
+            labelRoundCount.Text = dataSet.Tables["Events"].Rows[0]["numRounds"].ToString();
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
