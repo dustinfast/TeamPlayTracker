@@ -91,18 +91,18 @@
             // 
             // textBoxAddHandicap
             // 
-            this.textBoxAddHandicap.Location = new System.Drawing.Point(987, 46);
+            this.textBoxAddHandicap.Location = new System.Drawing.Point(741, 46);
             this.textBoxAddHandicap.Name = "textBoxAddHandicap";
             this.textBoxAddHandicap.Size = new System.Drawing.Size(151, 31);
-            this.textBoxAddHandicap.TabIndex = 8;
+            this.textBoxAddHandicap.TabIndex = 7;
             this.textBoxAddHandicap.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             // 
             // textBoxAddPhone
             // 
-            this.textBoxAddPhone.Location = new System.Drawing.Point(705, 46);
+            this.textBoxAddPhone.Location = new System.Drawing.Point(997, 46);
             this.textBoxAddPhone.Name = "textBoxAddPhone";
             this.textBoxAddPhone.Size = new System.Drawing.Size(151, 31);
-            this.textBoxAddPhone.TabIndex = 7;
+            this.textBoxAddPhone.TabIndex = 8;
             this.textBoxAddPhone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             // 
             // textBoxAddLN
@@ -124,7 +124,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(619, 49);
+            this.label4.Location = new System.Drawing.Point(911, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 25);
             this.label4.TabIndex = 4;
@@ -142,7 +142,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(872, 49);
+            this.label2.Location = new System.Drawing.Point(626, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(109, 25);
             this.label2.TabIndex = 2;
@@ -352,7 +352,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1181, 969);
-            this.ControlBox = false;
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
