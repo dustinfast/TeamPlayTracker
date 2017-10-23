@@ -165,6 +165,10 @@ namespace AWGAEventTracker
             textBoxAddPhone.Text = "";
             textBoxAddHandicap.Text = "";
             this.ActiveControl = textBoxAddFN;
+            textBoxEditFN.Text = "";
+            textBoxEditLN.Text = "";
+            textBoxEditPhone.Text = "";
+            textBoxEditHandicap.Text = "";
             buttonDeletePlayer.Enabled = false;
             buttonModifyPlayer.Enabled = false;
             textBoxEditFN.Enabled = false;
@@ -204,21 +208,16 @@ namespace AWGAEventTracker
                 showPlayerData("SELECT * FROM Players ORDER BY fName");
         }
 
-        //Called when a user clicks a player row
-        private void dataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
+        //Called when a user clicks a row in the players list
+        private void dataGridView_Click(object sender, EventArgs e)
         {
             //Populate the "Edit player" boxes with data from the selected gridview row
-            // the try/catch is necessary because onload it triggers (for some reason?)
-            try
-            {
-                textBoxEditID.Text = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
-                textBoxEditFN.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
-                textBoxEditLN.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
-                textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
-                textBoxEditHandicap.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
-            }
-            catch (Exception ex)
-            { }
+            textBoxEditID.Text = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
+            textBoxEditFN.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+            textBoxEditLN.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
+            textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
+            textBoxEditHandicap.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
+            
 
             if (textBoxEditID.Text.Length > 0)
             {
@@ -367,5 +366,7 @@ namespace AWGAEventTracker
             textBoxEditHandicap.Enabled = false;
             dataGridView.ClearSelection();
         }
+
+        
     }
 }

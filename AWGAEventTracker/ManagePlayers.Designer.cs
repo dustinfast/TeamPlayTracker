@@ -335,7 +335,7 @@
             this.dataGridView.RowTemplate.Height = 33;
             this.dataGridView.Size = new System.Drawing.Size(1140, 501);
             this.dataGridView.TabIndex = 0;
-            this.dataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
+            this.dataGridView.Click += new System.EventHandler(this.dataGridView_Click);
             // 
             // buttonClose
             // 
