@@ -29,9 +29,22 @@ namespace AWGAEventTracker
         {
             //Get user data from textbox
             string strEventName = Globals.removeTicksFromString(textBoxEventName.Text);
+            string strNumRounds = numRounds.Value.ToString();
             string strEventStartDate = dateTimePickerStartDate.Value.Year.ToString() + "-" + dateTimePickerStartDate.Value.Month.ToString() + "-" + dateTimePickerStartDate.Value.Day.ToString();
             string strEventEndDate = dateTimePickerEndDate.Value.Year.ToString() + "-" + dateTimePickerEndDate.Value.Month.ToString() + "-" + dateTimePickerEndDate.Value.Day.ToString();
-
+            
+            //Ensure event name is populated 
+            if (strEventName.Length <= 0)
+            {
+                MessageBox.Show("ERROR: Event was not added - Event name must be populated.\nPlease try again.");
+                return;
+            }
+            //Ensure num rounds is > 0
+            if (numRounds.Value <= 0)
+            {
+                MessageBox.Show("ERROR: Event was not added - Number of rounds must be greater than zero.");
+                return;
+            }
             //Ensure end date is after start date
             if (dateTimePickerEndDate.Value.Date.CompareTo(dateTimePickerStartDate.Value.Date) < 0)
             {
@@ -39,12 +52,7 @@ namespace AWGAEventTracker
                 return;
             }
 
-            //Ensure event name is populated 
-            if (strEventName.Length <= 0)
-            {
-                MessageBox.Show("ERROR: Event was not added - Event name must be populated.\nPlease try again.");
-                return;
-            }
+            
 
             //Check database to ensure an event with this name doesn't already exist
             string dbCmd = "SELECT * FROM Events WHERE eventName = '" + strEventName + "'";
@@ -69,7 +77,7 @@ namespace AWGAEventTracker
             else
             {
                 string strCmd;
-                strCmd = "INSERT INTO Events (eventName, startDate, EndDate) VALUES ('" + strEventName + "', '" + strEventStartDate+ "', '"+ strEventEndDate +"')";
+                strCmd = "INSERT INTO Events (eventName, startDate, EndDate, numRounds) VALUES ('" + strEventName + "', '" + strEventStartDate+ "', '"+ strEventEndDate +"', " + strNumRounds + ")";
 
                 OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
