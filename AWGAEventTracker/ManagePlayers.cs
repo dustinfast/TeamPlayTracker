@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace AWGAEventTracker
 {
 
-    public partial class ManagePlayers : Form
+    public partial class  ManagePlayers : Form
     {
         private string strLastSelectCmd;
 
