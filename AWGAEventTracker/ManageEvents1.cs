@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel; 
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace AWGAEventTracker
 {
@@ -121,6 +122,7 @@ namespace AWGAEventTracker
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
             labelEndDate.Text = strEndDate.Substring(0, strEndDate.IndexOf(' '));
+<<<<<<< HEAD
 
             g_strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the g_strAssignedPlayers global var, removing the leading and trailing commas
             if (g_strAssignedPlayers.Length != 0)
@@ -128,6 +130,12 @@ namespace AWGAEventTracker
                 g_strAssignedPlayers = g_strAssignedPlayers.Remove(0, 1); //leading
                 g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
             }
+=======
+            // Count the number of players and display to events page
+            int playerNum = 0;
+            playerNum = Regex.Matches(strAssignedPlayers, ",").Count;
+            labelPlayerCount.Text = playerNum.ToString();
+>>>>>>> 5ac12ed460c1ad1647219f620ebc410d58027874
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
