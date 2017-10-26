@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel; 
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Text.RegularExpressions;
 
 namespace AWGAEventTracker
 {
@@ -128,6 +129,10 @@ namespace AWGAEventTracker
                 g_strAssignedPlayers = g_strAssignedPlayers.Remove(0, 1); //leading
                 g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
             }
+            // Count the number of players and display to events page
+            int playerNum = 0;
+            playerNum = Regex.Matches(g_strAssignedPlayers, ",").Count;
+            labelPlayerCount.Text = (playerNum + 1).ToString();
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
