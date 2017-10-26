@@ -9,12 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
-//test comment
-<<<<<<< HEAD
-//test comment 3
-=======
-//test comment 2
->>>>>>> 7cc89a35658d4c64c652ea5f79770e8751f09883
+
 namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
