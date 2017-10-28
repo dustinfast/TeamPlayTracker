@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
-//df
+
 namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
     {
         //Class Globals
-        private string g_strSelectedEventID; //The ID of the currently selected event.
-        private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event.
+        private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
+        private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
         private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects assigned to currently selected event. Populated on Event select OR Assigned Player change
         private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
 
