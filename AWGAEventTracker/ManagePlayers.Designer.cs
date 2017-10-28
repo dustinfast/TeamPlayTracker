@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxAddPhone = new System.Windows.Forms.MaskedTextBox();
             this.btnAddNewPlayer = new System.Windows.Forms.Button();
@@ -81,7 +81,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(866, 130);
+            this.groupBox1.Size = new System.Drawing.Size(1161, 130);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add New Player:";
@@ -89,14 +89,14 @@
             // textBoxAddPhone
             // 
             this.textBoxAddPhone.BeepOnError = true;
-            this.textBoxAddPhone.Location = new System.Drawing.Point(997, 46);
+            this.textBoxAddPhone.Location = new System.Drawing.Point(800, 37);
             this.textBoxAddPhone.Mask = "(999) 000-0000";
             this.textBoxAddPhone.Name = "textBoxAddPhone";
-            this.textBoxAddPhone.Size = new System.Drawing.Size(151, 31);
+            this.textBoxAddPhone.Size = new System.Drawing.Size(151, 26);
             this.textBoxAddPhone.TabIndex = 8;
-            this.textBoxAddPhone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             this.textBoxAddPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.textBoxAddPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxAddPhone_MaskInputRejected);
+            this.textBoxAddPhone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             // 
             // btnAddNewPlayer
             // 
@@ -111,13 +111,12 @@
             // 
             // textBoxAddHandicap
             // 
-
-            this.textBoxAddHandicap.Location = new System.Drawing.Point(741, 46);
+            this.textBoxAddHandicap.Location = new System.Drawing.Point(560, 37);
             this.textBoxAddHandicap.Name = "textBoxAddHandicap";
-            this.textBoxAddHandicap.Size = new System.Drawing.Size(151, 31);
+            this.textBoxAddHandicap.Size = new System.Drawing.Size(50, 26);
             this.textBoxAddHandicap.TabIndex = 7;
             this.textBoxAddHandicap.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
-
+            // 
             // textBoxAddLN
             // 
             this.textBoxAddLN.Location = new System.Drawing.Point(340, 37);
@@ -139,9 +138,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(464, 39);
+            this.label4.Location = new System.Drawing.Point(740, 39);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Location = new System.Drawing.Point(911, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 20);
             this.label4.TabIndex = 4;
@@ -160,9 +158,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(654, 39);
+            this.label2.Location = new System.Drawing.Point(481, 39);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Location = new System.Drawing.Point(626, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 20);
             this.label2.TabIndex = 2;
@@ -200,19 +197,20 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(865, 564);
+            this.groupBox2.Size = new System.Drawing.Size(1276, 649);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modify/Remove Players:";
             // 
             // textBoxEditPhone
             // 
+            this.textBoxEditPhone.BeepOnError = true;
             this.textBoxEditPhone.Enabled = false;
-            this.textBoxEditPhone.Location = new System.Drawing.Point(528, 471);
+            this.textBoxEditPhone.Location = new System.Drawing.Point(996, 590);
             this.textBoxEditPhone.Mask = "(999) 000-0000";
             this.textBoxEditPhone.Name = "textBoxEditPhone";
-            this.textBoxEditPhone.Size = new System.Drawing.Size(120, 26);
-            this.textBoxEditPhone.TabIndex = 25;
+            this.textBoxEditPhone.Size = new System.Drawing.Size(151, 26);
+            this.textBoxEditPhone.TabIndex = 17;
             this.textBoxEditPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.textBoxEditPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxEditPhone_MaskInputRejected);
             // 
@@ -300,22 +298,10 @@
             // textBoxEditHandicap
             // 
             this.textBoxEditHandicap.Enabled = false;
-            this.textBoxEditHandicap.Location = new System.Drawing.Point(740, 590);
+            this.textBoxEditHandicap.Location = new System.Drawing.Point(566, 472);
             this.textBoxEditHandicap.Name = "textBoxEditHandicap";
-            this.textBoxEditHandicap.Size = new System.Drawing.Size(151, 31);
+            this.textBoxEditHandicap.Size = new System.Drawing.Size(50, 26);
             this.textBoxEditHandicap.TabIndex = 16;
-            // 
-            // textBoxEditPhone
-            // 
-            this.textBoxEditPhone.Enabled = false;
-            this.textBoxEditPhone.Location = new System.Drawing.Point(996, 590);
-            this.textBoxEditPhone.Name = "textBoxEditPhone";
-            this.textBoxEditPhone.Size = new System.Drawing.Size(151, 31);
-            this.textBoxEditPhone.TabIndex = 17;
-            this.textBoxEditPhone.BeepOnError = true;
-            this.textBoxEditPhone.Mask = "(999) 000-0000";
-            this.textBoxEditPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            this.textBoxEditPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxEditPhone_MaskInputRejected);
             // 
             // textBoxEditLN
             // 
@@ -338,9 +324,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(464, 474);
+            this.label5.Location = new System.Drawing.Point(800, 474);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Location = new System.Drawing.Point(910, 593);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 20);
             this.label5.TabIndex = 13;
@@ -359,9 +344,8 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(653, 474);
+            this.label7.Location = new System.Drawing.Point(480, 474);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Location = new System.Drawing.Point(625, 593);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(81, 20);
             this.label7.TabIndex = 11;
@@ -381,36 +365,36 @@
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.NullValue = null;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.Location = new System.Drawing.Point(5, 52);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.Height = 33;
             this.dataGridView.Size = new System.Drawing.Size(855, 401);
             this.dataGridView.TabIndex = 0;
@@ -435,7 +419,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1181, 969);
+            this.ClientSize = new System.Drawing.Size(1414, 889);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
