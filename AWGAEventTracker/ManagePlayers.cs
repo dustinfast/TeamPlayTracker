@@ -57,7 +57,7 @@ namespace AWGAEventTracker
                 dataGridView.Columns["lName"].Width = 170;
                 dataGridView.Columns["phone"].Width = 90;
                 dataGridView.Columns["handicap"].Width = 80;
-                //dataGridView.Columns["phone"].DefaultCellStyle.Format = "(999) 000-0000";
+                dataGridView.Columns["phone"].DefaultCellStyle.Format = "(999) 000-0000";
                 dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView.MultiSelect = false;
                 dataGridView.ReadOnly = true;
@@ -105,25 +105,12 @@ namespace AWGAEventTracker
                 return;
             }
 
-            if (strPhone.Length != 10 || !double.TryParse(strPhone, out dTemp))
+            if (strPhone.Length != 10 || strPhone.Length != 7)
             {
                 MessageBox.Show("ERROR: Invalid phone number.");
                 return;
             }
-            else
-            {
-                //format phone in the standard format
-                string strTemp = strPhone;
-                strPhone = "";
 
-                for (int i = 0; i < strTemp.Length; i++)
-                {
-                    if (i == 3 || i == 6)
-                        strPhone += "-" + strTemp[i];
-                    else
-                        strPhone += strTemp[i];
-                }
-            }
             if (strHandicap != "")
             {
                 if (!double.TryParse(strHandicap, out dTemp))
@@ -282,25 +269,12 @@ namespace AWGAEventTracker
                 return;
             }
 
-            if (strPhone.Length != 10 || !double.TryParse(strPhone, out dTemp))
+            if (strPhone.Length != 10 || strPhone.Length != 7)
             {
-                MessageBox.Show("ERROR: Phone must contain 10 digits");
+                MessageBox.Show("ERROR: Phone must contain 7 or 10 digits");
                 return;
             }
-            else
-            {
-                //format phone in the standard format
-                string strTemp = strPhone;
-                strPhone = "";
 
-                for (int i = 0; i < strTemp.Length; i++)
-                {
-                    if (i == 3 || i == 6)
-                        strPhone += "-" + strTemp[i];
-                    else
-                        strPhone += strTemp[i];
-                }
-            }
             if (strHandicap != "")
             {
                 if (!double.TryParse(strHandicap, out dTemp))
