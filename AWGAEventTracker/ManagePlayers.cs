@@ -12,9 +12,9 @@ using System.Windows.Forms;
 namespace AWGAEventTracker
 {
 
-    public partial class ManagePlayers : Form
+    public partial class  ManagePlayers : Form
     {
-        private string strLastSelectCmd;
+        private string g_strLastSelectCmd;
 
         public ManagePlayers()
         {
@@ -64,7 +64,7 @@ namespace AWGAEventTracker
                 dataGridView.ClearSelection();
 
                 //Set the last used command, to be used later if we need it.
-                strLastSelectCmd = sqlselectcmd;
+                g_strLastSelectCmd = sqlselectcmd;
 
             }
             catch (OleDbException)
@@ -98,7 +98,7 @@ namespace AWGAEventTracker
                 MessageBox.Show("ERROR: First name must be populated");
                 return;
             }
-            Console.WriteLine(strPhone);
+
             if (strLName == "")
             {
                 MessageBox.Show("ERROR: Last name must be populated.");
@@ -111,7 +111,12 @@ namespace AWGAEventTracker
                 return;
             }
 
-            if (strHandicap != "")
+            if (strHandicap == "")
+            {
+                MessageBox.Show("ERROR: Handicap must be populated.");
+                return;
+            }
+            else
             {
                 if (!double.TryParse(strHandicap, out dTemp))
                 {
@@ -142,12 +147,16 @@ namespace AWGAEventTracker
             }
 
             //Update display and set focus back to the name field.
-            showPlayerData(strLastSelectCmd); //refresh datagrid
+            showPlayerData(g_strLastSelectCmd); //refresh datagrid
             textBoxAddFN.Text = "";
             textBoxAddLN.Text = "";
             textBoxAddPhone.Text = "";
             textBoxAddHandicap.Text = "";
             this.ActiveControl = textBoxAddFN;
+            textBoxEditFN.Text = "";
+            textBoxEditLN.Text = "";
+            textBoxEditPhone.Text = "";
+            textBoxEditHandicap.Text = "";
             buttonDeletePlayer.Enabled = false;
             buttonModifyPlayer.Enabled = false;
             textBoxEditFN.Enabled = false;
@@ -187,21 +196,16 @@ namespace AWGAEventTracker
                 showPlayerData("SELECT * FROM Players ORDER BY fName");
         }
 
-        //Called when a user clicks a player row
-        private void dataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
+        //Called when a user clicks a row in the players list
+        private void dataGridView_Click(object sender, EventArgs e)
         {
             //Populate the "Edit player" boxes with data from the selected gridview row
-            // the try/catch is necessary because onload it triggers (for some reason?)
-            try
-            {
-                textBoxEditID.Text = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
-                textBoxEditFN.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
-                textBoxEditLN.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
-                textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
-                textBoxEditHandicap.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
-            }
-            catch (Exception ex)
-            { }
+            textBoxEditID.Text = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
+            textBoxEditFN.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+            textBoxEditLN.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
+            textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
+            textBoxEditHandicap.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
+            
 
             if (textBoxEditID.Text.Length > 0)
             {
@@ -217,12 +221,33 @@ namespace AWGAEventTracker
         //Called on user click Delete Player
         private void buttonDeletePlayer_Click(object sender, EventArgs e)
         {
+            //Ensure player to be deleted is not already assigned to an event
+            string dbCmd = "SELECT * FROM Events WHERE players LIKE '%," + textBoxEditID.Text + ",%'";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Events");
+                if (dataSet.Tables["Events"].Rows.Count > 0)
+                {
+                    MessageBox.Show("Cannot Delete: Player is currently assigned to an event.");
+                    return;
+                }
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
             //Prompt to confirm delete
             if (MessageBox.Show("Are you sure you wish to delete this player? This cannot be undone.", "Delete Player?", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            string strCmd = "DELETE FROM Players WHERE playerID = " + textBoxEditID.Text;
-            OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
+            dbCmd = "DELETE FROM Players WHERE playerID = " + textBoxEditID.Text;
+            OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             // TODO Insert Try Black around this query execute
             if (command.ExecuteNonQuery() == 0)
@@ -232,7 +257,7 @@ namespace AWGAEventTracker
             }
 
             //Set edit controls back to disabled until another player is selected
-            showPlayerData(strLastSelectCmd); //refresh datagrid
+            showPlayerData(g_strLastSelectCmd); //refresh datagrid
             textBoxEditFN.Text = "";
             textBoxEditLN.Text = "";
             textBoxEditPhone.Text = "";
@@ -268,14 +293,19 @@ namespace AWGAEventTracker
                 MessageBox.Show("ERROR: Last name must be populated.");
                 return;
             }
-
+            
             if (strPhone.Length != 10 || strPhone.Length != 7)
             {
                 MessageBox.Show("ERROR: Phone must contain 7 or 10 digits");
                 return;
             }
 
-            if (strHandicap != "")
+            if (strHandicap == "")
+            {
+                MessageBox.Show("ERROR: Handicap must be populated.");
+                return;
+            }
+            else
             {
                 if (!double.TryParse(strHandicap, out dTemp))
                 {
@@ -283,6 +313,7 @@ namespace AWGAEventTracker
                     return;
                 }
             }
+
 
             //Insert user into database
             string strCmd;
@@ -305,7 +336,7 @@ namespace AWGAEventTracker
             }
 
             //Update display and set focus back to the name field.
-            showPlayerData(strLastSelectCmd); //refresh datagrid
+            showPlayerData(g_strLastSelectCmd); //refresh datagrid
             textBoxEditFN.Text = "";
             textBoxEditLN.Text = "";
             textBoxEditPhone.Text = "";
@@ -319,6 +350,7 @@ namespace AWGAEventTracker
             dataGridView.ClearSelection();
         }
 
+<<<<<<< HEAD
         private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
             toolTipPhoneNum.ToolTipTitle = "Invalid Input";
@@ -337,5 +369,8 @@ namespace AWGAEventTracker
 
         }
 
+=======
+        
+>>>>>>> origin/master
     }
 }

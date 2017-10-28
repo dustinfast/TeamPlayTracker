@@ -89,11 +89,12 @@
             // textBoxAddPhone
             // 
             this.textBoxAddPhone.BeepOnError = true;
-            this.textBoxAddPhone.Location = new System.Drawing.Point(528, 36);
+            this.textBoxAddPhone.Location = new System.Drawing.Point(997, 46);
             this.textBoxAddPhone.Mask = "(999) 000-0000";
             this.textBoxAddPhone.Name = "textBoxAddPhone";
-            this.textBoxAddPhone.Size = new System.Drawing.Size(121, 26);
-            this.textBoxAddPhone.TabIndex = 9;
+            this.textBoxAddPhone.Size = new System.Drawing.Size(151, 31);
+            this.textBoxAddPhone.TabIndex = 8;
+            this.textBoxAddPhone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             this.textBoxAddPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.textBoxAddPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxAddPhone_MaskInputRejected);
             // 
@@ -110,13 +111,13 @@
             // 
             // textBoxAddHandicap
             // 
-            this.textBoxAddHandicap.Location = new System.Drawing.Point(740, 37);
-            this.textBoxAddHandicap.Margin = new System.Windows.Forms.Padding(2);
+
+            this.textBoxAddHandicap.Location = new System.Drawing.Point(741, 46);
             this.textBoxAddHandicap.Name = "textBoxAddHandicap";
-            this.textBoxAddHandicap.Size = new System.Drawing.Size(114, 26);
-            this.textBoxAddHandicap.TabIndex = 8;
+            this.textBoxAddHandicap.Size = new System.Drawing.Size(151, 31);
+            this.textBoxAddHandicap.TabIndex = 7;
             this.textBoxAddHandicap.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
-            // 
+
             // textBoxAddLN
             // 
             this.textBoxAddLN.Location = new System.Drawing.Point(340, 37);
@@ -140,6 +141,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(464, 39);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(911, 49);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 20);
             this.label4.TabIndex = 4;
@@ -160,6 +162,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(654, 39);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(626, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 20);
             this.label2.TabIndex = 2;
@@ -297,11 +300,22 @@
             // textBoxEditHandicap
             // 
             this.textBoxEditHandicap.Enabled = false;
-            this.textBoxEditHandicap.Location = new System.Drawing.Point(740, 472);
-            this.textBoxEditHandicap.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxEditHandicap.Location = new System.Drawing.Point(740, 590);
             this.textBoxEditHandicap.Name = "textBoxEditHandicap";
-            this.textBoxEditHandicap.Size = new System.Drawing.Size(114, 26);
-            this.textBoxEditHandicap.TabIndex = 17;
+            this.textBoxEditHandicap.Size = new System.Drawing.Size(151, 31);
+            this.textBoxEditHandicap.TabIndex = 16;
+            // 
+            // textBoxEditPhone
+            // 
+            this.textBoxEditPhone.Enabled = false;
+            this.textBoxEditPhone.Location = new System.Drawing.Point(996, 590);
+            this.textBoxEditPhone.Name = "textBoxEditPhone";
+            this.textBoxEditPhone.Size = new System.Drawing.Size(151, 31);
+            this.textBoxEditPhone.TabIndex = 17;
+            this.textBoxEditPhone.BeepOnError = true;
+            this.textBoxEditPhone.Mask = "(999) 000-0000";
+            this.textBoxEditPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            this.textBoxEditPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxEditPhone_MaskInputRejected);
             // 
             // textBoxEditLN
             // 
@@ -326,6 +340,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(464, 474);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(910, 593);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 20);
             this.label5.TabIndex = 13;
@@ -346,6 +361,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(653, 474);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(625, 593);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(81, 20);
             this.label7.TabIndex = 11;
@@ -398,7 +414,7 @@
             this.dataGridView.RowTemplate.Height = 33;
             this.dataGridView.Size = new System.Drawing.Size(855, 401);
             this.dataGridView.TabIndex = 0;
-            this.dataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
+            this.dataGridView.Click += new System.EventHandler(this.dataGridView_Click);
             // 
             // buttonClose
             // 
@@ -419,8 +435,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 775);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(1181, 969);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

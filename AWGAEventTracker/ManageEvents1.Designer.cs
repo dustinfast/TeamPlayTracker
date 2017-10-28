@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCreateNewEvent = new System.Windows.Forms.Button();
             this.comboBoxEventSelector = new System.Windows.Forms.ComboBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -54,8 +54,20 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonAssignAll = new System.Windows.Forms.Button();
+            this.buttonUnassign = new System.Windows.Forms.Button();
+            this.buttonAssign = new System.Windows.Forms.Button();
+            this.listBoxAssignedPlayers = new System.Windows.Forms.ListBox();
+            this.buttonShowAddPlayersDlg = new System.Windows.Forms.Button();
+            this.listBoxUnassignedPlayers = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -63,11 +75,14 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.textBoxSelectedEventID = new System.Windows.Forms.TextBox();
-            this.tabControl1.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
@@ -75,7 +90,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Location = new System.Drawing.Point(12, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(274, 25);
             this.label1.TabIndex = 1;
@@ -94,25 +109,26 @@
             // comboBoxEventSelector
             // 
             this.comboBoxEventSelector.FormattingEnabled = true;
-            this.comboBoxEventSelector.Location = new System.Drawing.Point(292, 13);
+            this.comboBoxEventSelector.Location = new System.Drawing.Point(292, 18);
             this.comboBoxEventSelector.Name = "comboBoxEventSelector";
             this.comboBoxEventSelector.Size = new System.Drawing.Size(157, 33);
             this.comboBoxEventSelector.TabIndex = 5;
             this.comboBoxEventSelector.SelectedIndexChanged += new System.EventHandler(this.comboBoxEventSelector_SelectedIndexChanged);
             this.comboBoxEventSelector.Enter += new System.EventHandler(this.comboBoxEventSelector_Enter);
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(17, 77);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(735, 554);
-            this.tabControl1.TabIndex = 6;
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.tabPage5);
+            this.tabControl.Controls.Add(this.tabPage3);
+            this.tabControl.Controls.Add(this.tabPage4);
+            this.tabControl.Enabled = false;
+            this.tabControl.Location = new System.Drawing.Point(17, 77);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(765, 688);
+            this.tabControl.TabIndex = 6;
             // 
             // tabPage1
             // 
@@ -121,7 +137,7 @@
             this.tabPage1.Location = new System.Drawing.Point(8, 39);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(719, 507);
+            this.tabPage1.Size = new System.Drawing.Size(749, 641);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Details";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -131,7 +147,7 @@
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Location = new System.Drawing.Point(7, 272);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(709, 229);
+            this.groupBox2.Size = new System.Drawing.Size(736, 363);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Guide";
@@ -165,7 +181,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(7, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(706, 259);
+            this.groupBox1.Size = new System.Drawing.Size(736, 259);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Event Info";
@@ -317,41 +333,164 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonAssignAll);
+            this.tabPage2.Controls.Add(this.buttonUnassign);
+            this.tabPage2.Controls.Add(this.buttonAssign);
+            this.tabPage2.Controls.Add(this.listBoxAssignedPlayers);
+            this.tabPage2.Controls.Add(this.buttonShowAddPlayersDlg);
+            this.tabPage2.Controls.Add(this.listBoxUnassignedPlayers);
+            this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(8, 39);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(719, 507);
+            this.tabPage2.Size = new System.Drawing.Size(749, 641);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Players";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonAssignAll
+            // 
+            this.buttonAssignAll.Location = new System.Drawing.Point(345, 329);
+            this.buttonAssignAll.Name = "buttonAssignAll";
+            this.buttonAssignAll.Size = new System.Drawing.Size(55, 53);
+            this.buttonAssignAll.TabIndex = 7;
+            this.buttonAssignAll.Text = ">>";
+            this.buttonAssignAll.UseVisualStyleBackColor = true;
+            this.buttonAssignAll.Click += new System.EventHandler(this.buttonAssignAll_Click);
+            // 
+            // buttonUnassign
+            // 
+            this.buttonUnassign.Location = new System.Drawing.Point(345, 243);
+            this.buttonUnassign.Name = "buttonUnassign";
+            this.buttonUnassign.Size = new System.Drawing.Size(55, 53);
+            this.buttonUnassign.TabIndex = 6;
+            this.buttonUnassign.Text = "<";
+            this.buttonUnassign.UseVisualStyleBackColor = true;
+            this.buttonUnassign.Click += new System.EventHandler(this.buttonUnassign_Click);
+            // 
+            // buttonAssign
+            // 
+            this.buttonAssign.Location = new System.Drawing.Point(345, 184);
+            this.buttonAssign.Name = "buttonAssign";
+            this.buttonAssign.Size = new System.Drawing.Size(55, 53);
+            this.buttonAssign.TabIndex = 5;
+            this.buttonAssign.Text = ">";
+            this.buttonAssign.UseVisualStyleBackColor = true;
+            this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
+            // 
+            // listBoxAssignedPlayers
+            // 
+            this.listBoxAssignedPlayers.FormattingEnabled = true;
+            this.listBoxAssignedPlayers.ItemHeight = 25;
+            this.listBoxAssignedPlayers.Location = new System.Drawing.Point(424, 53);
+            this.listBoxAssignedPlayers.Name = "listBoxAssignedPlayers";
+            this.listBoxAssignedPlayers.Size = new System.Drawing.Size(319, 504);
+            this.listBoxAssignedPlayers.TabIndex = 4;
+            // 
+            // buttonShowAddPlayersDlg
+            // 
+            this.buttonShowAddPlayersDlg.Location = new System.Drawing.Point(11, 571);
+            this.buttonShowAddPlayersDlg.Name = "buttonShowAddPlayersDlg";
+            this.buttonShowAddPlayersDlg.Size = new System.Drawing.Size(254, 55);
+            this.buttonShowAddPlayersDlg.TabIndex = 3;
+            this.buttonShowAddPlayersDlg.Text = "Add/Modify Players";
+            this.buttonShowAddPlayersDlg.UseVisualStyleBackColor = true;
+            this.buttonShowAddPlayersDlg.Click += new System.EventHandler(this.buttonShowAddPlayersDlg_Click);
+            // 
+            // listBoxUnassignedPlayers
+            // 
+            this.listBoxUnassignedPlayers.FormattingEnabled = true;
+            this.listBoxUnassignedPlayers.ItemHeight = 25;
+            this.listBoxUnassignedPlayers.Location = new System.Drawing.Point(7, 53);
+            this.listBoxUnassignedPlayers.Name = "listBoxUnassignedPlayers";
+            this.listBoxUnassignedPlayers.Size = new System.Drawing.Size(319, 504);
+            this.listBoxUnassignedPlayers.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(424, 25);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(174, 25);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Players in Event:";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 23);
+            this.label3.Location = new System.Drawing.Point(6, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(506, 75);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "This is where the user can view players assigned to\r\nthis event. The user can add" +
-    " existing players to the\r\nevent and/or create new players. ";
+            this.label3.Size = new System.Drawing.Size(208, 25);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Players not in event:";
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.groupBox4);
+            this.tabPage5.Controls.Add(this.groupBox3);
             this.tabPage5.Location = new System.Drawing.Point(8, 39);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(719, 507);
+            this.tabPage5.Size = new System.Drawing.Size(749, 641);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "Teams";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(737, 442);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Generate Teams";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(191, 243);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(284, 82);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Generate Teams";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(30, 53);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(624, 25);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "(Intro Text): Generate teams. This will also lock the Players Tab.";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Location = new System.Drawing.Point(6, 454);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(737, 181);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "View Teams";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(159, 52);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(378, 87);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "View Teams (opens spreadsheet)";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(8, 39);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(719, 507);
+            this.tabPage3.Size = new System.Drawing.Size(749, 641);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rounds";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -371,7 +510,7 @@
             this.tabPage4.Controls.Add(this.label5);
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(719, 507);
+            this.tabPage4.Size = new System.Drawing.Size(749, 641);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Results";
             // 
@@ -387,18 +526,18 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(614, 637);
+            this.buttonClose.Location = new System.Drawing.Point(636, 784);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(138, 65);
             this.buttonClose.TabIndex = 7;
-            this.buttonClose.Text = "Close";
+            this.buttonClose.Text = "OK";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(23, 654);
+            this.label22.Location = new System.Drawing.Point(45, 801);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(288, 25);
             this.label22.TabIndex = 8;
@@ -407,7 +546,7 @@
             // 
             // textBoxSelectedEventID
             // 
-            this.textBoxSelectedEventID.Location = new System.Drawing.Point(308, 651);
+            this.textBoxSelectedEventID.Location = new System.Drawing.Point(330, 798);
             this.textBoxSelectedEventID.Name = "textBoxSelectedEventID";
             this.textBoxSelectedEventID.Size = new System.Drawing.Size(100, 31);
             this.textBoxSelectedEventID.TabIndex = 9;
@@ -417,17 +556,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 718);
+            this.ClientSize = new System.Drawing.Size(794, 861);
             this.Controls.Add(this.textBoxSelectedEventID);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.comboBoxEventSelector);
             this.Controls.Add(this.btnCreateNewEvent);
             this.Controls.Add(this.label1);
             this.Name = "ManageEvents1";
             this.Text = "Team-Play Event Management";
-            this.tabControl1.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -435,6 +574,10 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -448,12 +591,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCreateNewEvent;
         private System.Windows.Forms.ComboBox comboBoxEventSelector;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonClose;
@@ -479,5 +621,18 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBoxSelectedEventID;
+        private System.Windows.Forms.Button buttonUnassign;
+        private System.Windows.Forms.Button buttonAssign;
+        private System.Windows.Forms.ListBox listBoxAssignedPlayers;
+        private System.Windows.Forms.Button buttonShowAddPlayersDlg;
+        private System.Windows.Forms.ListBox listBoxUnassignedPlayers;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonAssignAll;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button2;
     }
 }
