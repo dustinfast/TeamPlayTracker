@@ -350,7 +350,6 @@ namespace AWGAEventTracker
             dataGridView.ClearSelection();
         }
 
-<<<<<<< HEAD
         private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
             toolTipPhoneNum.ToolTipTitle = "Invalid Input";
@@ -368,9 +367,5 @@ namespace AWGAEventTracker
             toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxEditPhone, textBoxEditPhone.Location, 5000);
 
         }
-
-=======
-        
->>>>>>> origin/master
     }
 }
