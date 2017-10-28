@@ -77,11 +77,11 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(9, 10);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1161, 130);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox1.Size = new System.Drawing.Size(774, 84);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add New Player:";
@@ -89,10 +89,11 @@
             // textBoxAddPhone
             // 
             this.textBoxAddPhone.BeepOnError = true;
-            this.textBoxAddPhone.Location = new System.Drawing.Point(800, 37);
+            this.textBoxAddPhone.Location = new System.Drawing.Point(533, 24);
+            this.textBoxAddPhone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxAddPhone.Mask = "(999) 000-0000";
             this.textBoxAddPhone.Name = "textBoxAddPhone";
-            this.textBoxAddPhone.Size = new System.Drawing.Size(151, 26);
+            this.textBoxAddPhone.Size = new System.Drawing.Size(102, 20);
             this.textBoxAddPhone.TabIndex = 8;
             this.textBoxAddPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.textBoxAddPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxAddPhone_MaskInputRejected);
@@ -100,10 +101,10 @@
             // 
             // btnAddNewPlayer
             // 
-            this.btnAddNewPlayer.Location = new System.Drawing.Point(758, 78);
-            this.btnAddNewPlayer.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddNewPlayer.Location = new System.Drawing.Point(505, 51);
+            this.btnAddNewPlayer.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.btnAddNewPlayer.Name = "btnAddNewPlayer";
-            this.btnAddNewPlayer.Size = new System.Drawing.Size(95, 39);
+            this.btnAddNewPlayer.Size = new System.Drawing.Size(63, 25);
             this.btnAddNewPlayer.TabIndex = 0;
             this.btnAddNewPlayer.Text = "Add";
             this.btnAddNewPlayer.UseVisualStyleBackColor = true;
@@ -111,67 +112,68 @@
             // 
             // textBoxAddHandicap
             // 
-            this.textBoxAddHandicap.Location = new System.Drawing.Point(560, 37);
+            this.textBoxAddHandicap.Location = new System.Drawing.Point(388, 51);
+            this.textBoxAddHandicap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxAddHandicap.Name = "textBoxAddHandicap";
-            this.textBoxAddHandicap.Size = new System.Drawing.Size(50, 26);
+            this.textBoxAddHandicap.Size = new System.Drawing.Size(35, 20);
             this.textBoxAddHandicap.TabIndex = 7;
             this.textBoxAddHandicap.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             // 
             // textBoxAddLN
             // 
-            this.textBoxAddLN.Location = new System.Drawing.Point(340, 37);
-            this.textBoxAddLN.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAddLN.Location = new System.Drawing.Point(227, 24);
+            this.textBoxAddLN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxAddLN.Name = "textBoxAddLN";
-            this.textBoxAddLN.Size = new System.Drawing.Size(114, 26);
+            this.textBoxAddLN.Size = new System.Drawing.Size(77, 20);
             this.textBoxAddLN.TabIndex = 6;
             this.textBoxAddLN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             // 
             // textBoxAddFN
             // 
-            this.textBoxAddFN.Location = new System.Drawing.Point(116, 37);
-            this.textBoxAddFN.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxAddFN.Location = new System.Drawing.Point(77, 24);
+            this.textBoxAddFN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxAddFN.Name = "textBoxAddFN";
-            this.textBoxAddFN.Size = new System.Drawing.Size(114, 26);
+            this.textBoxAddFN.Size = new System.Drawing.Size(77, 20);
             this.textBoxAddFN.TabIndex = 5;
             this.textBoxAddFN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onAddNewUserKeyDown);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(740, 39);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(493, 25);
+            this.label4.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 20);
+            this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Phone:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(245, 39);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(163, 25);
+            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 20);
+            this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Last Name:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(481, 39);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(321, 25);
+            this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 20);
+            this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Handicap:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 39);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(13, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 20);
+            this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "First Name:";
             // 
@@ -193,11 +195,11 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.dataGridView);
-            this.groupBox2.Location = new System.Drawing.Point(10, 145);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Location = new System.Drawing.Point(7, 94);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(1276, 649);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Size = new System.Drawing.Size(851, 422);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modify/Remove Players:";
@@ -206,10 +208,11 @@
             // 
             this.textBoxEditPhone.BeepOnError = true;
             this.textBoxEditPhone.Enabled = false;
-            this.textBoxEditPhone.Location = new System.Drawing.Point(996, 590);
+            this.textBoxEditPhone.Location = new System.Drawing.Point(664, 383);
+            this.textBoxEditPhone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxEditPhone.Mask = "(999) 000-0000";
             this.textBoxEditPhone.Name = "textBoxEditPhone";
-            this.textBoxEditPhone.Size = new System.Drawing.Size(151, 26);
+            this.textBoxEditPhone.Size = new System.Drawing.Size(102, 20);
             this.textBoxEditPhone.TabIndex = 17;
             this.textBoxEditPhone.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.textBoxEditPhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textBoxEditPhone_MaskInputRejected);
@@ -217,10 +220,10 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(19, 504);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(13, 328);
+            this.label10.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(95, 20);
+            this.label10.Size = new System.Drawing.Size(64, 13);
             this.label10.TabIndex = 24;
             this.label10.Text = "ID (Hidden):";
             this.label10.Visible = false;
@@ -229,10 +232,10 @@
             // 
             this.radioButtonSortLN.AutoSize = true;
             this.radioButtonSortLN.Checked = true;
-            this.radioButtonSortLN.Location = new System.Drawing.Point(740, 22);
-            this.radioButtonSortLN.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonSortLN.Location = new System.Drawing.Point(493, 14);
+            this.radioButtonSortLN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.radioButtonSortLN.Name = "radioButtonSortLN";
-            this.radioButtonSortLN.Size = new System.Drawing.Size(111, 24);
+            this.radioButtonSortLN.Size = new System.Drawing.Size(76, 17);
             this.radioButtonSortLN.TabIndex = 23;
             this.radioButtonSortLN.TabStop = true;
             this.radioButtonSortLN.Text = "Last Name";
@@ -242,10 +245,10 @@
             // radioButtonSortFN
             // 
             this.radioButtonSortFN.AutoSize = true;
-            this.radioButtonSortFN.Location = new System.Drawing.Point(622, 22);
-            this.radioButtonSortFN.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonSortFN.Location = new System.Drawing.Point(415, 14);
+            this.radioButtonSortFN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.radioButtonSortFN.Name = "radioButtonSortFN";
-            this.radioButtonSortFN.Size = new System.Drawing.Size(111, 24);
+            this.radioButtonSortFN.Size = new System.Drawing.Size(75, 17);
             this.radioButtonSortFN.TabIndex = 22;
             this.radioButtonSortFN.TabStop = true;
             this.radioButtonSortFN.Text = "First Name";
@@ -255,29 +258,29 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(551, 24);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(367, 16);
+            this.label9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(65, 20);
+            this.label9.Size = new System.Drawing.Size(44, 13);
             this.label9.TabIndex = 21;
             this.label9.Text = "Sort By:";
             // 
             // textBoxEditID
             // 
-            this.textBoxEditID.Location = new System.Drawing.Point(115, 502);
-            this.textBoxEditID.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxEditID.Location = new System.Drawing.Point(77, 326);
+            this.textBoxEditID.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxEditID.Name = "textBoxEditID";
-            this.textBoxEditID.Size = new System.Drawing.Size(114, 26);
+            this.textBoxEditID.Size = new System.Drawing.Size(77, 20);
             this.textBoxEditID.TabIndex = 20;
             this.textBoxEditID.Visible = false;
             // 
             // buttonModifyPlayer
             // 
             this.buttonModifyPlayer.Enabled = false;
-            this.buttonModifyPlayer.Location = new System.Drawing.Point(722, 514);
-            this.buttonModifyPlayer.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonModifyPlayer.Location = new System.Drawing.Point(481, 334);
+            this.buttonModifyPlayer.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.buttonModifyPlayer.Name = "buttonModifyPlayer";
-            this.buttonModifyPlayer.Size = new System.Drawing.Size(131, 39);
+            this.buttonModifyPlayer.Size = new System.Drawing.Size(87, 25);
             this.buttonModifyPlayer.TabIndex = 19;
             this.buttonModifyPlayer.Text = "Modify Player";
             this.buttonModifyPlayer.UseVisualStyleBackColor = true;
@@ -286,10 +289,10 @@
             // buttonDeletePlayer
             // 
             this.buttonDeletePlayer.Enabled = false;
-            this.buttonDeletePlayer.Location = new System.Drawing.Point(580, 514);
-            this.buttonDeletePlayer.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonDeletePlayer.Location = new System.Drawing.Point(387, 334);
+            this.buttonDeletePlayer.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.buttonDeletePlayer.Name = "buttonDeletePlayer";
-            this.buttonDeletePlayer.Size = new System.Drawing.Size(137, 39);
+            this.buttonDeletePlayer.Size = new System.Drawing.Size(91, 25);
             this.buttonDeletePlayer.TabIndex = 18;
             this.buttonDeletePlayer.Text = "Delete Player";
             this.buttonDeletePlayer.UseVisualStyleBackColor = true;
@@ -298,66 +301,67 @@
             // textBoxEditHandicap
             // 
             this.textBoxEditHandicap.Enabled = false;
-            this.textBoxEditHandicap.Location = new System.Drawing.Point(566, 472);
+            this.textBoxEditHandicap.Location = new System.Drawing.Point(377, 307);
+            this.textBoxEditHandicap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxEditHandicap.Name = "textBoxEditHandicap";
-            this.textBoxEditHandicap.Size = new System.Drawing.Size(50, 26);
+            this.textBoxEditHandicap.Size = new System.Drawing.Size(35, 20);
             this.textBoxEditHandicap.TabIndex = 16;
             // 
             // textBoxEditLN
             // 
             this.textBoxEditLN.Enabled = false;
-            this.textBoxEditLN.Location = new System.Drawing.Point(340, 472);
-            this.textBoxEditLN.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxEditLN.Location = new System.Drawing.Point(227, 307);
+            this.textBoxEditLN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxEditLN.Name = "textBoxEditLN";
-            this.textBoxEditLN.Size = new System.Drawing.Size(114, 26);
+            this.textBoxEditLN.Size = new System.Drawing.Size(77, 20);
             this.textBoxEditLN.TabIndex = 15;
             // 
             // textBoxEditFN
             // 
             this.textBoxEditFN.Enabled = false;
-            this.textBoxEditFN.Location = new System.Drawing.Point(115, 472);
-            this.textBoxEditFN.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxEditFN.Location = new System.Drawing.Point(77, 307);
+            this.textBoxEditFN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.textBoxEditFN.Name = "textBoxEditFN";
-            this.textBoxEditFN.Size = new System.Drawing.Size(114, 26);
+            this.textBoxEditFN.Size = new System.Drawing.Size(77, 20);
             this.textBoxEditFN.TabIndex = 14;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(800, 474);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(533, 308);
+            this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 20);
+            this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 13;
             this.label5.Text = "Phone:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(244, 474);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(163, 308);
+            this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 20);
+            this.label6.Size = new System.Drawing.Size(61, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Last Name:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(480, 474);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(320, 308);
+            this.label7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 20);
+            this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 11;
             this.label7.Text = "Handicap:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(19, 474);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(13, 308);
+            this.label8.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 20);
+            this.label8.Size = new System.Drawing.Size(60, 13);
             this.label8.TabIndex = 10;
             this.label8.Text = "First Name:";
             // 
@@ -383,8 +387,8 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView.Location = new System.Drawing.Point(5, 52);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridView.Location = new System.Drawing.Point(3, 34);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -396,16 +400,16 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.Height = 33;
-            this.dataGridView.Size = new System.Drawing.Size(855, 401);
+            this.dataGridView.Size = new System.Drawing.Size(570, 261);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.Click += new System.EventHandler(this.dataGridView_Click);
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(767, 723);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonClose.Location = new System.Drawing.Point(511, 470);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(95, 39);
+            this.buttonClose.Size = new System.Drawing.Size(63, 25);
             this.buttonClose.TabIndex = 9;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -417,13 +421,13 @@
             // 
             // ManagePlayers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1414, 889);
+            this.ClientSize = new System.Drawing.Size(943, 578);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.Name = "ManagePlayers";
             this.Text = "Manage All Players";
             this.Load += new System.EventHandler(this.ManagePlayers_Load);
