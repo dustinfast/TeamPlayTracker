@@ -57,6 +57,7 @@ namespace AWGAEventTracker
                 dataGridView.Columns["lName"].Width = 170;
                 dataGridView.Columns["phone"].Width = 90;
                 dataGridView.Columns["handicap"].Width = 80;
+                //dataGridView.Columns["phone"].DefaultCellStyle.Format = "(999) 000-0000";
                 dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView.MultiSelect = false;
                 dataGridView.ReadOnly = true;
@@ -97,7 +98,7 @@ namespace AWGAEventTracker
                 MessageBox.Show("ERROR: First name must be populated");
                 return;
             }
-
+            Console.WriteLine(strPhone);
             if (strLName == "")
             {
                 MessageBox.Show("ERROR: Last name must be populated.");
@@ -106,7 +107,7 @@ namespace AWGAEventTracker
 
             if (strPhone.Length != 10 || !double.TryParse(strPhone, out dTemp))
             {
-                MessageBox.Show("ERROR: Phone must contain 10 digits");
+                MessageBox.Show("ERROR: Invalid phone number.");
                 return;
             }
             else
@@ -236,6 +237,7 @@ namespace AWGAEventTracker
             string strCmd = "DELETE FROM Players WHERE playerID = " + textBoxEditID.Text;
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
+            // TODO Insert Try Black around this query execute
             if (command.ExecuteNonQuery() == 0)
             {
                 MessageBox.Show("ERROR: Could not delete user due to an unspecified database error.");
@@ -321,6 +323,7 @@ namespace AWGAEventTracker
 
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
+            // Insert a try around this query exexute 
             if (command.ExecuteNonQuery() == 0)
             {
                 MessageBox.Show("ERROR: Could modify user due to an unspecified database error.");
@@ -341,5 +344,24 @@ namespace AWGAEventTracker
             textBoxEditHandicap.Enabled = false;
             dataGridView.ClearSelection();
         }
+
+        private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            toolTipPhoneNum.ToolTipTitle = "Invalid Input";
+            toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxAddPhone, textBoxAddPhone.Location, 5000);
+
+        }
+
+        private void toolTipPhoneNum_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+        private void textBoxEditPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            toolTipPhoneNum.ToolTipTitle = "Invalid Input";
+            toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxEditPhone, textBoxEditPhone.Location, 5000);
+
+        }
+
     }
 }
