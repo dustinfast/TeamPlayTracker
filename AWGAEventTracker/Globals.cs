@@ -25,5 +25,13 @@ namespace AWGAEventTracker
             strIn.Replace("'", "");
             return strIn;
         }
+
+        //Swaps two items in a list. I.e. the two items changing locations in the list.
+        public static void swap<T>(IList<T> list, int indexA, int indexB)
+        {
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
+        }
     }
 }

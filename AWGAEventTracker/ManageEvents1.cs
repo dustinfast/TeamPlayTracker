@@ -255,7 +255,7 @@ namespace AWGAEventTracker
             //build assigned players string
             g_strAssignedPlayers = ","; //ini with leading comma
             for (int i = 0; i < listBoxAssignedPlayers.Items.Count; i++)
-                g_strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).playerID + ",";
+                g_strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).ID + ",";
 
             //if all the string contains is the leading comma, just make it ""
             if (g_strAssignedPlayers.Length == 1) g_strAssignedPlayers = "";
@@ -276,5 +276,19 @@ namespace AWGAEventTracker
                 g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
             }
         }
+
+        //Called on user click Teams:Generate Teams button. 
+        private void buttonGenerateTeams_Click(object sender, EventArgs e)
+        {
+            //Calls a function (generateTeams()) that ensures no teams have been assigned for this event and that numPlayers is divisible by four. 
+            //each player a level (A-D), and generates numPlayers/4 teams of four players each.
+            //The function returns a bool denoting the status of what the Generate Teams button should be. True = enabled, False = disabled.
+            TeamAssignment t = new TeamAssignment();
+            buttonGenerateTeams.Enabled = t.generateTeams(g_strSelectedEventID, g_lstAssignedPlayers.ToList());
+
+            
+        }
+
+        
     }
 }
