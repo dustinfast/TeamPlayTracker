@@ -88,7 +88,10 @@ namespace AWGAEventTracker
             populateEventDetails(); //Populates event details tab and g_strAssignedPlayers
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
 
-            //TODO Populate Teams tab
+            //Set Teams tab button states (enabled/disabled) based on the existence of teams for this event
+            bool bResult = doTeamsExistForSelectedEvent();
+            buttonGenerateTeams.Enabled = !bResult;
+            buttonViewTeams.Enabled = bResult;
 
             //TODO Popualte Rounds tab
 
@@ -300,9 +303,9 @@ namespace AWGAEventTracker
             //each player a level (A-D), and generates numPlayers/4 teams of four players each.
             //The function returns a bool denoting the status of what the Generate Teams button should be. True = enabled, False = disabled.
             TeamAssignment t = new TeamAssignment();
-            buttonGenerateTeams.Enabled = t.generateTeams(g_strSelectedEventID, g_lstAssignedPlayers.ToList());
-
-            
+            bool bResult = t.generateTeams(g_strSelectedEventID, g_lstAssignedPlayers.ToList());
+            buttonGenerateTeams.Enabled = bResult;
+            buttonViewTeams.Enabled = !bResult;
         }
 
         //Checks for the existence of teams assigned to the eventID in g_strSelectedEvent. 
@@ -328,7 +331,6 @@ namespace AWGAEventTracker
             if (dataSet.Tables["Teams"].Rows.Count != 0)
                 return true; //Teams exist for selected event, return true
             return false; //else return false
-            
         }
         
     }
