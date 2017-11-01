@@ -216,6 +216,11 @@ namespace AWGAEventTracker
         //Moves a player from the Players:Unassigned list to the Players:Assignedlist
         private void buttonAssign_Click(object sender, EventArgs e)
         {
+            if (doTeamsExistForSelectedEvent())
+            {
+                MessageBox.Show("Cannot modify the players assigned to this event: Teams have already been generated.");
+                return;
+            }
             if (listBoxUnassignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxUnassignedPlayers.SelectedItem as Player;
@@ -228,6 +233,11 @@ namespace AWGAEventTracker
         //Moves a player from the Players:Assigned list to the Players:Unassignedlist
         private void buttonUnassign_Click(object sender, EventArgs e)
         {
+            if (doTeamsExistForSelectedEvent())
+            {
+                MessageBox.Show("Cannot modify the players assigned to this event: Teams have already been generated.");
+                return;
+            }
             if (listBoxAssignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxAssignedPlayers.SelectedItem as Player;
@@ -237,8 +247,14 @@ namespace AWGAEventTracker
             }
         }
 
+        //Moves all players from the Players:Unassigned list to the Players:Assignedlist
         private void buttonAssignAll_Click(object sender, EventArgs e)
         {
+            if (doTeamsExistForSelectedEvent())
+            {
+                MessageBox.Show("Cannot modify the players assigned to this event: Teams have already been generated.");
+                return;
+            }
             for (int i = 0; i < g_lstUnassignedPlayers.Count; i++)
             {
                 g_lstAssignedPlayers.Add(g_lstUnassignedPlayers[i] as Player);
@@ -289,6 +305,31 @@ namespace AWGAEventTracker
             
         }
 
+        //Checks for the existence of teams assigned to the eventID in g_strSelectedEvent. 
+        //Should only be called after g_strSelectedEvent is populated (i.e. populateEventDetails() has been called)
+        //Returns true iff teams are in the db for the currently selected event.
+        private bool doTeamsExistForSelectedEvent()
+        {
+            //Get list of teams for the selected event.
+            string dbCmd = "SELECT * FROM Teams WHERE eventID = " + g_strSelectedEventID;
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Teams");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+            }
+
+            if (dataSet.Tables["Teams"].Rows.Count != 0)
+                return true; //Teams exist for selected event, return true
+            return false; //else return false
+            
+        }
         
     }
 }
