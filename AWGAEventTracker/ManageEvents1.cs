@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 
+
+
 namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
@@ -136,6 +138,12 @@ namespace AWGAEventTracker
             int playerNum = 0;
             playerNum = Regex.Matches(g_strAssignedPlayers, ",").Count;
             labelPlayerCount.Text = (playerNum + 1).ToString();
+
+            /// Count number of teams and display in events page
+            if (doTeamsExistForSelectedEvent() == true)
+            {
+                labelTeamCount.Text = displayNumberOfTeams().ToString();
+            }
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
@@ -331,6 +339,23 @@ namespace AWGAEventTracker
             if (dataSet.Tables["Teams"].Rows.Count != 0)
                 return true; //Teams exist for selected event, return true
             return false; //else return false
+        }
+
+        //Populate the number of teams label in the event window
+        private string displayNumberOfTeams()
+        {
+            if (doTeamsExistForSelectedEvent() == true)
+            {
+                string dbCmd = "SELECT COUNT (*) FROM Teams WHERE eventID = " + g_strSelectedEventID;
+                OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+                int rowCount = (int)command.ExecuteScalar();
+                //// TODO: catch exception
+                rowCount = rowCount / 4;
+                return rowCount.ToString();
+            }
+            else
+                return "N/A";
+            
         }
         
     }
