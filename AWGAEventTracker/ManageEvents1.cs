@@ -144,6 +144,8 @@ namespace AWGAEventTracker
             {
                 labelTeamCount.Text = displayNumberOfTeams().ToString();
             }
+            else
+                labelTeamCount.Text = "N/A";
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
