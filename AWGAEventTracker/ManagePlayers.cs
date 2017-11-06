@@ -105,7 +105,7 @@ namespace AWGAEventTracker
                 return;
             }
 
-            if (strPhone.Length != 10 || strPhone.Length != 7)
+            if (strPhone.Length != 10 && strPhone.Length != 7)
             {
                 MessageBox.Show("ERROR: Invalid phone number.");
                 return;
