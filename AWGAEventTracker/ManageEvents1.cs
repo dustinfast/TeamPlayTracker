@@ -154,6 +154,7 @@ namespace AWGAEventTracker
             //Clear existing lists
             g_lstUnassignedPlayers = new BindingList<Player>();
             g_lstAssignedPlayers = new BindingList<Player>();
+            
 
             
             string dbCmd = "";
@@ -188,10 +189,10 @@ namespace AWGAEventTracker
                                           dRow["phone"].ToString(), "");
                     g_lstAssignedPlayers.Add(p);
                 }
-                listBoxAssignedPlayers.DisplayMember = "displayName";
-                listBoxAssignedPlayers.ValueMember = "playerID";
-                listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
             }
+            listBoxAssignedPlayers.DisplayMember = "displayName";
+            listBoxAssignedPlayers.ValueMember = "playerID";
+            listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
 
             //Populate Unassigned players
             dbCmd = "SELECT * FROM Players";
