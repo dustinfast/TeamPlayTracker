@@ -193,7 +193,7 @@ namespace AWGAEventTracker
             listBoxAssignedPlayers.DisplayMember = "displayName";
             listBoxAssignedPlayers.ValueMember = "playerID";
             listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
-
+            //Test git df
             //Populate Unassigned players
             dbCmd = "SELECT * FROM Players";
             if (g_strAssignedPlayers.Length != 0)
