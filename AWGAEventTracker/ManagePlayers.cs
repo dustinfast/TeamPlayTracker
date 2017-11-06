@@ -105,12 +105,6 @@ namespace AWGAEventTracker
                 return;
             }
 
-            if (strPhone.Length != 10 && strPhone.Length != 7)
-            {
-                MessageBox.Show("ERROR: Invalid phone number.");
-                return;
-            }
-
             if (strHandicap == "")
             {
                 MessageBox.Show("ERROR: Handicap must be populated.");
@@ -123,6 +117,16 @@ namespace AWGAEventTracker
                     MessageBox.Show("ERROR: Handicap must be a numeric value.");
                     return;
                 }
+            }
+
+            if (strPhone.Length != 0 && strPhone.Length != 10 && strPhone.Length != 7)
+            {
+                MessageBox.Show("ERROR: Invalid phone number.");
+                return;
+            }
+            else
+            {
+                strPhone = formatPhoneString(strPhone.Trim());
             }
 
             //Insert user into database
@@ -175,8 +179,6 @@ namespace AWGAEventTracker
             }
         }
 
-
-
         // MODIFY USER HANDLERS
         //////////////////////////
 
@@ -205,7 +207,10 @@ namespace AWGAEventTracker
             textBoxEditLN.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
             textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
             textBoxEditHandicap.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
-            
+
+            //handle phone numbers w no area code
+            if (textBoxEditPhone.Text.Length == 7)
+                textBoxEditPhone.Text = "   " + textBoxEditPhone.Text;
 
             if (textBoxEditID.Text.Length > 0)
             {
@@ -294,12 +299,6 @@ namespace AWGAEventTracker
                 return;
             }
             
-            if (strPhone.Length != 10 || strPhone.Length != 7)
-            {
-                MessageBox.Show("ERROR: Phone must contain 7 or 10 digits");
-                return;
-            }
-
             if (strHandicap == "")
             {
                 MessageBox.Show("ERROR: Handicap must be populated.");
@@ -314,6 +313,15 @@ namespace AWGAEventTracker
                 }
             }
 
+            if (strPhone.Length != 0 && strPhone.Length != 10 && strPhone.Length != 7)
+            {
+                MessageBox.Show("ERROR: Invalid phone number.");
+                return;
+            }
+            else
+            {
+                strPhone = formatPhoneString(strPhone.Trim());
+            }
 
             //Insert user into database
             string strCmd;
@@ -350,6 +358,19 @@ namespace AWGAEventTracker
             dataGridView.ClearSelection();
         }
 
+        //formats a numeric string of 7 or 10 digits into a phone number. (i.e. inserts dashes)
+        private string formatPhoneString(string phone)
+        {
+            if (phone.Length != 10 && phone.Length != 7)
+                return "";
+            
+            phone = phone.Insert(3, "-");
+
+            if (phone.Length == 11)
+                phone = phone.Insert(7, "-");
+
+            return phone;
+        }
         private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
             toolTipPhoneNum.ToolTipTitle = "Invalid Input";
