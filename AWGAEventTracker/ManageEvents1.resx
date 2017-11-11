@@ -127,4 +127,14 @@ and display final results.
 
 </value>
   </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Click "Generate Teams" to automatically assign every player in this event
+a level (A-D, based on handicap) and subsequently build teams of four 
+with each team containing one player from each level.
+
+Note:
+Total number of players in the event must be a multiple of 4.
+After generating teams, players cannot be added to or removed from this
+event, and teams will be locked.</value>
+  </data>
 </root>

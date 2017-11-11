@@ -75,6 +75,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.textBoxSelectedEventID = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -100,7 +101,7 @@
             // btnCreateNewEvent
             // 
             this.btnCreateNewEvent.Location = new System.Drawing.Point(233, 6);
-            this.btnCreateNewEvent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCreateNewEvent.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateNewEvent.Name = "btnCreateNewEvent";
             this.btnCreateNewEvent.Size = new System.Drawing.Size(96, 23);
             this.btnCreateNewEvent.TabIndex = 4;
@@ -112,7 +113,7 @@
             // 
             this.comboBoxEventSelector.FormattingEnabled = true;
             this.comboBoxEventSelector.Location = new System.Drawing.Point(146, 9);
-            this.comboBoxEventSelector.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxEventSelector.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxEventSelector.Name = "comboBoxEventSelector";
             this.comboBoxEventSelector.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEventSelector.TabIndex = 5;
@@ -128,7 +129,7 @@
             this.tabControl.Controls.Add(this.tabPage4);
             this.tabControl.Enabled = false;
             this.tabControl.Location = new System.Drawing.Point(8, 40);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(382, 358);
@@ -139,9 +140,9 @@
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage1.Size = new System.Drawing.Size(374, 332);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Details";
@@ -151,9 +152,9 @@
             // 
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Location = new System.Drawing.Point(4, 141);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(368, 189);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
@@ -188,9 +189,9 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(368, 135);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -368,9 +369,9 @@
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage2.Size = new System.Drawing.Size(374, 332);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Players";
@@ -379,7 +380,7 @@
             // buttonAssignAll
             // 
             this.buttonAssignAll.Location = new System.Drawing.Point(172, 171);
-            this.buttonAssignAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAssignAll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAssignAll.Name = "buttonAssignAll";
             this.buttonAssignAll.Size = new System.Drawing.Size(28, 28);
             this.buttonAssignAll.TabIndex = 7;
@@ -390,7 +391,7 @@
             // buttonUnassign
             // 
             this.buttonUnassign.Location = new System.Drawing.Point(172, 126);
-            this.buttonUnassign.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonUnassign.Margin = new System.Windows.Forms.Padding(2);
             this.buttonUnassign.Name = "buttonUnassign";
             this.buttonUnassign.Size = new System.Drawing.Size(28, 28);
             this.buttonUnassign.TabIndex = 6;
@@ -401,7 +402,7 @@
             // buttonAssign
             // 
             this.buttonAssign.Location = new System.Drawing.Point(172, 96);
-            this.buttonAssign.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAssign.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAssign.Name = "buttonAssign";
             this.buttonAssign.Size = new System.Drawing.Size(28, 28);
             this.buttonAssign.TabIndex = 5;
@@ -413,7 +414,7 @@
             // 
             this.listBoxAssignedPlayers.FormattingEnabled = true;
             this.listBoxAssignedPlayers.Location = new System.Drawing.Point(212, 28);
-            this.listBoxAssignedPlayers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxAssignedPlayers.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxAssignedPlayers.Name = "listBoxAssignedPlayers";
             this.listBoxAssignedPlayers.Size = new System.Drawing.Size(162, 264);
             this.listBoxAssignedPlayers.TabIndex = 4;
@@ -421,7 +422,7 @@
             // buttonShowAddPlayersDlg
             // 
             this.buttonShowAddPlayersDlg.Location = new System.Drawing.Point(6, 297);
-            this.buttonShowAddPlayersDlg.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonShowAddPlayersDlg.Margin = new System.Windows.Forms.Padding(2);
             this.buttonShowAddPlayersDlg.Name = "buttonShowAddPlayersDlg";
             this.buttonShowAddPlayersDlg.Size = new System.Drawing.Size(127, 29);
             this.buttonShowAddPlayersDlg.TabIndex = 3;
@@ -433,7 +434,7 @@
             // 
             this.listBoxUnassignedPlayers.FormattingEnabled = true;
             this.listBoxUnassignedPlayers.Location = new System.Drawing.Point(4, 28);
-            this.listBoxUnassignedPlayers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxUnassignedPlayers.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxUnassignedPlayers.Name = "listBoxUnassignedPlayers";
             this.listBoxUnassignedPlayers.Size = new System.Drawing.Size(162, 264);
             this.listBoxUnassignedPlayers.TabIndex = 2;
@@ -463,9 +464,9 @@
             this.tabPage5.Controls.Add(this.groupBox4);
             this.tabPage5.Controls.Add(this.groupBox3);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage5.Size = new System.Drawing.Size(374, 332);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "Teams";
@@ -476,20 +477,20 @@
             this.groupBox4.Controls.Add(this.buttonGenerateTeams);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox4.Size = new System.Drawing.Size(368, 230);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Size = new System.Drawing.Size(368, 204);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Generate Teams";
             // 
             // buttonGenerateTeams
             // 
-            this.buttonGenerateTeams.Location = new System.Drawing.Point(96, 126);
-            this.buttonGenerateTeams.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonGenerateTeams.Location = new System.Drawing.Point(80, 145);
+            this.buttonGenerateTeams.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGenerateTeams.Name = "buttonGenerateTeams";
-            this.buttonGenerateTeams.Size = new System.Drawing.Size(142, 43);
+            this.buttonGenerateTeams.Size = new System.Drawing.Size(189, 45);
             this.buttonGenerateTeams.TabIndex = 1;
             this.buttonGenerateTeams.Text = "Generate Teams";
             this.buttonGenerateTeams.UseVisualStyleBackColor = true;
@@ -498,40 +499,41 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 28);
+            this.label10.Location = new System.Drawing.Point(7, 27);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(307, 13);
+            this.label10.Size = new System.Drawing.Size(351, 104);
             this.label10.TabIndex = 0;
-            this.label10.Text = "(Intro Text): Generate teams. This will also lock the Players Tab.";
+            this.label10.Text = resources.GetString("label10.Text");
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.buttonViewTeams);
-            this.groupBox3.Location = new System.Drawing.Point(3, 236);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Location = new System.Drawing.Point(3, 211);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(368, 94);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Size = new System.Drawing.Size(368, 119);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "View Teams";
             // 
             // buttonViewTeams
             // 
-            this.buttonViewTeams.Location = new System.Drawing.Point(80, 27);
-            this.buttonViewTeams.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonViewTeams.Location = new System.Drawing.Point(80, 61);
+            this.buttonViewTeams.Margin = new System.Windows.Forms.Padding(2);
             this.buttonViewTeams.Name = "buttonViewTeams";
             this.buttonViewTeams.Size = new System.Drawing.Size(189, 45);
             this.buttonViewTeams.TabIndex = 0;
-            this.buttonViewTeams.Text = "View Teams (opens spreadsheet)";
+            this.buttonViewTeams.Text = "View Teams";
             this.buttonViewTeams.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(374, 332);
             this.tabPage3.TabIndex = 2;
@@ -553,7 +555,7 @@
             // 
             this.tabPage4.Controls.Add(this.label5);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(374, 332);
             this.tabPage4.TabIndex = 0;
@@ -573,7 +575,7 @@
             // buttonClose
             // 
             this.buttonClose.Location = new System.Drawing.Point(318, 408);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(69, 34);
             this.buttonClose.TabIndex = 7;
@@ -595,11 +597,21 @@
             // textBoxSelectedEventID
             // 
             this.textBoxSelectedEventID.Location = new System.Drawing.Point(165, 415);
-            this.textBoxSelectedEventID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxSelectedEventID.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSelectedEventID.Name = "textBoxSelectedEventID";
             this.textBoxSelectedEventID.Size = new System.Drawing.Size(52, 20);
             this.textBoxSelectedEventID.TabIndex = 9;
             this.textBoxSelectedEventID.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 19);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(336, 26);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Click \"View Teams\" to display teams by player level. This button is not\r\navailabl" +
+    "e if teams have not yet been generated (above).";
             // 
             // ManageEvents1
             // 
@@ -613,7 +625,7 @@
             this.Controls.Add(this.comboBoxEventSelector);
             this.Controls.Add(this.btnCreateNewEvent);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ManageEvents1";
             this.Text = "Team-Play Event Management";
             this.tabControl.ResumeLayout(false);
@@ -628,6 +640,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -684,5 +697,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonViewTeams;
+        private System.Windows.Forms.Label label11;
     }
 }
