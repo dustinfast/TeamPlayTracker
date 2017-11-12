@@ -136,8 +136,10 @@ namespace AWGAEventTracker
             }
             // Count the number of players and display to events page
             int playerNum = 0;
-            playerNum = Regex.Matches(g_strAssignedPlayers, ",").Count;
-            labelPlayerCount.Text = (playerNum + 1).ToString();
+            playerNum = Regex.Matches(g_strAssignedPlayers, ",").Count + 1;
+            if (playerNum == 1)
+                playerNum = 0;
+            labelPlayerCount.Text = (playerNum).ToString();
 
             /// Count number of teams and display in events page
             if (doTeamsExistForSelectedEvent() == true)
@@ -154,7 +156,6 @@ namespace AWGAEventTracker
             //Clear existing lists
             g_lstUnassignedPlayers = new BindingList<Player>();
             g_lstAssignedPlayers = new BindingList<Player>();
-            
 
             
             string dbCmd = "";
@@ -189,11 +190,11 @@ namespace AWGAEventTracker
                                           dRow["phone"].ToString(), "");
                     g_lstAssignedPlayers.Add(p);
                 }
+                listBoxAssignedPlayers.DisplayMember = "displayName";
+                listBoxAssignedPlayers.ValueMember = "playerID";
+                listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
             }
-            listBoxAssignedPlayers.DisplayMember = "displayName";
-            listBoxAssignedPlayers.ValueMember = "playerID";
-            listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
-            //Test git df and bw
+
             //Populate Unassigned players
             dbCmd = "SELECT * FROM Players";
             if (g_strAssignedPlayers.Length != 0)
@@ -242,6 +243,7 @@ namespace AWGAEventTracker
                 g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populateEventDetails();
         }
 
         //Moves a player from the Players:Assigned list to the Players:Unassignedlist
@@ -259,6 +261,7 @@ namespace AWGAEventTracker
                 g_lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populateEventDetails();
         }
 
         //Moves all players from the Players:Unassigned list to the Players:Assignedlist
@@ -274,7 +277,8 @@ namespace AWGAEventTracker
                 g_lstAssignedPlayers.Add(g_lstUnassignedPlayers[i] as Player);
             }
             populateAssignedPlayersString();
-            populatePlayersLists(); 
+            populatePlayersLists();
+            populateEventDetails();
         }
 
         //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
