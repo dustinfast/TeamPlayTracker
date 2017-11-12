@@ -242,6 +242,7 @@ namespace AWGAEventTracker
                 g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populateEventDetails();
         }
 
         //Moves a player from the Players:Assigned list to the Players:Unassignedlist
@@ -259,6 +260,7 @@ namespace AWGAEventTracker
                 g_lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populateEventDetails();
         }
 
         //Moves all players from the Players:Unassigned list to the Players:Assignedlist
@@ -274,7 +276,8 @@ namespace AWGAEventTracker
                 g_lstAssignedPlayers.Add(g_lstUnassignedPlayers[i] as Player);
             }
             populateAssignedPlayersString();
-            populatePlayersLists(); 
+            populatePlayersLists();
+            populateEventDetails();
         }
 
         //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
