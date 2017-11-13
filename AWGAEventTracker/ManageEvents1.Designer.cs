@@ -67,15 +67,13 @@
             this.buttonGenerateTeams = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.buttonViewTeams = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.textBoxSelectedEventID = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -519,6 +517,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "View Teams";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 19);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(336, 26);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Click \"View Teams\" to display teams by player level. This button is not\r\navailabl" +
+    "e if teams have not yet been generated (above).";
+            // 
             // buttonViewTeams
             // 
             this.buttonViewTeams.Location = new System.Drawing.Point(80, 61);
@@ -583,43 +591,11 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(22, 417);
-            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(148, 13);
-            this.label22.TabIndex = 8;
-            this.label22.Text = "Selected Event ID (HIDDEN):";
-            this.label22.Visible = false;
-            // 
-            // textBoxSelectedEventID
-            // 
-            this.textBoxSelectedEventID.Location = new System.Drawing.Point(165, 415);
-            this.textBoxSelectedEventID.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxSelectedEventID.Name = "textBoxSelectedEventID";
-            this.textBoxSelectedEventID.Size = new System.Drawing.Size(52, 20);
-            this.textBoxSelectedEventID.TabIndex = 9;
-            this.textBoxSelectedEventID.Visible = false;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 19);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(336, 26);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Click \"View Teams\" to display teams by player level. This button is not\r\navailabl" +
-    "e if teams have not yet been generated (above).";
-            // 
             // ManageEvents1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 448);
-            this.Controls.Add(this.textBoxSelectedEventID);
-            this.Controls.Add(this.label22);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.comboBoxEventSelector);
@@ -682,8 +658,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox textBoxSelectedEventID;
         private System.Windows.Forms.Button buttonUnassign;
         private System.Windows.Forms.Button buttonAssign;
         private System.Windows.Forms.ListBox listBoxAssignedPlayers;

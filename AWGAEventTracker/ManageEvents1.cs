@@ -157,7 +157,6 @@ namespace AWGAEventTracker
             g_lstUnassignedPlayers = new BindingList<Player>();
             g_lstAssignedPlayers = new BindingList<Player>();
 
-            
             string dbCmd = "";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -190,10 +189,10 @@ namespace AWGAEventTracker
                                           dRow["phone"].ToString(), "");
                     g_lstAssignedPlayers.Add(p);
                 }
-                listBoxAssignedPlayers.DisplayMember = "displayName";
-                listBoxAssignedPlayers.ValueMember = "playerID";
-                listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
             }
+            listBoxAssignedPlayers.DisplayMember = "displayName";
+            listBoxAssignedPlayers.ValueMember = "playerID";
+            listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
 
             //Populate Unassigned players
             dbCmd = "SELECT * FROM Players";
@@ -321,6 +320,9 @@ namespace AWGAEventTracker
             bool bResult = t.generateTeams(g_strSelectedEventID, g_lstAssignedPlayers.ToList());
             buttonGenerateTeams.Enabled = bResult;
             buttonViewTeams.Enabled = !bResult;
+
+            //update the details tab
+            populateEventDetails();
         }
 
         //Checks for the existence of teams assigned to the eventID in g_strSelectedEvent. 

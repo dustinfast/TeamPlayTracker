@@ -141,7 +141,7 @@ namespace AWGAEventTracker
             for (int i = 0; i < teams.Count; i++)
             {
                 string strCmd = "INSERT INTO Teams (eventID, playerID, teamName, playerLevel)";
-                strCmd = strCmd + "VALUES(" + eventid + ", " + teams[i].ID + ", " + nTeamName + ", '" + teams[i].level + "')";
+                strCmd = strCmd + "VALUES (" + eventid + ", " + teams[i].ID + ", " + nTeamName + ", '" + teams[i].level + "')";
 
                 OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
@@ -154,7 +154,7 @@ namespace AWGAEventTracker
                     nTeamName++;
             }
 
-            MessageBox.Show("Success! Teams for this event have been generated. Click the \'View Teams' button to view them.");
+            MessageBox.Show("Success! " + (nTeamName -1).ToString() + " teams for this event have been generated. Click the \'View Teams' button to view them.");
             return false;
 
         }
