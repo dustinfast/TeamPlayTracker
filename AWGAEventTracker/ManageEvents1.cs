@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 
-
-
 namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
     {
-        //Class Globals
+        //Class Globals 
+        //TODO: Refactor these globals into an Event class
         private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
+        private string g_strEventName; //The name of the currently selected event. Populated in populateEventDetails.
         private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
         private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects assigned to currently selected event. Populated on Event select OR Assigned Player change
         private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
@@ -122,6 +122,7 @@ namespace AWGAEventTracker
             tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
             g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
+            g_strEventName = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             labelRoundCount.Text = dataSet.Tables["Events"].Rows[0]["numRounds"].ToString();
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
@@ -294,7 +295,7 @@ namespace AWGAEventTracker
             if (g_strAssignedPlayers.Length == 1) g_strAssignedPlayers = "";
 
             //update events db table 
-            string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID; ;
+            string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID;
              OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
             if (command.ExecuteNonQuery() == 0)
             {
@@ -364,8 +365,14 @@ namespace AWGAEventTracker
             }
             else
                 return "N/A";
-            
         }
-        
+
+        //Calls a function that builds a csv file from the selected events teams and opens it in localhost's default
+        //external program for csv files.
+        private void buttonViewTeams_Click(object sender, EventArgs e)
+        {
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenTeamsCSV(g_strSelectedEventID, g_strEventName);
+        }
     }
 }

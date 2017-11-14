@@ -56,13 +56,17 @@ namespace AWGAEventTracker
         //Called when the form closes
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); //Close the db
+            //Close the db
+            if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); 
+
+            //TODO: Delete temporary files (i.e. files in the TemporaryFiles directory)
+
         }
 
         //Called on user click File->Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close(); //close the application
+            this.Close(); //close the application (calls Form1_FormClosing first)
         }
 
         //Called on user click File->Manage->Events

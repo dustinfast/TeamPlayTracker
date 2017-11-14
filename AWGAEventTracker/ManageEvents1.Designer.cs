@@ -536,6 +536,7 @@
             this.buttonViewTeams.TabIndex = 0;
             this.buttonViewTeams.Text = "View Teams";
             this.buttonViewTeams.UseVisualStyleBackColor = true;
+            this.buttonViewTeams.Click += new System.EventHandler(this.buttonViewTeams_Click);
             // 
             // tabPage3
             // 
