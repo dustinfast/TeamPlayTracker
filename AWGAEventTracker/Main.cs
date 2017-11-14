@@ -61,24 +61,18 @@ namespace AWGAEventTracker
             if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose();
 
             //Delete temporary files (i.e. files in the TemporaryFiles directory)
-            string[] fileList = Directory.GetFiles("TemporaryFiles", "*.*");
-
-            foreach (string file in fileList)
+            try
             {
-                try
+                string[] fileList = Directory.GetFiles("TemporaryFiles", "*.*");
+
+                foreach (string file in fileList)
                 {
                     File.Delete(file);
                 }
-                catch (Exception ex)
-                {}
-            }
-
-            try
-            {
                 Directory.Delete("TemporaryFiles");
             }
-            catch (Exception ex)
-            {}
+            catch { }
+
         }
 
         //Called on user click File->Exit
