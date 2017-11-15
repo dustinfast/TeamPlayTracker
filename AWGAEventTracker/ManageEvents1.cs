@@ -89,6 +89,7 @@ namespace AWGAEventTracker
 
             populateEventDetails(); //Populates event details tab and g_strAssignedPlayers
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
 
             //Set Teams tab button states (enabled/disabled) based on the existence of teams for this event
             bool bResult = doTeamsExistForSelectedEvent();
@@ -243,6 +244,7 @@ namespace AWGAEventTracker
                 g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
             populateEventDetails();
         }
 
@@ -261,6 +263,7 @@ namespace AWGAEventTracker
                 g_lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
             populateEventDetails();
         }
 
@@ -278,7 +281,15 @@ namespace AWGAEventTracker
             }
             populateAssignedPlayersString();
             populatePlayersLists();
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
             populateEventDetails();
+        }
+
+        //Updates the count of the players at the top of the Players:assigned/unassigned boxes
+        private void populatePlayersTabAssignmentCounts()
+        {
+            labelAssignedCount.Text = listBoxAssignedPlayers.Items.Count.ToString();
+            labelUnassignedCount.Text = listBoxUnassignedPlayers.Items.Count.ToString();
         }
 
         //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db

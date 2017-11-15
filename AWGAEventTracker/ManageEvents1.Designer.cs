@@ -74,6 +74,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.labelUnassignedCount = new System.Windows.Forms.Label();
+            this.labelAssignedCount = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -358,6 +360,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.labelAssignedCount);
+            this.tabPage2.Controls.Add(this.labelUnassignedCount);
             this.tabPage2.Controls.Add(this.buttonAssignAll);
             this.tabPage2.Controls.Add(this.buttonUnassign);
             this.tabPage2.Controls.Add(this.buttonAssign);
@@ -414,7 +418,7 @@
             this.listBoxAssignedPlayers.Location = new System.Drawing.Point(212, 28);
             this.listBoxAssignedPlayers.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxAssignedPlayers.Name = "listBoxAssignedPlayers";
-            this.listBoxAssignedPlayers.Size = new System.Drawing.Size(162, 264);
+            this.listBoxAssignedPlayers.Size = new System.Drawing.Size(158, 264);
             this.listBoxAssignedPlayers.TabIndex = 4;
             // 
             // buttonShowAddPlayersDlg
@@ -424,7 +428,7 @@
             this.buttonShowAddPlayersDlg.Name = "buttonShowAddPlayersDlg";
             this.buttonShowAddPlayersDlg.Size = new System.Drawing.Size(127, 29);
             this.buttonShowAddPlayersDlg.TabIndex = 3;
-            this.buttonShowAddPlayersDlg.Text = "Add/Modify Players";
+            this.buttonShowAddPlayersDlg.Text = "Manage All Players";
             this.buttonShowAddPlayersDlg.UseVisualStyleBackColor = true;
             this.buttonShowAddPlayersDlg.Click += new System.EventHandler(this.buttonShowAddPlayersDlg_Click);
             // 
@@ -592,6 +596,26 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // labelUnassignedCount
+            // 
+            this.labelUnassignedCount.AutoSize = true;
+            this.labelUnassignedCount.Location = new System.Drawing.Point(102, 13);
+            this.labelUnassignedCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelUnassignedCount.Name = "labelUnassignedCount";
+            this.labelUnassignedCount.Size = new System.Drawing.Size(13, 13);
+            this.labelUnassignedCount.TabIndex = 8;
+            this.labelUnassignedCount.Text = "0";
+            // 
+            // labelAssignedCount
+            // 
+            this.labelAssignedCount.AutoSize = true;
+            this.labelAssignedCount.Location = new System.Drawing.Point(294, 13);
+            this.labelAssignedCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelAssignedCount.Name = "labelAssignedCount";
+            this.labelAssignedCount.Size = new System.Drawing.Size(13, 13);
+            this.labelAssignedCount.TabIndex = 9;
+            this.labelAssignedCount.Text = "0";
+            // 
             // ManageEvents1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -673,5 +697,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonViewTeams;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labelAssignedCount;
+        private System.Windows.Forms.Label labelUnassignedCount;
     }
 }
