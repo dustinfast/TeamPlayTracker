@@ -70,6 +70,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.buttonViewTeams = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.GeneratePairings = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
@@ -539,6 +540,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.GeneratePairings);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
@@ -547,6 +549,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Rounds";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // GeneratePairings
+            // 
+            this.GeneratePairings.Location = new System.Drawing.Point(74, 215);
+            this.GeneratePairings.Name = "GeneratePairings";
+            this.GeneratePairings.Size = new System.Drawing.Size(215, 64);
+            this.GeneratePairings.TabIndex = 2;
+            this.GeneratePairings.Text = "Generate Team Pairings";
+            this.GeneratePairings.UseVisualStyleBackColor = true;
+            this.GeneratePairings.Click += new System.EventHandler(this.GeneratePairings_Click);
             // 
             // label4
             // 
@@ -672,5 +684,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonViewTeams;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button GeneratePairings;
     }
 }

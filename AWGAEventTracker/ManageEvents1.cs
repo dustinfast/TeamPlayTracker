@@ -25,6 +25,7 @@ namespace AWGAEventTracker
         public ManageEvents1()
         {
             InitializeComponent();
+           // GeneratePairings.Click += new EventHandler(GeneratePairings_Click);
         }
 
         //Called on close btn click
@@ -183,9 +184,9 @@ namespace AWGAEventTracker
 
                 foreach (DataRow dRow in dataSet.Tables["Players"].Rows)
                 {
-                    Player p = new Player(Convert.ToInt32(dRow["playerID"].ToString()), 
-                                          Convert.ToInt16(dRow["handicap"].ToString()), 
-                                          dRow["fName"].ToString(), dRow["lName"].ToString(), 
+                    Player p = new Player(Convert.ToInt32(dRow["playerID"].ToString()),
+                                          Convert.ToInt16(dRow["handicap"].ToString()),
+                                          dRow["fName"].ToString(), dRow["lName"].ToString(),
                                           dRow["phone"].ToString(), "");
                     g_lstAssignedPlayers.Add(p);
                 }
@@ -295,7 +296,7 @@ namespace AWGAEventTracker
 
             //update events db table 
             string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID; ;
-             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
+            OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
             if (command.ExecuteNonQuery() == 0)
             {
                 MessageBox.Show("ERROR: Could not modify user due to an unspecified database error.");
@@ -364,6 +365,58 @@ namespace AWGAEventTracker
             }
             else
                 return "N/A";
+
+        }
+
+        // Generate pairings for the rounds tab
+        private void GeneratePairings_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Button click success!");
+
+            string dbCmd = "";
+            string dbCmd2 = "";
+
+            dbCmd = "SELECT [eventID] FROM Teams WHERE eventID = " + g_strSelectedEventID;
+            OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Teams");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
+            List<string> list = new List<string>();
+           
+
+            //string data = dataSet.Tables["Teams"].Rows[0]["eventID"].ToString();
+            foreach (DataRow dbRow in dataSet.Tables["Teams"].Rows)
+            {
+                list.Add(dbRow["eventID"].ToString());
+                //dbCmd = "INSERT INTO [Rounds] (eventID) VALUES (" +dbRow["eventID"].ToString()+")";
+                //command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+                //if (command.ExecuteNonQuery() == 0)
+                //{
+                //    MessageBox.Show("ERROR: Could not delete user due to an unspecified database error.");
+                //    return;
+                //}
+             }
+
+            //dbCmd2 = "INSERT INTO Rounds (eventID)";
+            //OleDbCommand cmd = new OleDbCommand(dbCmd2, Globals.g_dbConnection);
+
+            //if (cmd.ExecuteNonQuery() == 0)
+            //{
+            //    MessageBox.Show("ERROR: Could not delete user due to an unspecified database error.");
+            //    return;
+            //}
+
             
         }
         
