@@ -371,15 +371,13 @@ namespace AWGAEventTracker
         // Generate pairings for the rounds tab
         private void GeneratePairings_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Button click success!");
+            string dbCmd = "SELECT * FROM Teams";
+            dbCmd += " LEFT JOIN Players ON Teams.playerID = Players.playerID";
+            dbCmd += " WHERE Teams.eventID = " + g_strSelectedEventID;
+            dbCmd += " ORDER BY Teams.teamName, Teams.playerLevel";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
-            string dbCmd = "";
-            string dbCmd2 = "";
-
-            dbCmd = "SELECT [eventID] FROM Teams WHERE eventID = " + g_strSelectedEventID;
-            OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
-            OleDbDataAdapter adapter = new OleDbDataAdapter(command);
-
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
             DataSet dataSet = new DataSet();
             try
             {
@@ -388,6 +386,13 @@ namespace AWGAEventTracker
             catch (Exception ex0)
             {
                 MessageBox.Show(ex0.Message);
+                return;
+            }
+
+            //Ensure teams exists. 
+            if (dataSet.Tables["Teams"].Rows.Count <= 0)
+            {
+                MessageBox.Show("ERROR: No Teams exist for this event.");
                 return;
             }
 
