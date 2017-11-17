@@ -16,11 +16,14 @@ namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
     {
-        //Class Globals
+        //Class Globals. These are properties of the currently selected event and should be converted to a class of type Event
         private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
         private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
-        private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All players objects assigned to currently selected event. Populated on Event select OR Assigned Player change
-        private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All players objects not assigned to currently selected event.
+        private int g_nEventRounds; //The number of rounds for the selected event
+        private List<Team> g_lstTeams; //A list of teams (i.e. team assignments) for the currently selected event
+        private List<Round> g_lstRounds; //A list of the rounds (i.e. the schedule) for the currently selected event
+        private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All player objects assigned to currently selected event. Populated on Event select OR Assigned Player change
+        private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All player objects not assigned to currently selected event.
 
         public ManageEvents1()
         {
@@ -91,10 +94,13 @@ namespace AWGAEventTracker
             populateEventDetails(); //Populates event details tab and g_strAssignedPlayers
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
 
-            //Set Teams tab button states (enabled/disabled) based on the existence of teams for this event
+            //Set Teams tab button states (enabled/disabled) and update player/team objects 
+            // with their associated team and level.
             bool bResult = doTeamsExistForSelectedEvent();
             buttonGenerateTeams.Enabled = !bResult;
             buttonViewTeams.Enabled = bResult;
+            if (bResult)
+                updatePlayerAndTeamObjects(); 
 
             //TODO Popualte Rounds tab
 
@@ -124,6 +130,7 @@ namespace AWGAEventTracker
             g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             labelRoundCount.Text = dataSet.Tables["Events"].Rows[0]["numRounds"].ToString();
+            int.TryParse(dataSet.Tables["Events"].Rows[0]["numRounds"].ToString(), out g_nEventRounds);
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
@@ -142,7 +149,8 @@ namespace AWGAEventTracker
                 playerNum = 0;
             labelPlayerCount.Text = (playerNum).ToString();
 
-            /// Count number of teams and display in events page
+            // If teams exist, count number of teams and display in events page
+            // also update player objects with their team assignment, level, etc.
             if (doTeamsExistForSelectedEvent() == true)
             {
                 labelTeamCount.Text = displayNumberOfTeams().ToString();
@@ -368,62 +376,133 @@ namespace AWGAEventTracker
 
         }
 
+        //For each player object, updates that object with that player's assigned team and level, and also
+        // updates the team object with that player.
+        // Assumes teams exist for the selected event before this function is called 
+        private void updatePlayerAndTeamObjects()
+        {
+            int nTeamName = -1;
+            string strPlayerLevel = "";
+
+            //ini Teams list
+            g_lstTeams = new List<Team>(g_lstAssignedPlayers.Count / 4);
+            for (int i = 0; i < g_lstAssignedPlayers.Count / 4; i++)
+                g_lstTeams.Add(new Team());
+
+            //For every player, update the player object and team object
+            for (int i = 0; i < g_lstAssignedPlayers.Count; i++)
+            {
+                int playerID = (g_lstAssignedPlayers[i] as Player).ID;
+
+                string dbCmd = "SELECT * FROM Teams";
+                dbCmd += " WHERE Teams.eventID = " + g_strSelectedEventID;
+                dbCmd += " AND Teams.playerID = " + playerID.ToString();
+                OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+                DataSet dataSet = new DataSet();
+                try
+                {
+                    adapter.Fill(dataSet, "Teams");
+                    int.TryParse(dataSet.Tables["Teams"].Rows[0]["teamName"].ToString(), out nTeamName);
+                    strPlayerLevel = dataSet.Tables["Teams"].Rows[0]["playerLevel"].ToString();
+                }
+                catch (Exception ex0)
+                {
+                    MessageBox.Show(ex0.Message);
+                    return;
+                }
+
+                //update player object
+                (g_lstAssignedPlayers[i] as Player).teamName = nTeamName;
+                (g_lstAssignedPlayers[i] as Player).level = strPlayerLevel;
+
+                //update team object
+                if (strPlayerLevel == "A")
+                    g_lstTeams[nTeamName-1].playerA = (g_lstAssignedPlayers[i] as Player);
+                else if (strPlayerLevel == "B")
+                    g_lstTeams[nTeamName-1].playerB = (g_lstAssignedPlayers[i] as Player);
+                else if (strPlayerLevel == "C")
+                    g_lstTeams[nTeamName-1].playerC = (g_lstAssignedPlayers[i] as Player);
+                else if (strPlayerLevel == "D")
+                    g_lstTeams[nTeamName-1].playerD = (g_lstAssignedPlayers[i] as Player);
+            }
+        }
+
         // Generate pairings for the rounds tab
+        //Note that in this implementation, the number of teams must be <= the number of rounds (otherwise players would play in the same group again).
+        // we may need to change this
         private void GeneratePairings_Click(object sender, EventArgs e)
         {
-            string dbCmd = "SELECT * FROM Teams";
-            dbCmd += " LEFT JOIN Players ON Teams.playerID = Players.playerID";
-            dbCmd += " WHERE Teams.eventID = " + g_strSelectedEventID;
-            dbCmd += " ORDER BY Teams.teamName, Teams.playerLevel";
-            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
-
-            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
-            DataSet dataSet = new DataSet();
-            try
-            {
-                adapter.Fill(dataSet, "Teams");
-            }
-            catch (Exception ex0)
-            {
-                MessageBox.Show(ex0.Message);
-                return;
-            }
-
             //Ensure teams exists. 
-            if (dataSet.Tables["Teams"].Rows.Count <= 0)
+            if (!doTeamsExistForSelectedEvent())
             {
-                MessageBox.Show("ERROR: No Teams exist for this event.");
+                MessageBox.Show("ERROR: Rounds cannot be generated because no teams exist for this event.");
                 return;
             }
 
-            List<string> list = new List<string>();
-           
+            int nTeamsCount = g_lstAssignedPlayers.Count / 4;
+            Random rand = new Random(); //ini randomizer
 
-            //string data = dataSet.Tables["Teams"].Rows[0]["eventID"].ToString();
-            foreach (DataRow dbRow in dataSet.Tables["Teams"].Rows)
+            //ini the data objects contained in the event's list of rounds so we can modify them
+            g_lstRounds = new List<Round>(g_nEventRounds);
+            for (int i = 0; i < g_nEventRounds; i ++)
             {
-                list.Add(dbRow["eventID"].ToString());
-                //dbCmd = "INSERT INTO [Rounds] (eventID) VALUES (" +dbRow["eventID"].ToString()+")";
-                //command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+                g_lstRounds.Add(new Round(0));
+                for (int j = 0; j < nTeamsCount; j++)
+                    g_lstRounds[i].addGroup(new GroupOfFour());
+            }
+            //if number of players divided by four (i.e. number of teams) is less than the
+            // number of rounds for this event, there will not be enough players for all the rounds.
+            if (nTeamsCount < g_nEventRounds)
+            {
+                MessageBox.Show("ERROR: There are only " + g_lstTeams.Count.ToString() + " teams, which is not enough for " + g_nEventRounds.ToString() + " rounds.");
+                return;
+            }
 
-                //if (command.ExecuteNonQuery() == 0)
-                //{
-                //    MessageBox.Show("ERROR: Could not delete user due to an unspecified database error.");
-                //    return;
-                //}
-             }
+            //Build the rounds, starting with the last round because thats where teams play each other
+            // and those constraints must be established before processing the other rounds.
+            for (int i = g_nEventRounds; i > 0; i--) //for every round as specified in Events:numRounds, 
+            {
+                //Round round = new Round(i); //ini a round with i as it's round number
+                g_lstRounds[i-1].nRoundNumber = i;
 
-            //dbCmd2 = "INSERT INTO Rounds (eventID)";
-            //OleDbCommand cmd = new OleDbCommand(dbCmd2, Globals.g_dbConnection);
+                //If this is the last round, 
+                if (i == g_nEventRounds)
+                {
+                    for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain
+                    {
+                        GroupOfFour foursome = new GroupOfFour();
+                        foursome.playerA = g_lstTeams[j].playerA;
+                        foursome.playerB = g_lstTeams[j].playerB;
+                        foursome.playerC = g_lstTeams[j].playerC;
+                        foursome.playerD = g_lstTeams[j].playerD;
 
-            //if (cmd.ExecuteNonQuery() == 0)
-            //{
-            //    MessageBox.Show("ERROR: Could not delete user due to an unspecified database error.");
-            //    return;
-            //}
+                        //TODO: Set the constraints on each player we just picked
+                        g_lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain. Note that foursomes/round is always the same number as nTeamsCount 
+                    {
+                        GroupOfFour foursome = new GroupOfFour();
+                        bool bFlag = true; //flag used to determine when to break out of the below while loop
 
-            
+                        while (bFlag)
+                        {
+                            //get players from each level from random teams
+                            foursome.playerA = g_lstTeams[rand.Next(1, nTeamsCount)].playerA;
+                            foursome.playerB = g_lstTeams[rand.Next(1, nTeamsCount)].playerB;
+                            foursome.playerC = g_lstTeams[rand.Next(1, nTeamsCount)].playerC;
+                            foursome.playerD = g_lstTeams[rand.Next(1, nTeamsCount)].playerD;
+                            break;
+                        }
+                        g_lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
+                    }
+                }
+                //g_lstRounds[i-1] = round; //"Push" this round to the list of the event's rounds (remember, we're iterating the rounds backwards.)
+            } 
         }
-        
     }
 }

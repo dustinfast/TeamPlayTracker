@@ -71,7 +71,6 @@
             this.buttonViewTeams = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.GeneratePairings = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
@@ -541,7 +540,6 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.GeneratePairings);
-            this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
@@ -556,20 +554,9 @@
             this.GeneratePairings.Name = "GeneratePairings";
             this.GeneratePairings.Size = new System.Drawing.Size(215, 64);
             this.GeneratePairings.TabIndex = 2;
-            this.GeneratePairings.Text = "Generate Team Pairings";
+            this.GeneratePairings.Text = "Generate Rounds";
             this.GeneratePairings.UseVisualStyleBackColor = true;
             this.GeneratePairings.Click += new System.EventHandler(this.GeneratePairings_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(2, 16);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(276, 26);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Here we will display event details, such as the number\r\nof players/teams, and if " +
-    "the rounds have points assigned.";
             // 
             // tabPage4
             // 
@@ -630,7 +617,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
@@ -647,7 +633,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.GroupBox groupBox1;
