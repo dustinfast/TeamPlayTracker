@@ -93,6 +93,7 @@
     <Compile Include="CreateNewEvent.Designer.cs">
       <DependentUpon>CreateNewEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="CSVHandlers.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="GroupOfFour.cs" />
     <Compile Include="Main.cs">

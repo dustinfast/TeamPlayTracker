@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 
-
-
 namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
     {
         //Class Globals. These are properties of the currently selected event and should be converted to a class of type Event
+        //Class Globals 
         private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
+        private string g_strEventName; //The name of the currently selected event. Populated in populateEventDetails.
         private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
         private int g_nEventRounds; //The number of rounds for the selected event
         private List<Team> g_lstTeams; //A list of teams (i.e. team assignments) for the currently selected event
@@ -93,6 +93,7 @@ namespace AWGAEventTracker
 
             populateEventDetails(); //Populates event details tab and g_strAssignedPlayers
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
 
             //Set Teams tab button states (enabled/disabled) and update player/team objects 
             // with their associated team and level.
@@ -129,6 +130,7 @@ namespace AWGAEventTracker
             tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
             g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
+            g_strEventName = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             labelRoundCount.Text = dataSet.Tables["Events"].Rows[0]["numRounds"].ToString();
             int.TryParse(dataSet.Tables["Events"].Rows[0]["numRounds"].ToString(), out g_nEventRounds);
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
@@ -251,6 +253,7 @@ namespace AWGAEventTracker
                 g_lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
             populateEventDetails();
         }
 
@@ -269,6 +272,7 @@ namespace AWGAEventTracker
                 g_lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
             populateEventDetails();
         }
 
@@ -286,7 +290,15 @@ namespace AWGAEventTracker
             }
             populateAssignedPlayersString();
             populatePlayersLists();
+            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
             populateEventDetails();
+        }
+
+        //Updates the count of the players at the top of the Players:assigned/unassigned boxes
+        private void populatePlayersTabAssignmentCounts()
+        {
+            labelAssignedCount.Text = listBoxAssignedPlayers.Items.Count.ToString();
+            labelUnassignedCount.Text = listBoxUnassignedPlayers.Items.Count.ToString();
         }
 
         //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
@@ -305,6 +317,7 @@ namespace AWGAEventTracker
             //update events db table 
             string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID; ;
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
+
             if (command.ExecuteNonQuery() == 0)
             {
                 MessageBox.Show("ERROR: Could not modify user due to an unspecified database error.");
@@ -332,6 +345,14 @@ namespace AWGAEventTracker
 
             //update the details tab
             populateEventDetails();
+        }
+
+        //Calls a function that builds a csv file from the selected events teams and opens it in localhost's default
+        //external program for csv files.
+        private void buttonViewTeams_Click(object sender, EventArgs e)
+        {
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenTeamsCSV(g_strSelectedEventID, g_strEventName);
         }
 
         //Checks for the existence of teams assigned to the eventID in g_strSelectedEvent. 
@@ -373,7 +394,6 @@ namespace AWGAEventTracker
             }
             else
                 return "N/A";
-
         }
 
         //For each player object, updates that object with that player's assigned team and level, and also

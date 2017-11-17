@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.IO;
 
 namespace AWGAEventTracker
 {
@@ -56,16 +57,31 @@ namespace AWGAEventTracker
         //Called when the form closes
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose(); //Close the db
+            //Close the db
+            if (Globals.g_dbConnection != null) Globals.g_dbConnection.Dispose();
+
+            //Delete temporary files (i.e. files in the TemporaryFiles directory)
+            try
+            {
+                string[] fileList = Directory.GetFiles("TemporaryFiles", "*.*");
+
+                foreach (string file in fileList)
+                {
+                    File.Delete(file);
+                }
+                Directory.Delete("TemporaryFiles");
+            }
+            catch { }
+
         }
 
         //Called on user click File->Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close(); //close the application
+            this.Close(); //close the application (calls Form1_FormClosing first)
         }
 
-        //Called on user click File->Manage->Events
+        //Called on user click Manage->Events
         private void eventsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Displays the "Manage Event" dialog by instantiating a new ManageEvents1 (the form name for this class) object
@@ -74,6 +90,7 @@ namespace AWGAEventTracker
             dlgManageEvents.ShowDialog();
         }
 
+        //Called on user click Manage->Players
         private void playersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ManagePlayers dlgManagePlayers = new ManagePlayers();

@@ -48,7 +48,8 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1616, 42);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(749, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -57,13 +58,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 38);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(151, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -73,20 +74,20 @@
             this.eventsToolStripMenuItem,
             this.playersToolStripMenuItem});
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
-            this.manageToolStripMenuItem.Size = new System.Drawing.Size(114, 38);
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(62, 22);
             this.manageToolStripMenuItem.Text = "Manage";
             // 
             // eventsToolStripMenuItem
             // 
             this.eventsToolStripMenuItem.Name = "eventsToolStripMenuItem";
-            this.eventsToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
+            this.eventsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.eventsToolStripMenuItem.Text = "Events";
             this.eventsToolStripMenuItem.Click += new System.EventHandler(this.eventsToolStripMenuItem_Click);
             // 
             // playersToolStripMenuItem
             // 
             this.playersToolStripMenuItem.Name = "playersToolStripMenuItem";
-            this.playersToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
+            this.playersToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.playersToolStripMenuItem.Text = "Players";
             this.playersToolStripMenuItem.Click += new System.EventHandler(this.playersToolStripMenuItem_Click);
             // 
@@ -95,23 +96,25 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 38);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(179, 38);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1616, 907);
+            this.ClientSize = new System.Drawing.Size(749, 472);
             this.Controls.Add(this.menuStrip1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Main";
             this.Text = "AWGA Team-Play Tracker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
