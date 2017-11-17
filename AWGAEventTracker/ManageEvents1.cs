@@ -14,22 +14,11 @@ namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
     {
-        private Event g_selectedEvent = new Event();
-        //Class Globals. These are properties of the currently selected event and should be converted to a class of type Event
-        //Class Globals 
-        //private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
-        //private string g_strEventName; //The name of the currently selected event. Populated in populateEventDetails.
-        //private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
-        //private int g_nEventRounds; //The number of rounds for the selected event
-        //private List<Team> g_lstTeams; //A list of teams (i.e. team assignments) for the currently selected event
-        //private List<Round> g_lstRounds; //A list of the rounds (i.e. the schedule) for the currently selected event
-        //private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All player objects assigned to currently selected event. Populated on Event select OR Assigned Player change
-        //private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All player objects not assigned to currently selected event.
-
+        private Event g_selectedEvent = new Event(); //The currently selected event
+        
         public ManageEvents1()
         {
             InitializeComponent();
-           // GeneratePairings.Click += new EventHandler(GeneratePairings_Click);
         }
 
         //Called on close btn click
@@ -80,8 +69,14 @@ namespace AWGAEventTracker
             }
         }
 
-        //Called when the user changes the selected event
+        //Called when the user changes the selected event. Calls populateEvent(), where the event is updated.
         private void comboBoxEventSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            populateEvent();
+        }
+
+        //Updates the event
+        private void populateEvent()
         {
             //Populate event details here for all tabs
             //////////////////////////////////////////////
@@ -102,12 +97,11 @@ namespace AWGAEventTracker
             buttonGenerateTeams.Enabled = !bResult;
             buttonViewTeams.Enabled = bResult;
             if (bResult)
-                updatePlayerAndTeamObjects(); 
+                updatePlayerAndTeamObjects();
 
             //TODO Popualte Rounds tab
 
             //TODO Populate Results tab
-
         }
 
         //Populates the event details tab and also sets the g_strAssignedPlayers global var
@@ -128,6 +122,7 @@ namespace AWGAEventTracker
                 return;
             }
 
+            g_selectedEvent = new Event(); //re-ini selected event object
             int nTemp = 0;
             tabControl.Enabled = true; //enable tab navigation (disabled until an event is selected)
             int.TryParse(dataSet.Tables["Events"].Rows[0]["eventID"].ToString(), out nTemp);
@@ -305,9 +300,9 @@ namespace AWGAEventTracker
             labelUnassignedCount.Text = listBoxUnassignedPlayers.Items.Count.ToString();
         }
 
-        //Populates g_strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
+        //Populates g_selectedEvent.strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
         //Note that the string is stored in the database with a leading, delimiting, and trailing comma. Though
-        //the g_strAssignedPlayers string only has delimiting commas. This is for convenience in using LIKE and IN SQL statements.
+        //the g_selectedEvent.strAssignedPlayers string only has delimiting commas. This is for convenience in using LIKE and IN SQL statements.
         private void populateAssignedPlayersString()
         {
             //build assigned players string
@@ -328,7 +323,7 @@ namespace AWGAEventTracker
                 return;
             }
 
-            //remove trailing comma
+            //remove leading/trailing comma
             if (g_selectedEvent.strAssignedPlayers.Length != 0)
             {
                 g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(0, 1); //leading
@@ -341,14 +336,14 @@ namespace AWGAEventTracker
         {
             //Calls a function (generateTeams()) that ensures no teams have been assigned for this event and that numPlayers is divisible by four. 
             //each player a level (A-D), and generates numPlayers/4 teams of four players each.
-            //The function returns a bool denoting the status of what the Generate Teams button should be. True = enabled, False = disabled.
+            //The function returns a bool denoting the state of what the Generate Teams button should be. True = enabled, False = disabled.
             TeamAssignment t = new TeamAssignment();
             bool bResult = t.generateTeams(g_selectedEvent.nID, g_selectedEvent.lstAssignedPlayers.ToList());
             buttonGenerateTeams.Enabled = bResult;
             buttonViewTeams.Enabled = !bResult;
 
             //update the details tab
-            populateEventDetails();
+            populateEvent();
         }
 
         //Calls a function that builds a csv file from the selected events teams and opens it in localhost's default
@@ -458,75 +453,10 @@ namespace AWGAEventTracker
         // we may need to change this
         private void GeneratePairings_Click(object sender, EventArgs e)
         {
-            //Ensure teams exists. 
-            if (!doTeamsExistForSelectedEvent())
-            {
-                MessageBox.Show("ERROR: Rounds cannot be generated because no teams exist for this event.");
-                return;
-            }
-
-            int nTeamsCount = g_selectedEvent.lstAssignedPlayers.Count / 4;
-            Random rand = new Random(); //ini randomizer
-
-            //ini the data objects contained in the event's list of rounds so we can modify them
-            g_selectedEvent.lstRounds = new List<Round>(g_selectedEvent.nRounds);
-            for (int i = 0; i < g_selectedEvent.nRounds; i ++)
-            {
-                g_selectedEvent.lstRounds.Add(new Round(0));
-                for (int j = 0; j < nTeamsCount; j++)
-                    g_selectedEvent.lstRounds[i].addGroup(new GroupOfFour());
-            }
-            //if number of players divided by four (i.e. number of teams) is less than the
-            // number of rounds for this event, there will not be enough players for all the rounds.
-            if (nTeamsCount < g_selectedEvent.nRounds)
-            {
-                MessageBox.Show("ERROR: There are only " + g_selectedEvent.lstTeams.Count.ToString() + " teams, which is not enough for " + g_selectedEvent.nRounds.ToString() + " rounds.");
-                return;
-            }
-
-            //Build the rounds, starting with the last round because thats where teams play each other
-            // and those constraints must be established before processing the other rounds.
-            for (int i = g_selectedEvent.nRounds; i > 0; i--) //for every round as specified in Events:numRounds, 
-            {
-                //Round round = new Round(i); //ini a round with i as it's round number
-                g_selectedEvent.lstRounds[i-1].nRoundNumber = i;
-
-                //If this is the last round, 
-                if (i == g_selectedEvent.nRounds)
-                {
-                    for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain
-                    {
-                        GroupOfFour foursome = new GroupOfFour();
-                        foursome.playerA = g_selectedEvent.lstTeams[j].playerA;
-                        foursome.playerB = g_selectedEvent.lstTeams[j].playerB;
-                        foursome.playerC = g_selectedEvent.lstTeams[j].playerC;
-                        foursome.playerD = g_selectedEvent.lstTeams[j].playerD;
-
-                        //TODO: Set the constraints on each player we just picked
-                        g_selectedEvent.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain. Note that foursomes/round is always the same number as nTeamsCount 
-                    {
-                        GroupOfFour foursome = new GroupOfFour();
-                        bool bFlag = true; //flag used to determine when to break out of the below while loop
-
-                        while (bFlag)
-                        {
-                            //get players from each level from random teams
-                            foursome.playerA = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerA;
-                            foursome.playerB = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerB;
-                            foursome.playerC = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerC;
-                            foursome.playerD = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerD;
-                            break;
-                        }
-                        g_selectedEvent.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
-                    }
-                }
-                //g_lstRounds[i-1] = round; //"Push" this round to the list of the event's rounds (remember, we're iterating the rounds backwards.)
-            } 
+            RoundAssignment ra = new RoundAssignment();
+            bool bReslt = ra.generateRounds(g_selectedEvent);
+            
+            //TODO: Set the generate rounds button state (enabled/disabled) based on bResult
         }
     }
 }
