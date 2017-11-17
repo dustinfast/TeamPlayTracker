@@ -14,16 +14,17 @@ namespace AWGAEventTracker
 {
     public partial class ManageEvents1 : Form
     {
+        private Event g_selectedEvent = new Event();
         //Class Globals. These are properties of the currently selected event and should be converted to a class of type Event
         //Class Globals 
-        private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
-        private string g_strEventName; //The name of the currently selected event. Populated in populateEventDetails.
-        private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
-        private int g_nEventRounds; //The number of rounds for the selected event
-        private List<Team> g_lstTeams; //A list of teams (i.e. team assignments) for the currently selected event
-        private List<Round> g_lstRounds; //A list of the rounds (i.e. the schedule) for the currently selected event
-        private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All player objects assigned to currently selected event. Populated on Event select OR Assigned Player change
-        private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All player objects not assigned to currently selected event.
+        //private string g_strSelectedEventID; //The ID of the currently selected event. Populated in populateEventDetails.
+        //private string g_strEventName; //The name of the currently selected event. Populated in populateEventDetails.
+        //private string g_strAssignedPlayers; //A comma delimited list of all the players (by ID) assigned to the currently selected event. Populated in populateEventDetails.
+        //private int g_nEventRounds; //The number of rounds for the selected event
+        //private List<Team> g_lstTeams; //A list of teams (i.e. team assignments) for the currently selected event
+        //private List<Round> g_lstRounds; //A list of the rounds (i.e. the schedule) for the currently selected event
+        //private BindingList<Player> g_lstAssignedPlayers = new BindingList<Player>(); //All player objects assigned to currently selected event. Populated on Event select OR Assigned Player change
+        //private BindingList<Player> g_lstUnassignedPlayers = new BindingList<Player>(); //All player objects not assigned to currently selected event.
 
         public ManageEvents1()
         {
@@ -68,7 +69,7 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show(ex0.Message);
+                MessageBox.Show("ERROR 1: " + ex0.Message);
                 return;
             }
 
@@ -123,30 +124,33 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show(ex0.Message);
+                MessageBox.Show("ERROR 2: " + ex0.Message);
                 return;
             }
 
-            tabControl.Enabled = true; //enable tab navigation, which was disabled until an event is selected
-            g_strSelectedEventID = dataSet.Tables["Events"].Rows[0]["eventID"].ToString(); //populates the g_strSelectedEventID global var
+            int nTemp = 0;
+            tabControl.Enabled = true; //enable tab navigation (disabled until an event is selected)
+            int.TryParse(dataSet.Tables["Events"].Rows[0]["eventID"].ToString(), out nTemp);
+            g_selectedEvent.nID = nTemp;
             labelEventName.Text = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
-            g_strEventName = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
+            g_selectedEvent.strName = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             labelRoundCount.Text = dataSet.Tables["Events"].Rows[0]["numRounds"].ToString();
-            int.TryParse(dataSet.Tables["Events"].Rows[0]["numRounds"].ToString(), out g_nEventRounds);
+            int.TryParse(dataSet.Tables["Events"].Rows[0]["numRounds"].ToString(), out nTemp);
+            g_selectedEvent.nRounds = nTemp;
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
             labelEndDate.Text = strEndDate.Substring(0, strEndDate.IndexOf(' '));
 
-            g_strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the g_strAssignedPlayers global var, removing the leading and trailing commas
-            if (g_strAssignedPlayers.Length != 0)
+            g_selectedEvent.strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the assigned players string
+            if (g_selectedEvent.strAssignedPlayers.Length != 0) //remove leading/trailing commas
             {
-                g_strAssignedPlayers = g_strAssignedPlayers.Remove(0, 1); //leading
-                g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
+                g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(0, 1); //leading
+                g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(g_selectedEvent.strAssignedPlayers.Length - 1, 1); //trailing
             }
             // Count the number of players and display to events page
             int playerNum = 0;
-            playerNum = Regex.Matches(g_strAssignedPlayers, ",").Count + 1;
+            playerNum = Regex.Matches(g_selectedEvent.strAssignedPlayers, ",").Count + 1;
             if (playerNum == 1)
                 playerNum = 0;
             labelPlayerCount.Text = (playerNum).ToString();
@@ -165,8 +169,8 @@ namespace AWGAEventTracker
         void populatePlayersLists()
         {
             //Clear existing lists
-            g_lstUnassignedPlayers = new BindingList<Player>();
-            g_lstAssignedPlayers = new BindingList<Player>();
+            g_selectedEvent.lstUnassignedPlayers = new BindingList<Player>();
+            g_selectedEvent.lstAssignedPlayers = new BindingList<Player>();
 
             string dbCmd = "";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
@@ -175,9 +179,9 @@ namespace AWGAEventTracker
             DataSet dataSet = new DataSet();
 
             //Populate Assigned players
-            if (g_strAssignedPlayers.Length > 0)
+            if (g_selectedEvent.strAssignedPlayers.Length > 0)
             {
-                dbCmd = "SELECT * FROM Players WHERE playerID in (" + g_strAssignedPlayers + ")";
+                dbCmd = "SELECT * FROM Players WHERE playerID in (" + g_selectedEvent.strAssignedPlayers + ")";
                 dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
                 adapter = new OleDbDataAdapter(dbComm);
 
@@ -188,7 +192,7 @@ namespace AWGAEventTracker
                 }
                 catch (Exception ex0)
                 {
-                    MessageBox.Show(ex0.Message);
+                    MessageBox.Show("ERROR 3: " + ex0.Message);
                     return;
                 }
 
@@ -198,17 +202,17 @@ namespace AWGAEventTracker
                                           Convert.ToInt16(dRow["handicap"].ToString()),
                                           dRow["fName"].ToString(), dRow["lName"].ToString(),
                                           dRow["phone"].ToString(), "");
-                    g_lstAssignedPlayers.Add(p);
+                    g_selectedEvent.lstAssignedPlayers.Add(p);
                 }
             }
             listBoxAssignedPlayers.DisplayMember = "displayName";
             listBoxAssignedPlayers.ValueMember = "playerID";
-            listBoxAssignedPlayers.DataSource = g_lstAssignedPlayers;
+            listBoxAssignedPlayers.DataSource = g_selectedEvent.lstAssignedPlayers;
 
             //Populate Unassigned players
             dbCmd = "SELECT * FROM Players";
-            if (g_strAssignedPlayers.Length != 0)
-                dbCmd += " WHERE playerID not in (" + g_strAssignedPlayers + ")";
+            if (g_selectedEvent.strAssignedPlayers.Length != 0)
+                dbCmd += " WHERE playerID not in (" + g_selectedEvent.strAssignedPlayers + ")";
 
             dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             adapter = new OleDbDataAdapter(dbComm);
@@ -220,7 +224,7 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show(ex0.Message);
+                MessageBox.Show("ERROR 4: " + ex0.Message);
                 return;
             }
 
@@ -230,12 +234,12 @@ namespace AWGAEventTracker
                                       Convert.ToInt16(dRow["handicap"].ToString()),
                                       dRow["fName"].ToString(), dRow["lName"].ToString(),
                                       dRow["phone"].ToString(), "");
-                g_lstUnassignedPlayers.Add(p);
+                g_selectedEvent.lstUnassignedPlayers.Add(p);
             }
 
             listBoxUnassignedPlayers.DisplayMember = "displayName";
             listBoxUnassignedPlayers.ValueMember = "playerID";
-            listBoxUnassignedPlayers.DataSource = g_lstUnassignedPlayers;
+            listBoxUnassignedPlayers.DataSource = g_selectedEvent.lstUnassignedPlayers;
         }
 
         //Moves a player from the Players:Unassigned list to the Players:Assignedlist
@@ -249,8 +253,8 @@ namespace AWGAEventTracker
             if (listBoxUnassignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxUnassignedPlayers.SelectedItem as Player;
-                g_lstUnassignedPlayers.Remove(p);
-                g_lstAssignedPlayers.Add(p);
+                g_selectedEvent.lstUnassignedPlayers.Remove(p);
+                g_selectedEvent.lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
@@ -268,8 +272,8 @@ namespace AWGAEventTracker
             if (listBoxAssignedPlayers.SelectedItems.Count > 0)
             {
                 Player p = listBoxAssignedPlayers.SelectedItem as Player;
-                g_lstAssignedPlayers.Remove(p);
-                g_lstUnassignedPlayers.Add(p);
+                g_selectedEvent.lstAssignedPlayers.Remove(p);
+                g_selectedEvent.lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
@@ -284,9 +288,9 @@ namespace AWGAEventTracker
                 MessageBox.Show("Cannot modify the players assigned to this event: Teams have already been generated.");
                 return;
             }
-            for (int i = 0; i < g_lstUnassignedPlayers.Count; i++)
+            for (int i = 0; i < g_selectedEvent.lstUnassignedPlayers.Count; i++)
             {
-                g_lstAssignedPlayers.Add(g_lstUnassignedPlayers[i] as Player);
+                g_selectedEvent.lstAssignedPlayers.Add(g_selectedEvent.lstUnassignedPlayers[i] as Player);
             }
             populateAssignedPlayersString();
             populatePlayersLists();
@@ -307,15 +311,15 @@ namespace AWGAEventTracker
         private void populateAssignedPlayersString()
         {
             //build assigned players string
-            g_strAssignedPlayers = ","; //ini with leading comma
+            g_selectedEvent.strAssignedPlayers = ","; //ini with leading comma
             for (int i = 0; i < listBoxAssignedPlayers.Items.Count; i++)
-                g_strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).ID + ",";
+                g_selectedEvent.strAssignedPlayers += (listBoxAssignedPlayers.Items[i] as Player).ID + ",";
 
             //if all the string contains is the leading comma, just make it ""
-            if (g_strAssignedPlayers.Length == 1) g_strAssignedPlayers = "";
+            if (g_selectedEvent.strAssignedPlayers.Length == 1) g_selectedEvent.strAssignedPlayers = "";
 
             //update events db table 
-            string strCmd = "UPDATE events SET players = '" + g_strAssignedPlayers + "' where eventID = " + g_strSelectedEventID; ;
+            string strCmd = "UPDATE events SET players = '" + g_selectedEvent.strAssignedPlayers + "' where eventID = " + g_selectedEvent.strAssignedPlayers;
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
             if (command.ExecuteNonQuery() == 0)
@@ -325,10 +329,10 @@ namespace AWGAEventTracker
             }
 
             //remove trailing comma
-            if (g_strAssignedPlayers.Length != 0)
+            if (g_selectedEvent.strAssignedPlayers.Length != 0)
             {
-                g_strAssignedPlayers = g_strAssignedPlayers.Remove(0, 1); //leading
-                g_strAssignedPlayers = g_strAssignedPlayers.Remove(g_strAssignedPlayers.Length - 1, 1); //trailing
+                g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(0, 1); //leading
+                g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(g_selectedEvent.strAssignedPlayers.Length - 1, 1); //trailing
             }
         }
 
@@ -339,7 +343,7 @@ namespace AWGAEventTracker
             //each player a level (A-D), and generates numPlayers/4 teams of four players each.
             //The function returns a bool denoting the status of what the Generate Teams button should be. True = enabled, False = disabled.
             TeamAssignment t = new TeamAssignment();
-            bool bResult = t.generateTeams(g_strSelectedEventID, g_lstAssignedPlayers.ToList());
+            bool bResult = t.generateTeams(g_selectedEvent.nID, g_selectedEvent.lstAssignedPlayers.ToList());
             buttonGenerateTeams.Enabled = bResult;
             buttonViewTeams.Enabled = !bResult;
 
@@ -352,7 +356,7 @@ namespace AWGAEventTracker
         private void buttonViewTeams_Click(object sender, EventArgs e)
         {
             CSVHandlers h = new CSVHandlers();
-            h.buildAndOpenTeamsCSV(g_strSelectedEventID, g_strEventName);
+            h.buildAndOpenTeamsCSV(g_selectedEvent);
         }
 
         //Checks for the existence of teams assigned to the eventID in g_strSelectedEvent. 
@@ -361,7 +365,7 @@ namespace AWGAEventTracker
         private bool doTeamsExistForSelectedEvent()
         {
             //Get list of teams for the selected event.
-            string dbCmd = "SELECT * FROM Teams WHERE eventID = " + g_strSelectedEventID;
+            string dbCmd = "SELECT * FROM Teams WHERE eventID = " + g_selectedEvent.nID.ToString();
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -385,7 +389,7 @@ namespace AWGAEventTracker
         {
             if (doTeamsExistForSelectedEvent() == true)
             {
-                string dbCmd = "SELECT COUNT (*) FROM Teams WHERE eventID = " + g_strSelectedEventID;
+                string dbCmd = "SELECT COUNT (*) FROM Teams WHERE eventID = " + g_selectedEvent.nID.ToString();
                 OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
                 int rowCount = (int)command.ExecuteScalar();
                 //// TODO: catch exception
@@ -405,17 +409,17 @@ namespace AWGAEventTracker
             string strPlayerLevel = "";
 
             //ini Teams list
-            g_lstTeams = new List<Team>(g_lstAssignedPlayers.Count / 4);
-            for (int i = 0; i < g_lstAssignedPlayers.Count / 4; i++)
-                g_lstTeams.Add(new Team());
+            g_selectedEvent.lstTeams = new List<Team>(g_selectedEvent.lstAssignedPlayers.Count / 4);
+            for (int i = 0; i < g_selectedEvent.lstAssignedPlayers.Count / 4; i++)
+                g_selectedEvent.lstTeams.Add(new Team());
 
             //For every player, update the player object and team object
-            for (int i = 0; i < g_lstAssignedPlayers.Count; i++)
+            for (int i = 0; i < g_selectedEvent.lstAssignedPlayers.Count; i++)
             {
-                int playerID = (g_lstAssignedPlayers[i] as Player).ID;
+                int playerID = (g_selectedEvent.lstAssignedPlayers[i] as Player).ID;
 
                 string dbCmd = "SELECT * FROM Teams";
-                dbCmd += " WHERE Teams.eventID = " + g_strSelectedEventID;
+                dbCmd += " WHERE Teams.eventID = " + g_selectedEvent.nID;
                 dbCmd += " AND Teams.playerID = " + playerID.ToString();
                 OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
@@ -429,23 +433,23 @@ namespace AWGAEventTracker
                 }
                 catch (Exception ex0)
                 {
-                    MessageBox.Show(ex0.Message);
+                    MessageBox.Show("ERROR 5: " + ex0.Message);
                     return;
                 }
 
                 //update player object
-                (g_lstAssignedPlayers[i] as Player).teamName = nTeamName;
-                (g_lstAssignedPlayers[i] as Player).level = strPlayerLevel;
+                (g_selectedEvent.lstAssignedPlayers[i] as Player).teamName = nTeamName;
+                (g_selectedEvent.lstAssignedPlayers[i] as Player).level = strPlayerLevel;
 
                 //update team object
                 if (strPlayerLevel == "A")
-                    g_lstTeams[nTeamName-1].playerA = (g_lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nTeamName-1].playerA = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "B")
-                    g_lstTeams[nTeamName-1].playerB = (g_lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nTeamName-1].playerB = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "C")
-                    g_lstTeams[nTeamName-1].playerC = (g_lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nTeamName-1].playerC = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "D")
-                    g_lstTeams[nTeamName-1].playerD = (g_lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nTeamName-1].playerD = (g_selectedEvent.lstAssignedPlayers[i] as Player);
             }
         }
 
@@ -461,45 +465,45 @@ namespace AWGAEventTracker
                 return;
             }
 
-            int nTeamsCount = g_lstAssignedPlayers.Count / 4;
+            int nTeamsCount = g_selectedEvent.lstAssignedPlayers.Count / 4;
             Random rand = new Random(); //ini randomizer
 
             //ini the data objects contained in the event's list of rounds so we can modify them
-            g_lstRounds = new List<Round>(g_nEventRounds);
-            for (int i = 0; i < g_nEventRounds; i ++)
+            g_selectedEvent.lstRounds = new List<Round>(g_selectedEvent.nRounds);
+            for (int i = 0; i < g_selectedEvent.nRounds; i ++)
             {
-                g_lstRounds.Add(new Round(0));
+                g_selectedEvent.lstRounds.Add(new Round(0));
                 for (int j = 0; j < nTeamsCount; j++)
-                    g_lstRounds[i].addGroup(new GroupOfFour());
+                    g_selectedEvent.lstRounds[i].addGroup(new GroupOfFour());
             }
             //if number of players divided by four (i.e. number of teams) is less than the
             // number of rounds for this event, there will not be enough players for all the rounds.
-            if (nTeamsCount < g_nEventRounds)
+            if (nTeamsCount < g_selectedEvent.nRounds)
             {
-                MessageBox.Show("ERROR: There are only " + g_lstTeams.Count.ToString() + " teams, which is not enough for " + g_nEventRounds.ToString() + " rounds.");
+                MessageBox.Show("ERROR: There are only " + g_selectedEvent.lstTeams.Count.ToString() + " teams, which is not enough for " + g_selectedEvent.nRounds.ToString() + " rounds.");
                 return;
             }
 
             //Build the rounds, starting with the last round because thats where teams play each other
             // and those constraints must be established before processing the other rounds.
-            for (int i = g_nEventRounds; i > 0; i--) //for every round as specified in Events:numRounds, 
+            for (int i = g_selectedEvent.nRounds; i > 0; i--) //for every round as specified in Events:numRounds, 
             {
                 //Round round = new Round(i); //ini a round with i as it's round number
-                g_lstRounds[i-1].nRoundNumber = i;
+                g_selectedEvent.lstRounds[i-1].nRoundNumber = i;
 
                 //If this is the last round, 
-                if (i == g_nEventRounds)
+                if (i == g_selectedEvent.nRounds)
                 {
                     for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain
                     {
                         GroupOfFour foursome = new GroupOfFour();
-                        foursome.playerA = g_lstTeams[j].playerA;
-                        foursome.playerB = g_lstTeams[j].playerB;
-                        foursome.playerC = g_lstTeams[j].playerC;
-                        foursome.playerD = g_lstTeams[j].playerD;
+                        foursome.playerA = g_selectedEvent.lstTeams[j].playerA;
+                        foursome.playerB = g_selectedEvent.lstTeams[j].playerB;
+                        foursome.playerC = g_selectedEvent.lstTeams[j].playerC;
+                        foursome.playerD = g_selectedEvent.lstTeams[j].playerD;
 
                         //TODO: Set the constraints on each player we just picked
-                        g_lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
+                        g_selectedEvent.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
                     }
                 }
                 else
@@ -512,13 +516,13 @@ namespace AWGAEventTracker
                         while (bFlag)
                         {
                             //get players from each level from random teams
-                            foursome.playerA = g_lstTeams[rand.Next(1, nTeamsCount)].playerA;
-                            foursome.playerB = g_lstTeams[rand.Next(1, nTeamsCount)].playerB;
-                            foursome.playerC = g_lstTeams[rand.Next(1, nTeamsCount)].playerC;
-                            foursome.playerD = g_lstTeams[rand.Next(1, nTeamsCount)].playerD;
+                            foursome.playerA = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerA;
+                            foursome.playerB = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerB;
+                            foursome.playerC = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerC;
+                            foursome.playerD = g_selectedEvent.lstTeams[rand.Next(1, nTeamsCount)].playerD;
                             break;
                         }
-                        g_lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
+                        g_selectedEvent.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
                     }
                 }
                 //g_lstRounds[i-1] = round; //"Push" this round to the list of the event's rounds (remember, we're iterating the rounds backwards.)

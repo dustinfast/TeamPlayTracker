@@ -694,11 +694,8 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonViewTeams;
         private System.Windows.Forms.Label label11;
-<<<<<<< HEAD
         private System.Windows.Forms.Button GeneratePairings;
-=======
         private System.Windows.Forms.Label labelAssignedCount;
         private System.Windows.Forms.Label labelUnassignedCount;
->>>>>>> master
     }
 }

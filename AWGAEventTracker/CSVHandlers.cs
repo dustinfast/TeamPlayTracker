@@ -12,11 +12,11 @@ namespace AWGAEventTracker
     class CSVHandlers
     {
         //builds a csv file from the teams of eventname, having an event id of eventid
-        public void buildAndOpenTeamsCSV(string eventid, string eventname)
+        public void buildAndOpenTeamsCSV(Event e)
         {
             string dbCmd = "SELECT * FROM Teams";
             dbCmd += " LEFT JOIN Players ON Teams.playerID = Players.playerID";
-            dbCmd += " WHERE Teams.eventID = " + eventid;
+            dbCmd += " WHERE Teams.eventID = " + e.nID;
             dbCmd += " ORDER BY Teams.teamName, Teams.playerLevel";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
@@ -41,7 +41,7 @@ namespace AWGAEventTracker
 
             //build the CSV output string
             string strPrevTeamName = dataSet.Tables["Teams"].Rows[0]["teamName"].ToString();
-            string strOutput = eventname + " Teams\n\nTeam 1\n"; //Main header and team 1 header
+            string strOutput = e.strName + " Teams\n\nTeam 1\n"; //Main header and team 1 header
             foreach (DataRow dRow in dataSet.Tables["Teams"].Rows)
             {
                 string strTeamName = dRow["teamName"].ToString();
@@ -61,7 +61,7 @@ namespace AWGAEventTracker
 
             //Write the output string to a file
             string strOutputDir = "TemporaryFiles";
-            string strOutputFile = strOutputDir + "\\" + eventname + "Teams.csv";
+            string strOutputFile = strOutputDir + "\\" + e.strName + "Teams.csv";
             try
             {
                 System.IO.Directory.CreateDirectory(strOutputDir); //Create temp dir if it doesn't already exist

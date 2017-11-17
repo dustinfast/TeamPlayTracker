@@ -14,7 +14,7 @@ namespace AWGAEventTracker
         //ensures no teams have been assigned for this event and that numPlayers is divisible by four.
         //each player a level (A-D), and generates numPlayers/4 teams of four players each.
         //returns a bool denoting the status of what the Generate Teams button should be. True = enabled, False = disabled.
-        public bool generateTeams(string eventid, List<Player> playerobjects)
+        public bool generateTeams(int eventid, List<Player> playerobjects)
         {
             //Ensure teams for this eventID do not already exist
             string dbCmd = "SELECT * FROM Teams WHERE eventID = " + eventid;
