@@ -9,15 +9,28 @@ namespace AWGAEventTracker
 {
     class RoundAssignment
     {
-        //Generates the rounds schedule. Uses constraint propogation to ensure groups are unique across all rounds
-        //Returns true and assigns rouds to event if round generation succeeds. false otherwise.
-        //Note that in this implementation, the number of teams must be <= the number of rounds (otherwise players would play with
-        // a player they've already played with) we may need to change this.
+        Event e;
+        int nTeamsCount;
+
+        //Constructor
+        public RoundAssignment(Event selectedevent)
+        {
+            e = selectedevent;
+            nTeamsCount = e.lstAssignedPlayers.Count / 4;
+
+            //ini the data objects contained in the event's list of rounds
+            e.lstRounds = new List<Round>(e.nRounds);
+            for (int i = 0; i < e.nRounds; i++)
+            {
+                e.lstRounds.Add(new Round(0));
+                for (int j = 0; j < nTeamsCount; j++)
+                    e.lstRounds[i].addGroup(new GroupOfFour());
+            }
+        }
+
+        //Called externally to start round generation
         public bool generateRounds(Event e)
         {
-            int nTeamsCount = e.lstAssignedPlayers.Count / 4;
-            Random rand = new Random(); //ini randomizer
-
             //Ensure teams exists. 
             if (e.lstTeams.Count <= 0)
             {
@@ -33,76 +46,69 @@ namespace AWGAEventTracker
                 return false;
             }
 
-            //ini the data objects contained in the event's list of rounds so we can modify them
-            e.lstRounds = new List<Round>(e.nRounds);
-            for (int i = 0; i < e.nRounds; i++)
-            {
-                e.lstRounds.Add(new Round(0));
-                for (int j = 0; j < nTeamsCount; j++)
-                    e.lstRounds[i].addGroup(new GroupOfFour());
-            }
-       
-            //Build the rounds, starting with the last round because thats where teams play each other
-            // and those constraints must be established before processing the other rounds.
-            for (int i = e.nRounds; i > 0; i--) //for every round as specified in Events:numRounds, 
-            {
-                //Round round = new Round(i); //ini a round with i as it's round number
-                e.lstRounds[i - 1].nRoundNumber = i;
+            e.bRoundsScheduled = false;
 
-                //If this is the last round, 
-                if (i == e.nRounds)
-                {
-                    for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain
-                    {
-                        GroupOfFour foursome = new GroupOfFour();
-                        foursome.playerA = e.lstTeams[j].playerA;
-                        foursome.playerB = e.lstTeams[j].playerB;
-                        foursome.playerC = e.lstTeams[j].playerC;
-                        foursome.playerD = e.lstTeams[j].playerD;
+            return solveRounds();
 
-                        //Propogate constraints on each player we just picked
-                        setConstraints(foursome);
-
-                        e.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < nTeamsCount; j++) //for every foursome this round will contain. Note that foursomes/round count is always the same number as nTeamsCount 
-                    {
-                        GroupOfFour foursome = new GroupOfFour();
-
-                        //get players from each level from random teams
-                        //TODO: Check constraints before assignment. Propage constraint after each assignment
-
-                        foursome.playerA = e.lstTeams[j].playerA; //the A player can always be from the jth index in the teams list
-                        foursome.playerB = getPlayer("B", foursome, e.lstRounds[i - 1], e); //getPlayer() gets a valid, unconstrained player that hasn't played in this round yet.
-                        foursome.playerC = getPlayer("C", foursome, e.lstRounds[i - 1], e);
-                        foursome.playerD = getPlayer("D", foursome, e.lstRounds[i - 1], e);
-
-                        //Propogate constraints on each player we just picked
-                        setConstraints(foursome);
-
-                        e.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
-                    }
-                }
-            }
+            
             //TODO: Write the rounds/groups to the DB
-
-            return true; //success
         }
 
-        //Given a player level, find a player of that level who hasn't played against anyone in the foursome previoulsy
-        // and also hasn't played yet in this round.
-        //level must be either A, B, C, or D and is the level of the player we're currently checking for
-        private Player getPlayer(string level, GroupOfFour foursome, Round round, Event e)
+        private bool solveRounds()
+        {
+            if (e.bRoundsScheduled) //recursive base case, denoting when scheduling has been "solved"
+                return true;
+
+            //Build the rounds, starting with the last round because thats when teams play each other
+            for (int i = e.nRounds; i > 0; i--) //for every round as specified in Events:numRounds, 
+            {
+                e.lstRounds[i - 1].nRoundNumber = i; //Set the round number. 
+
+                for (int j = 0; j < nTeamsCount; j++) //Iterate every foursome this round will contain. Note that foursomes/round count is always the same number as nTeamsCount 
+                {
+                    GroupOfFour foursome = new GroupOfFour();
+                    bool bTerminalNode = false;
+                    Event copy = e;
+
+                    //get valid players from each level. If we can't find one, set this as a terminal node.
+                    foursome.playerA = e.lstTeams[j].playerA; //the A player can always be from the jth index in the teams list
+                    foursome.playerB = getPlayer("B", foursome, e.lstRounds[i - 1]); //getPlayer() gets a valid, unconstrained player that hasn't played in this round yet.
+                    if (foursome.playerB == null)
+                        bTerminalNode = true;
+                    foursome.playerC = getPlayer("C", foursome, e.lstRounds[i - 1]);
+                    if (foursome.playerC == null)
+                        bTerminalNode = true;
+                    foursome.playerD = getPlayer("D", foursome, e.lstRounds[i - 1]);
+                    if (foursome.playerD == null)
+                        bTerminalNode = true;
+
+                    if (!bTerminalNode)
+                    {
+                        //Set constraints on each player we just picked
+                        setConstraints(foursome);
+                        e.lstRounds[i - 1].setGroupAtIndex(j, foursome); //Add this foursome to the round.
+                        if (solveRounds())
+                            return true;
+                    }
+
+                    e = copy;
+                }
+            }
+
+            return false;
+        }
+
+        //Given a player level, find a player of that level who hasn't played against anyone in the given foursome previoulsy
+        // and also hasn't played yet in the given round.
+        //level must be either A, B, C, or D and is the level of the player we need to find.
+        private Player getPlayer(string level, GroupOfFour foursome, Round round)
         {
             int nGroupCount = e.lstTeams.Count;
             int nTeamNumber = -1;
-            
+
             if (level == "B")
             {
-                for (int i = 1; i <= nGroupCount; i++)
+                for (int i= 0; i <= nGroupCount; i++)
                 {
                     nTeamNumber = 1 - i;
                     if (nTeamNumber <= 0)
@@ -115,13 +121,13 @@ namespace AWGAEventTracker
 
                     //ensure player hasn't already played with anyone in this group
                     if (!foursome.playerA.isConstrained(nPlayerID))
-                        break;
+                        return e.lstTeams[nTeamNumber - 1].playerB;
                 }
-                return e.lstTeams[nTeamNumber - 1].playerB;
+                return null; //return null if we don't find a player
             }
             else if (level == "C")
             {
-                for (int i = 1; i <= nGroupCount; i++)
+                for (int i = 0; i <= nGroupCount; i++)
                 {
                     nTeamNumber = 1 - i;
                     if (nTeamNumber <= 0)
@@ -133,15 +139,14 @@ namespace AWGAEventTracker
                         continue;
 
                     //ensure player hasn't already played with anyone in this group
-                    if (!foursome.playerA.isConstrained(nPlayerID) &&
-                        !foursome.playerB.isConstrained(nPlayerID))
-                        break;
+                    if (!foursome.playerA.isConstrained(nPlayerID))
+                        return e.lstTeams[nTeamNumber - 1].playerC;
                 }
-                return e.lstTeams[nTeamNumber - 1].playerC;
+                return null; //return null if we don't find a player
             }
             else if (level == "D")
             {
-                for (int i = 1; i <= nGroupCount; i++)
+                for (int i = 0; i <= nGroupCount; i++)
                 {
                     nTeamNumber = 1 - i;
                     if (nTeamNumber <= 0)
@@ -152,16 +157,14 @@ namespace AWGAEventTracker
                     if (isPlayerAlreadyInRound(nPlayerID, round))
                         continue;
 
-                    //ensure player hasn't already played with anyone in this group this round
-                    if (!foursome.playerA.isConstrained(nPlayerID) &&
-                        !foursome.playerB.isConstrained(nPlayerID) &&
-                        !foursome.playerC.isConstrained(nPlayerID))
-                        break;
+                    //ensure player hasn't already played with anyone in this group
+                    if (!foursome.playerA.isConstrained(nPlayerID))
+                        return e.lstTeams[nTeamNumber - 1].playerD;
                 }
-                return e.lstTeams[nTeamNumber - 1].playerD;
+                return null; //return null if we don't find a player
             }
-            else
-                return null; //shouldn't happen if the function is called correctly. TODO: add error handling if it does
+
+            return null; //shouldn't ever get here
         }
 
         //Returns true iff a player (by player ID) is assigned to a group in this round
