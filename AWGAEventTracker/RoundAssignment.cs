@@ -56,19 +56,18 @@ namespace AWGAEventTracker
                 MessageBox.Show("ERROR: Rounds cannot be generated because no teams exist for this event.");
                 return false;
             }
+            
+            bool bResult = solveRounds();
 
-            //if number of players divided by four (i.e. number of teams) is less than the
-            // number of rounds for this event, there will not be enough players for all the rounds.
-            if (nTeamCount < e.nRounds)
+            if (!bResult)
             {
                 MessageBox.Show("ERROR: There are only " + e.lstTeams.Count.ToString() + " teams, which is not enough for " + e.nRounds.ToString() + " rounds.");
                 return false;
             }
             
-            bool b = solveRounds();
-            return b;
-            
             //TODO: Write the rounds/groups to the DB
+
+            return bResult;
         }
 
         private bool solveRounds()
@@ -235,78 +234,5 @@ namespace AWGAEventTracker
             if (g.playerD != null)
                 g.playerD.setConstraint(g.playerD.ID);
         }
-
-
-        ////Given a player level, find a player of that level who hasn't played against anyone in the given foursome previoulsy
-        //// and also hasn't played yet in the given round.
-        ////level must be either A, B, C, or D and is the level of the player we need to find.
-        //private Player getPlayer(string level, GroupOfFour foursome, Round round)
-        //{
-        //    int nTeamCount = e.lstTeams.Count;
-        //    int nTeamNumber = -1;
-
-        //    if (level == "B")
-        //    {
-        //        for (int i = 0; i < nTeamCount; i++)
-        //        {
-        //            nTeamNumber = 1 - i;
-        //            if (nTeamNumber <= 0)
-        //                nTeamNumber = nTeamNumber + nTeamCount;
-        //            int nPlayerID = e.lstTeams[nTeamNumber - 1].playerB.ID;
-
-        //            //ensure this player hasn't already played in this round
-        //            if (isPlayerAlreadyInRound(nPlayerID, round))
-        //                continue;
-
-        //            //ensure player hasn't already played with anyone in this group
-        //            if (!foursome.playerA.isConstrained(nPlayerID))
-        //                return e.lstTeams[nTeamNumber - 1].playerB;
-        //        }
-        //        return null; //return null if we don't find a player
-        //    }
-        //    else if (level == "C")
-        //    {
-        //        for (int i = 0; i < nTeamCount; i++)
-        //        {
-        //            nTeamNumber = 1 - i;
-        //            if (nTeamNumber <= 0)
-        //                nTeamNumber = nTeamNumber + nTeamCount;
-        //            int nPlayerID = e.lstTeams[nTeamNumber - 1].playerC.ID;
-
-        //            //ensure this player hasn't already played in this round
-        //            if (isPlayerAlreadyInRound(nPlayerID, round))
-        //                continue;
-
-        //            //ensure player hasn't already played with anyone in this group
-        //            if (!foursome.playerA.isConstrained(nPlayerID) &&
-        //                !foursome.playerB.isConstrained(nPlayerID))
-        //                return e.lstTeams[nTeamNumber - 1].playerC;
-        //        }
-        //        return null; //return null if we don't find a player
-        //    }
-        //    else if (level == "D")
-        //    {
-        //        for (int i = 0; i < nTeamCount; i++)
-        //        {
-        //            nTeamNumber = 1 - i;
-        //            if (nTeamNumber <= 0)
-        //                nTeamNumber = nTeamNumber + nTeamCount;
-        //            int nPlayerID = e.lstTeams[nTeamNumber - 1].playerD.ID;
-
-        //            //ensure this player hasn't already played in this round
-        //            if (isPlayerAlreadyInRound(nPlayerID, round))
-        //                continue;
-
-        //            //ensure player hasn't already played with anyone in this group
-        //            if (!foursome.playerA.isConstrained(nPlayerID) &&
-        //                !foursome.playerB.isConstrained(nPlayerID) &&
-        //                !foursome.playerC.isConstrained(nPlayerID))
-        //                return e.lstTeams[nTeamNumber - 1].playerD;
-        //        }
-        //        return null; //return null if we don't find a player
-        //    }
-
-        //    return null; //shouldn't ever get here
-        //}
     }
 }
