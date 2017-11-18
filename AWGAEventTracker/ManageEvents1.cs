@@ -104,7 +104,7 @@ namespace AWGAEventTracker
             //TODO Populate Results tab
         }
 
-        //Populates the event details tab and also sets the g_strAssignedPlayers global var
+        //Populates the event details tab and also populates the g_selectedEvent.strAssignedPlayers 
         void populateEventDetails()
         {
             string dbCmd = "SELECT * FROM Events WHERE eventName = '" + comboBoxEventSelector.Text + "'";
@@ -160,7 +160,7 @@ namespace AWGAEventTracker
                 labelTeamCount.Text = "N/A";
         }
 
-        //Populates the Players tab lists with the assigned and unassigned players. Should be called after g_strAssignedPlayers is populated.
+        //Populates the Players tab lists with the assigned and unassigned players. Assumes g_selectedEvent.strAssignedPlayers is populated.
         void populatePlayersLists()
         {
             //Clear existing lists
@@ -253,7 +253,7 @@ namespace AWGAEventTracker
                 populateAssignedPlayersString();
             }
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
-            populateEventDetails();
+            populateEvent();
         }
 
         //Moves a player from the Players:Assigned list to the Players:Unassignedlist
@@ -272,7 +272,7 @@ namespace AWGAEventTracker
                 populateAssignedPlayersString();
             }
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
-            populateEventDetails();
+            populateEvent();
         }
 
         //Moves all players from the Players:Unassigned list to the Players:Assignedlist
@@ -290,7 +290,7 @@ namespace AWGAEventTracker
             populateAssignedPlayersString();
             populatePlayersLists();
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
-            populateEventDetails();
+            populateEvent();
         }
 
         //Updates the count of the players at the top of the Players:assigned/unassigned boxes
@@ -314,7 +314,7 @@ namespace AWGAEventTracker
             if (g_selectedEvent.strAssignedPlayers.Length == 1) g_selectedEvent.strAssignedPlayers = "";
 
             //update events db table 
-            string strCmd = "UPDATE events SET players = '" + g_selectedEvent.strAssignedPlayers + "' where eventID = " + g_selectedEvent.strAssignedPlayers;
+            string strCmd = "UPDATE events SET players = '" + g_selectedEvent.strAssignedPlayers + "' where eventID = " + g_selectedEvent.nID;
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
             if (command.ExecuteNonQuery() == 0)
@@ -449,8 +449,6 @@ namespace AWGAEventTracker
         }
 
         // Generate pairings for the rounds tab
-        //Note that in this implementation, the number of teams must be <= the number of rounds (otherwise players would play in the same group again).
-        // we may need to change this
         private void GeneratePairings_Click(object sender, EventArgs e)
         {
             RoundAssignment ra = new RoundAssignment();

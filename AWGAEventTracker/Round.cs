@@ -22,10 +22,15 @@ namespace AWGAEventTracker
             lstGroups.Add(g);
         }
 
-        //Setrs the GroupOfFour object at the nth position in the list.
+        //Sets the GroupOfFour object at the nth position in the list.
         public void setGroupAtIndex(int n, GroupOfFour g)
         {
             lstGroups[n] = g;
+        }
+
+        public List<GroupOfFour> getGroupsList()
+        {
+            return lstGroups;
         }
     }
 }

@@ -12,5 +12,14 @@ namespace AWGAEventTracker
         public Player playerB { get; set; }
         public Player playerC { get; set; }
         public Player playerD { get; set; }
+
+        public GroupOfFour()
+        {
+            playerA = null;
+            playerB = null;
+            playerC = null;
+            playerD = null;
+        }
     }
+
 }
