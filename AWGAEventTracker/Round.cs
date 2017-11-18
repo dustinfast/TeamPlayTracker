@@ -9,7 +9,7 @@ namespace AWGAEventTracker
     class Round
     {
         public int nRoundNumber { get; set; }
-        private List<GroupOfFour> lstGroups;
+        public List<GroupOfFour> lstGroups;
 
         public Round(int roundnumber)
         {
@@ -23,10 +23,15 @@ namespace AWGAEventTracker
         }
 
         //Sets the GroupOfFour object at the nth position in the list.
-        public void setGroupAtIndex(int n, GroupOfFour g)
-        {
-            lstGroups[n] = g;
-        }
+        //public void setGroupAtIndex(int n, GroupOfFour g)
+        //{
+        //    lstGroups[n] = g;
+        //}
+
+        //public GroupOfFour getGroupAtIndex(int n)
+        //{
+        //    return lstGroups[n];
+        //}
 
         public List<GroupOfFour> getGroupsList()
         {

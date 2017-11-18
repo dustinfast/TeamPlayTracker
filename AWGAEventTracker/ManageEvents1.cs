@@ -451,8 +451,8 @@ namespace AWGAEventTracker
         // Generate pairings for the rounds tab
         private void GeneratePairings_Click(object sender, EventArgs e)
         {
-            RoundAssignment ra = new RoundAssignment();
-            bool bReslt = ra.generateRounds(g_selectedEvent);
+            RoundAssignment ra = new RoundAssignment(g_selectedEvent);
+            bool bReslt = ra.generateRounds();
             
             //TODO: Set the generate rounds button state (enabled/disabled) based on bResult
         }
