@@ -35,22 +35,6 @@ namespace AWGAEventTracker
                 for (int j = 0; j < nTeamCount; j++) //Note: The number of groups in each round is the same as the number of teams in the event
                     theEvent.lstRounds[i].addGroup(new GroupOfFour(j + 1));
             }
-
-            //Construct lists of A, B, C, and D players
-            //Note that across these lists, players that share an index with a player in 
-            // another list are on the same team.
-            lstAPlayers = new List<Player>();
-            lstBPlayers = new List<Player>();
-            lstCPlayers = new List<Player>();
-            lstDPlayers = new List<Player>();
-
-            for (int i = 0; i < nTeamCount; i++)
-            {
-                lstAPlayers.Add(theEvent.lstTeams[i].playerA);
-                lstBPlayers.Add(theEvent.lstTeams[i].playerB);
-                lstCPlayers.Add(theEvent.lstTeams[i].playerC);
-                lstDPlayers.Add(theEvent.lstTeams[i].playerD);
-            }
         }
 
         //Called externally to start round generation using the event object passed to the constructor.
@@ -59,7 +43,7 @@ namespace AWGAEventTracker
         public bool generateRounds()
         {
             //Ensure teams exists. 
-            if (theEvent.lstTeams.Count <= 0)
+            if (theEvent.lstTeams == null || theEvent.lstTeams.Count <= 0)
             {
                 MessageBox.Show("ERROR: Rounds cannot be generated because no teams exist for this event.");
                 return false;
@@ -79,6 +63,22 @@ namespace AWGAEventTracker
             catch (Exception ex0)
             {
                 MessageBox.Show("ERROR 1009: Could not get rounds for event.\n" + ex0.Message);
+            }
+
+            //Construct lists of A, B, C, and D players
+            //Note that across these lists, players that share an index with a player in 
+            // another list are on the same team.
+            lstAPlayers = new List<Player>();
+            lstBPlayers = new List<Player>();
+            lstCPlayers = new List<Player>();
+            lstDPlayers = new List<Player>();
+
+            for (int i = 0; i < nTeamCount; i++)
+            {
+                lstAPlayers.Add(theEvent.lstTeams[i].playerA);
+                lstBPlayers.Add(theEvent.lstTeams[i].playerB);
+                lstCPlayers.Add(theEvent.lstTeams[i].playerC);
+                lstDPlayers.Add(theEvent.lstTeams[i].playerD);
             }
 
             //Do the round/group assignments
