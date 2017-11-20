@@ -34,7 +34,7 @@ namespace AWGAEventTracker
             newEvent.Show();
         }
 
-        //Caled when user clicks Add/Manage players from the players tab
+        //Called when user clicks Add/Manage players from the players tab
         private void buttonShowAddPlayersDlg_Click(object sender, EventArgs e)
         {
             ManagePlayers playersdlg = new ManagePlayers();
@@ -58,7 +58,7 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show("ERROR 1: " + ex0.Message);
+                MessageBox.Show("ERROR 1001: " + ex0.Message);
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace AWGAEventTracker
         //Populates the event details tab and also populates the g_selectedEvent.strAssignedPlayers 
         void populateEventDetails()
         {
-            string dbCmd = "SELECT * FROM Events WHERE eventName = '" + comboBoxEventSelector.Text + "'";
+            string dbCmd = "SELECT * FROM Events WHERE eventName = '" + comboBoxEventSelector.Text + "'"; //note that before an event is created, it is checked to ensure no rounds of the same name exist
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
 
@@ -118,7 +118,7 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show("ERROR 2: " + ex0.Message);
+                MessageBox.Show("ERROR 1002: " + ex0.Message);
                 return;
             }
 
@@ -187,7 +187,7 @@ namespace AWGAEventTracker
                 }
                 catch (Exception ex0)
                 {
-                    MessageBox.Show("ERROR 3: " + ex0.Message);
+                    MessageBox.Show("ERROR 1003: " + ex0.Message);
                     return;
                 }
 
@@ -219,7 +219,7 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show("ERROR 4: " + ex0.Message);
+                MessageBox.Show("ERROR 1004: " + ex0.Message);
                 return;
             }
 
@@ -319,7 +319,7 @@ namespace AWGAEventTracker
 
             if (command.ExecuteNonQuery() == 0)
             {
-                MessageBox.Show("ERROR: Could not modify user due to an unspecified database error.");
+                MessageBox.Show("ERROR: Could not modify user due to a database error.");
                 return;
             }
 
@@ -335,7 +335,7 @@ namespace AWGAEventTracker
         private void buttonGenerateTeams_Click(object sender, EventArgs e)
         {
             //Calls a function (generateTeams()) that ensures no teams have been assigned for this event and that numPlayers is divisible by four. 
-            //each player a level (A-D), and generates numPlayers/4 teams of four players each.
+            //Generates numPlayers/4 teams of four players each (one for each level, A-D)
             //The function returns a bool denoting the state of what the Generate Teams button should be. True = enabled, False = disabled.
             TeamAssignment t = new TeamAssignment();
             bool bResult = t.generateTeams(g_selectedEvent.nID, g_selectedEvent.lstAssignedPlayers.ToList());
@@ -354,8 +354,8 @@ namespace AWGAEventTracker
             h.buildAndOpenTeamsCSV(g_selectedEvent);
         }
 
-        //Checks for the existence of teams assigned to the eventID in g_strSelectedEvent. 
-        //Should only be called after g_strSelectedEvent is populated (i.e. populateEventDetails() has been called)
+        //Checks for the existence of teams assigned to the selected event. 
+        //Should only be called after populateEventDetails() has been called.
         //Returns true iff teams are in the db for the currently selected event.
         private bool doTeamsExistForSelectedEvent()
         {
@@ -371,11 +371,36 @@ namespace AWGAEventTracker
             }
             catch (Exception ex0)
             {
-                MessageBox.Show(ex0.Message);
+                MessageBox.Show("ERROR 1006: Could not get teams for event.\n" + ex0.Message);
             }
 
             if (dataSet.Tables["Teams"].Rows.Count != 0)
                 return true; //Teams exist for selected event, return true
+            return false; //else return false
+        }
+
+        //Checks for the existence of rounds assigned to the selected event. 
+        //Should only be called after populateEventDetails() has been called.
+        //Returns true iff rounds are in the db for the currently selected event.
+        public bool doRoundsExistForSelectedEvent()
+        {
+            //Get list of teams for the selected event.
+            string dbCmd = "SELECT * FROM Rounds WHERE eventID = " + g_selectedEvent.nID.ToString();
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Rounds");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show("ERROR 1008: Could not get rounds for event.\n" + ex0.Message);
+            }
+
+            if (dataSet.Tables["Rounds"].Rows.Count != 0)
+                return true; //Rounds exist for selected event, return true
             return false; //else return false
         }
 
@@ -395,7 +420,7 @@ namespace AWGAEventTracker
                 return "N/A";
         }
 
-        //For each player object, updates that object with that player's assigned team and level, and also
+        //For each player object, updates that object with that player's assigned team and level. Also
         // updates the team object with that player.
         // Assumes teams exist for the selected event before this function is called 
         private void updatePlayerAndTeamObjects()
@@ -428,7 +453,7 @@ namespace AWGAEventTracker
                 }
                 catch (Exception ex0)
                 {
-                    MessageBox.Show("ERROR 5: " + ex0.Message);
+                    MessageBox.Show("ERROR 1005: " + ex0.Message);
                     return;
                 }
 
@@ -448,13 +473,17 @@ namespace AWGAEventTracker
             }
         }
 
-        // Generate pairings for the rounds tab
+        //Called on user click Generate Rounds button
         private void GeneratePairings_Click(object sender, EventArgs e)
         {
+            // Generate pairings for the rounds tab
             RoundAssignment ra = new RoundAssignment(g_selectedEvent);
-            bool bReslt = ra.generateRounds();
+            bool bResult = ra.generateRounds();
+
+            //on success, set the Generate Rounds button state to disabled.
+            if (bResult)
+                GeneratePairings.Enabled = !bResult;
             
-            //TODO: Set the generate rounds button state (enabled/disabled) based on bResult
         }
     }
 }

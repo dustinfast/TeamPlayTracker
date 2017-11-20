@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AWGAEventTracker
+namespace AWGAEventTracker //And abstraction of a team, which is a group of four players, one for each level (A-D)
 {
     class Team
     {
@@ -21,6 +21,7 @@ namespace AWGAEventTracker
             playerC = null;
             playerD = null;
         }
+
         public Team(Player aplayer, Player bplayer, Player cplayer, Player dplayer)
         {
             playerA = aplayer;
@@ -28,6 +29,5 @@ namespace AWGAEventTracker
             playerC = cplayer;
             playerD = dplayer;
         }
-
     }
 }
