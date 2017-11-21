@@ -13,8 +13,9 @@ namespace AWGAEventTracker
         //Contains the functionality that generates rounds and groups and writes them to the DB. 
         //The event object passed to the constructor is also updated with the assignments 
         // as an artifiact of this process.
-        Event theEvent;
-        int nTeamCount;
+        Event eEvent; //the event passed to constructor
+        Event eBestEvent = null; //The event w the deepest node we were able to assign a player at without duplicates. 
+        int nTeamCount; 
         private List<Player> lstAPlayers;
         private List<Player> lstBPlayers;
         private List<Player> lstCPlayers;
@@ -23,17 +24,17 @@ namespace AWGAEventTracker
         //Constructor
         public RoundAssignment(Event selectedevent)
         {
-            theEvent = selectedevent;
-            nTeamCount = theEvent.lstAssignedPlayers.Count / 4;
+            eEvent = selectedevent;
+            nTeamCount = eEvent.lstAssignedPlayers.Count / 4;
 
             //Ini the data objects contained in the event's list of rounds, down to the group level,
             // so we can modify their properties later as we generate rounds and groups.
-            theEvent.lstRounds = new List<Round>(theEvent.nRounds);
-            for (int i = 0; i < theEvent.nRounds; i++)
+            eEvent.lstRounds = new List<Round>(eEvent.nRounds);
+            for (int i = 0; i < eEvent.nRounds; i++)
             {
-                theEvent.lstRounds.Add(new Round((i + 1), "Week " + (i + 1).ToString()));
+                eEvent.lstRounds.Add(new Round((i + 1), "Week " + (i + 1).ToString()));
                 for (int j = 0; j < nTeamCount; j++) //Note: The number of groups in each round is the same as the number of teams in the event
-                    theEvent.lstRounds[i].addGroup(new GroupOfFour(j + 1));
+                    eEvent.lstRounds[i].addGroup(new GroupOfFour(j + 1));
             }
         }
 
@@ -43,14 +44,14 @@ namespace AWGAEventTracker
         public bool generateRounds()
         {
             //Ensure teams exists. 
-            if (theEvent.lstTeams == null || theEvent.lstTeams.Count <= 0)
+            if (eEvent.lstTeams == null || eEvent.lstTeams.Count <= 0)
             {
                 MessageBox.Show("ERROR: Rounds cannot be generated because no teams exist for this event.");
                 return false;
             }
 
             //Ensure no rounds exist for this event
-            string strCmd = "SELECT COUNT (*) FROM Rounds WHERE eventID =" + theEvent.nID.ToString();
+            string strCmd = "SELECT COUNT (*) FROM Rounds WHERE eventID =" + eEvent.nID.ToString();
             OleDbCommand dbCmd = new OleDbCommand(strCmd, Globals.g_dbConnection);
             try
             {
@@ -75,36 +76,45 @@ namespace AWGAEventTracker
 
             for (int i = 0; i < nTeamCount; i++)
             {
-                lstAPlayers.Add(theEvent.lstTeams[i].playerA);
-                lstBPlayers.Add(theEvent.lstTeams[i].playerB);
-                lstCPlayers.Add(theEvent.lstTeams[i].playerC);
-                lstDPlayers.Add(theEvent.lstTeams[i].playerD);
+                lstAPlayers.Add(eEvent.lstTeams[i].playerA);
+                lstBPlayers.Add(eEvent.lstTeams[i].playerB);
+                lstCPlayers.Add(eEvent.lstTeams[i].playerC);
+                lstDPlayers.Add(eEvent.lstTeams[i].playerD);
             }
 
             //Do the round/group assignments
             bool bResult = solveRounds();
 
-            //If assignments failed, there were not enough teams to create unique group assignments across all rounds.
+            //If assignments failed, there were not enough teams to create unique group assignments across all rounds, 
+            // so finish up with weaker constraints (allow a B and C player to play on the same group again)
+            // 
             if (!bResult)
             {
-                MessageBox.Show("ERROR: There are only " + theEvent.lstTeams.Count.ToString() + " teams, which is not enough for " + theEvent.nRounds.ToString() + " rounds.");
-                return false;
+
+                //ini the depth of the event
+                
+
+
+                string strTemp = "Success! " + eEvent.nRounds.ToString() + " rounds have been generated. ";
+                strTemp += "However, there were not enough teams to create unique group assignments across all rounds ";
+                strTemp += "- some duplicates will exist.";
+                MessageBox.Show(strTemp);
             }
 
             //Write the rounds/groups to the DB
             try
             {
-                foreach (Round round in theEvent.lstRounds)
+                foreach (Round round in eEvent.lstRounds)
                 {
                     //Write the round to the db table Rounds
                     strCmd = "INSERT INTO Rounds (eventID, roundNumber, roundName) ";
-                    strCmd += "VALUES (" + theEvent.nID.ToString() + ", " + round.nRoundNumber.ToString() + ", '" + round.strRoundName + "'); ";
+                    strCmd += "VALUES (" + eEvent.nID.ToString() + ", " + round.nRoundNumber.ToString() + ", '" + round.strRoundName + "'); ";
                     dbCmd = new OleDbCommand(strCmd, Globals.g_dbConnection);
                     dbCmd.ExecuteNonQuery();
 
                     //Get the round id of the round just written
                     strCmd = "SELECT roundID FROM Rounds WHERE eventID = ";
-                    strCmd += theEvent.nID.ToString() + " AND roundNumber = " + round.nRoundNumber.ToString();
+                    strCmd += eEvent.nID.ToString() + " AND roundNumber = " + round.nRoundNumber.ToString();
                     dbCmd = new OleDbCommand(strCmd, Globals.g_dbConnection);
                     int nRoundID = (int)dbCmd.ExecuteScalar();
                     
@@ -124,7 +134,7 @@ namespace AWGAEventTracker
                 return false;
             }
 
-            MessageBox.Show("Success! " + theEvent.nRounds.ToString() + " rounds have been generated.");
+            MessageBox.Show("Success! " + eEvent.nRounds.ToString() + " rounds have been generated.");
             
             return bResult;
         }
@@ -166,23 +176,24 @@ namespace AWGAEventTracker
                 // and if if not, assign them. 
                 if (isValidAssignment(round, group, p)) 
                 {
-                    Event eventCopy = theEvent;
+                    Event eventCopy = eEvent;
 
                     if (level == "A")
-                        theEvent.lstRounds[round].lstGroups[group].playerA = p;
+                        eEvent.lstRounds[round].lstGroups[group].playerA = p;
                     else if (level == "B")
-                        theEvent.lstRounds[round].lstGroups[group].playerB = p;
+                        eEvent.lstRounds[round].lstGroups[group].playerB = p;
                     else if (level == "C")
-                        theEvent.lstRounds[round].lstGroups[group].playerC = p;
+                        eEvent.lstRounds[round].lstGroups[group].playerC = p;
                     else if (level == "D")
-                        theEvent.lstRounds[round].lstGroups[group].playerD = p;
+                        eEvent.lstRounds[round].lstGroups[group].playerD = p;
 
-                    setConstraints(theEvent.lstRounds[round].lstGroups[group]);
+                    setConstraints(eEvent.lstRounds[round].lstGroups[group]);
+
 
                     if (solveRounds())
                         return true;
 
-                    theEvent = eventCopy; //if we get here, backtrack and try the next value
+                    eEvent = eventCopy; //if we get here, backtrack and try the next value
                 }
             }
             return false; //if we get here, no valid assignment was found.
@@ -193,26 +204,26 @@ namespace AWGAEventTracker
         // that's when players play themselves. Returns null if none found.
         private bool getNextUnassigned(out int round, out int group, out string level)
         {
-            for (round = theEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
+            for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
             {
                 for (group = 0; group < nTeamCount; group++) //Iterate every foursome this round will contain (starting from the first) 
                 {
-                    if (theEvent.lstRounds[round].lstGroups[group].playerA == null)
+                    if (eEvent.lstRounds[round].lstGroups[group].playerA == null)
                     {
                         level = "A";
                         return true;
                     }
-                    else if (theEvent.lstRounds[round].lstGroups[group].playerB == null)
+                    else if (eEvent.lstRounds[round].lstGroups[group].playerB == null)
                     {
                         level = "B";
                         return true;
                     }
-                    else if (theEvent.lstRounds[round].lstGroups[group].playerC == null)
+                    else if (eEvent.lstRounds[round].lstGroups[group].playerC == null)
                     {
                         level = "C";
                         return true;
                     }
-                    else if (theEvent.lstRounds[round].lstGroups[group].playerD == null)
+                    else if (eEvent.lstRounds[round].lstGroups[group].playerD == null)
                     {
                         level = "D";
                         return true;
@@ -231,17 +242,17 @@ namespace AWGAEventTracker
         private bool isValidAssignment(int round, int group, Player p)
         {
             //ensure this player hasn't already played in this round
-            if (isPlayerAlreadyInRound(p.ID, theEvent.lstRounds[round]))
+            if (isPlayerAlreadyInRound(p.ID, eEvent.lstRounds[round]))
                 return false;
 
             //ensure player hasn't already played with anyone in this group
-            if (theEvent.lstRounds[round].lstGroups[group].playerA != null && theEvent.lstRounds[round].lstGroups[group].playerA.isConstrained(p.ID))
+            if (eEvent.lstRounds[round].lstGroups[group].playerA != null && eEvent.lstRounds[round].lstGroups[group].playerA.isConstrained(p.ID))
                 return false;
-            else if (theEvent.lstRounds[round].lstGroups[group].playerB != null && theEvent.lstRounds[round].lstGroups[group].playerB.isConstrained(p.ID))
+            else if (eEvent.lstRounds[round].lstGroups[group].playerB != null && eEvent.lstRounds[round].lstGroups[group].playerB.isConstrained(p.ID))
                 return false;
-            else if (theEvent.lstRounds[round].lstGroups[group].playerC != null && theEvent.lstRounds[round].lstGroups[group].playerC.isConstrained(p.ID))
+            else if (eEvent.lstRounds[round].lstGroups[group].playerC != null && eEvent.lstRounds[round].lstGroups[group].playerC.isConstrained(p.ID))
                 return false;
-            else if (theEvent.lstRounds[round].lstGroups[group].playerD != null && theEvent.lstRounds[round].lstGroups[group].playerD.isConstrained(p.ID))
+            else if (eEvent.lstRounds[round].lstGroups[group].playerD != null && eEvent.lstRounds[round].lstGroups[group].playerD.isConstrained(p.ID))
                 return false;
 
             return true;

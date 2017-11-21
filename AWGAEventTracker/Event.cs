@@ -13,6 +13,7 @@ namespace AWGAEventTracker
         public string strName { get; set; } //The name of the event
         public string strAssignedPlayers { get; set; } //A comma delimited list of all the players (by ID) assigned to the event. For convenience
         public int nRounds { get; set; } //The number of rounds for the event
+        public int nAssignmentDepth { get; set; } //A convenience variable used during round assignment. Is the tree depth at which the last player was assigned.
         public List<Team> lstTeams { get; set; } //A list of teams (i.e. team assignments) the event
         public List<Round> lstRounds { get; set; }//A list of the rounds (i.e. the schedule) for the event. Note that each round contains a number of GroupOfFour objects.
         public BindingList<Player> lstAssignedPlayers { get; set; } //All player objects assigned to currently selected event. Populated on Event select OR Assigned Player change
