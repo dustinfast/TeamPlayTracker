@@ -9,11 +9,20 @@ namespace AWGAEventTracker
     class Round
     {
         public int nRoundNumber { get; set; }
+        public string strRoundName { get; set; }
         public List<GroupOfFour> lstGroups;
 
         public Round(int roundnumber)
         {
             nRoundNumber = roundnumber;
+            strRoundName = "";
+            lstGroups = new List<GroupOfFour>();
+        }
+
+        public Round(int roundnumber, string roundname)
+        {
+            nRoundNumber = roundnumber;
+            strRoundName = roundname;
             lstGroups = new List<GroupOfFour>();
         }
 
@@ -21,17 +30,6 @@ namespace AWGAEventTracker
         {
             lstGroups.Add(g);
         }
-
-        //Sets the GroupOfFour object at the nth position in the list.
-        //public void setGroupAtIndex(int n, GroupOfFour g)
-        //{
-        //    lstGroups[n] = g;
-        //}
-
-        //public GroupOfFour getGroupAtIndex(int n)
-        //{
-        //    return lstGroups[n];
-        //}
 
         public List<GroupOfFour> getGroupsList()
         {

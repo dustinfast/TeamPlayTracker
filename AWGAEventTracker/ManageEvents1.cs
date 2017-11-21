@@ -93,12 +93,17 @@ namespace AWGAEventTracker
 
             //Set Teams tab button states (enabled/disabled) and update player/team objects 
             // with their associated team and level.
-            bool bResult = doTeamsExistForSelectedEvent();
-            buttonGenerateTeams.Enabled = !bResult;
-            buttonViewTeams.Enabled = bResult;
-            if (bResult)
-                updatePlayerAndTeamObjects();
+            bool bTeamsResult = doTeamsExistForSelectedEvent();
+            buttonGenerateTeams.Enabled = !bTeamsResult;
+            buttonViewTeams.Enabled = bTeamsResult;
 
+            bool bRoundsResult = doRoundsExistForSelectedEvent();
+            GeneratePairings.Enabled = !bRoundsResult;
+            //buttonViewPairings.Enabled = bRoundsResult;
+            if (bTeamsResult || bRoundsResult)
+                updateObjects(); //update the players objects, as well as the event's teams, rounds, and groups objects.
+
+            //Set 
             //TODO Popualte Rounds tab
 
             //TODO Populate Results tab
@@ -420,34 +425,42 @@ namespace AWGAEventTracker
                 return "N/A";
         }
 
-        //For each player object, updates that object with that player's assigned team and level. Also
-        // updates the team object with that player.
-        // Assumes teams exist for the selected event before this function is called 
-        private void updatePlayerAndTeamObjects()
+        //For each player object, updates that object with that player's assigned level (A-D)
+        // as well as the event's correct team object with that player.
+        //Also updates the event's rounds/groups objects
+        private void updateObjects()
         {
+            //if teams don't exist, return
+            if (!doTeamsExistForSelectedEvent())
+                return;
+
+            //else do player/team object population
             int nTeamName = -1;
             string strPlayerLevel = "";
 
-            //ini Teams list
+            //ini the event objects team list
             g_selectedEvent.lstTeams = new List<Team>(g_selectedEvent.lstAssignedPlayers.Count / 4);
             for (int i = 0; i < g_selectedEvent.lstAssignedPlayers.Count / 4; i++)
                 g_selectedEvent.lstTeams.Add(new Team());
 
             //For every player, update the player object and team object
+            string strCmd;
+            OleDbCommand dbComm= null;
+            OleDbDataAdapter dbAdapter = null;
+            DataSet dataSet = null;
             for (int i = 0; i < g_selectedEvent.lstAssignedPlayers.Count; i++)
             {
                 int playerID = (g_selectedEvent.lstAssignedPlayers[i] as Player).ID;
 
-                string dbCmd = "SELECT * FROM Teams";
-                dbCmd += " WHERE Teams.eventID = " + g_selectedEvent.nID;
-                dbCmd += " AND Teams.playerID = " + playerID.ToString();
-                OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
-
-                OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
-                DataSet dataSet = new DataSet();
+                strCmd = "SELECT * FROM Teams";
+                strCmd += " WHERE Teams.eventID = " + g_selectedEvent.nID;
+                strCmd += " AND Teams.playerID = " + playerID.ToString();
+                dbComm = new OleDbCommand(strCmd, Globals.g_dbConnection);
+                dbAdapter = new OleDbDataAdapter(dbComm);
+                dataSet = new DataSet();
                 try
                 {
-                    adapter.Fill(dataSet, "Teams");
+                    dbAdapter.Fill(dataSet, "Teams");
                     int.TryParse(dataSet.Tables["Teams"].Rows[0]["teamName"].ToString(), out nTeamName);
                     strPlayerLevel = dataSet.Tables["Teams"].Rows[0]["playerLevel"].ToString();
                 }
@@ -457,11 +470,11 @@ namespace AWGAEventTracker
                     return;
                 }
 
-                //update player object
+                //update the player object
                 (g_selectedEvent.lstAssignedPlayers[i] as Player).teamName = nTeamName;
                 (g_selectedEvent.lstAssignedPlayers[i] as Player).level = strPlayerLevel;
 
-                //update team object
+                //update the event's team object 
                 if (strPlayerLevel == "A")
                     g_selectedEvent.lstTeams[nTeamName-1].playerA = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "B")
@@ -471,6 +484,69 @@ namespace AWGAEventTracker
                 else if (strPlayerLevel == "D")
                     g_selectedEvent.lstTeams[nTeamName-1].playerD = (g_selectedEvent.lstAssignedPlayers[i] as Player);
             }
+
+            //In preperation for updating the event with round info, check if rounds
+            // exist. If not, return.
+            if (!doRoundsExistForSelectedEvent())
+                return;
+
+            //else update the event's rounds (and the groups within those rounds)
+            strCmd = "SELECT * FROM Groups LEFT JOIN Rounds ON Rounds.roundID = Groups.roundID";
+            strCmd += " WHERE Rounds.eventID = " + g_selectedEvent.nID.ToString() + " ORDER BY Rounds.roundNumber, Groups.ID ASC";
+            dbComm = new OleDbCommand(strCmd, Globals.g_dbConnection);
+            dbAdapter = new OleDbDataAdapter(dbComm);
+            dataSet = new DataSet();
+            try
+            {
+                dbAdapter.Fill(dataSet, "Groups");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show("ERROR 1011: " + ex0.Message);
+                return;
+            }
+
+            //Ini the data objects contained in the event's list of rounds, down to the group level,
+            // so we can modify their properties from the db info (below)
+            g_selectedEvent.lstRounds = new List<Round>(g_selectedEvent.nRounds);
+            int nTeamCount = g_selectedEvent.lstAssignedPlayers.Count / 4;
+            for (int i = 0; i < g_selectedEvent.nRounds; i++)
+            {
+                g_selectedEvent.lstRounds.Add(new Round(i + 1));
+                for (int j = 0; j < nTeamCount; j++) 
+                    g_selectedEvent.lstRounds[i].addGroup(new GroupOfFour(j + 1));
+            }
+
+            //Update the properties of the objects we just initialized (above) with the db rounds/groups info
+            foreach (DataRow dRow in dataSet.Tables["Groups"].Rows)
+            {
+                string strCurrentRound = dRow["roundName"].ToString();
+                int nCurrRound = (int)dRow["roundNumber"];
+                int nCurrGroup = (int)dRow["groupNumber"];
+
+                //Ensure the group and round numbers are as expected (they always will if things are working correctly.)
+                if (g_selectedEvent.lstRounds[nCurrRound - 1].nRoundNumber == nCurrRound &&
+                    g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].nGroupNumber == nCurrGroup)
+                {
+                    //populate round info
+                    g_selectedEvent.lstRounds[nCurrRound - 1].strRoundName = strCurrentRound;
+                    g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerA = getPlayerObjectBtyID((int)dRow["aPlayerID"]);
+                    g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerB = getPlayerObjectBtyID((int)dRow["bPlayerID"]);
+                    g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerC = getPlayerObjectBtyID((int)dRow["cPlayerID"]);
+                    g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerD = getPlayerObjectBtyID((int)dRow["dPlayerID"]);
+                }
+                else
+                    MessageBox.Show("ERROR 1012: An inconsistency was found while populating the event object.");
+            }
+        }
+
+        //Parses all the player objects assigned to g_selectedEvent and returns the one with the specified ID
+        private Player getPlayerObjectBtyID(int id)
+        {
+            foreach (Player p in g_selectedEvent.lstAssignedPlayers)
+                if (p.ID == id)
+                    return p;
+            return null;
         }
 
         //Called on user click Generate Rounds button
