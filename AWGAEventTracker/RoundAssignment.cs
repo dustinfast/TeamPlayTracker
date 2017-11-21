@@ -31,7 +31,7 @@ namespace AWGAEventTracker
             theEvent.lstRounds = new List<Round>(theEvent.nRounds);
             for (int i = 0; i < theEvent.nRounds; i++)
             {
-                theEvent.lstRounds.Add(new Round(i + 1));
+                theEvent.lstRounds.Add(new Round((i + 1), "Week " + (i + 1).ToString()));
                 for (int j = 0; j < nTeamCount; j++) //Note: The number of groups in each round is the same as the number of teams in the event
                     theEvent.lstRounds[i].addGroup(new GroupOfFour(j + 1));
             }
@@ -98,7 +98,7 @@ namespace AWGAEventTracker
                 {
                     //Write the round to the db table Rounds
                     strCmd = "INSERT INTO Rounds (eventID, roundNumber, roundName) ";
-                    strCmd += "VALUES (" + theEvent.nID.ToString() + ", " + round.nRoundNumber.ToString() + ", 'Week " + round.nRoundNumber.ToString() + "'); ";
+                    strCmd += "VALUES (" + theEvent.nID.ToString() + ", " + round.nRoundNumber.ToString() + ", '" + round.strRoundName + "'); ";
                     dbCmd = new OleDbCommand(strCmd, Globals.g_dbConnection);
                     dbCmd.ExecuteNonQuery();
 
