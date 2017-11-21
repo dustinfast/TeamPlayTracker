@@ -14,7 +14,7 @@ namespace AWGAEventTracker
         //The event object passed to the constructor is also updated with the assignments 
         // as an artifiact of this process.
         Event eEvent; //the event passed to constructor
-        Event eBestEvent = null; //The event w the deepest node we were able to assign a player at without duplicates. 
+        Event eBestEvent; //The event w the deepest node we were able to assign a player at without duplicates. 
         int nTeamCount; 
         private List<Player> lstAPlayers;
         private List<Player> lstBPlayers;
@@ -25,6 +25,9 @@ namespace AWGAEventTracker
         public RoundAssignment(Event selectedevent)
         {
             eEvent = selectedevent;
+            eEvent.nAssignmentDepth = 0;
+            eBestEvent = new Event();
+            eBestEvent.nAssignmentDepth = 0;
             nTeamCount = eEvent.lstAssignedPlayers.Count / 4;
 
             //Ini the data objects contained in the event's list of rounds, down to the group level,
@@ -91,10 +94,6 @@ namespace AWGAEventTracker
             if (!bResult)
             {
 
-                //ini the depth of the event
-                
-
-
                 string strTemp = "Success! " + eEvent.nRounds.ToString() + " rounds have been generated. ";
                 strTemp += "However, there were not enough teams to create unique group assignments across all rounds ";
                 strTemp += "- some duplicates will exist.";
@@ -147,6 +146,10 @@ namespace AWGAEventTracker
             int round = -1; //round index
             int group = -1; //group index
             string level = ""; //level requirment
+
+            if (eEvent.nAssignmentDepth == 181) //debug
+                eEvent.nAssignmentDepth = 181;
+
             if (!getNextUnassigned(out round, out group, out level)) //after this call, round, group, and level (above) are populated
                 return true; //recursive base case. Denotes goal state
 
@@ -155,11 +158,11 @@ namespace AWGAEventTracker
             List<Player> players = null; 
             if (level == "A")
                 players = lstAPlayers;
-            if (level == "B")
+            else if (level == "B")
                 players = lstBPlayers;
-            if (level == "C")
+            else if (level == "C")
                 players = lstCPlayers;
-            if (level == "D")
+            else if (level == "D")
                 players = lstDPlayers;
 
             //iterate each "team column" in Nadines spreadsheet and shift each col down by 1 until we find a valid player 
@@ -167,17 +170,23 @@ namespace AWGAEventTracker
             for (int i = 0; i < nTeamCount; i++) 
             {
                 //starting with team 1 for each rounds  
-                int nTeamNumber = 1 - i;
-                if (nTeamNumber <= 0)
-                    nTeamNumber = nTeamNumber + nTeamCount;
-                Player p = players[nTeamNumber - 1];
+                //int nTeamNumber = 1 - i;
+                //if (nTeamNumber <= 0)
+                //    nTeamNumber = nTeamNumber + nTeamCount;
+                Player p = players[i];
 
                 //Check if the player we want to assign to the current slot hs any of the potential group members as constraints
                 // and if if not, assign them. 
                 if (isValidAssignment(round, group, p)) 
                 {
-                    Event eventCopy = eEvent;
+                    Event eventCopy = eEvent; //store a copy of event before making changes, to backtrack to
 
+                    //update assignment depths, then if we're deeper than we've been before set new best event
+                    eEvent.nAssignmentDepth++;
+                    if (eEvent.nAssignmentDepth > eBestEvent.nAssignmentDepth)
+                        eBestEvent = eEvent;
+                    
+                    //Assign player slot, based on the open slot's player level
                     if (level == "A")
                         eEvent.lstRounds[round].lstGroups[group].playerA = p;
                     else if (level == "B")
@@ -188,8 +197,7 @@ namespace AWGAEventTracker
                         eEvent.lstRounds[round].lstGroups[group].playerD = p;
 
                     setConstraints(eEvent.lstRounds[round].lstGroups[group]);
-
-
+                    
                     if (solveRounds())
                         return true;
 
@@ -201,12 +209,12 @@ namespace AWGAEventTracker
         }
 
         //gets the next player spot that needs populating, starting from the last round because
-        // that's when players play themselves. Returns null if none found.
+        // that's when players play themselves. Returns false if no open slot found.
         private bool getNextUnassigned(out int round, out int group, out string level)
         {
             for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
             {
-                for (group = 0; group < nTeamCount; group++) //Iterate every foursome this round will contain (starting from the first) 
+                for (group = 0; group < nTeamCount; group++) //Iterate every foursome this round will contain
                 {
                     if (eEvent.lstRounds[round].lstGroups[group].playerA == null)
                     {
