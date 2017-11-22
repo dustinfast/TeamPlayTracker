@@ -11,8 +11,9 @@ namespace AWGAEventTracker
     class RoundAssignment 
     {
         //Contains the functionality that generates rounds and groups and writes them to the DB. 
-        //The event object passed to the constructor is also updated with the assignments 
-        // as an artifiact of this process.
+        //The event object passed to the constructor is updated with the assignments as a result of this process.
+        //Note that teams will be unique (players never play in a group with someone they've already played with) for 
+        // as long as possible, then allow duplicates to occur.
         Event eEvent; //the event passed to constructor
         Event eBestEvent; //The event w the deepest node we were able to assign a player at without duplicates. 
         int nTeamCount; 
@@ -121,49 +122,47 @@ namespace AWGAEventTracker
 
         //A recursive backtracking function to generate groups for each round using constraint satisfaction.
         //The constraints are that no player can be in a group with a player that they've been in a group with before.
-        //Note: Do not pass index or offset when not calling this function recursively
+        //Note: Do not pass parameters to this function; they are used by the recursive calls only.
         private bool solveRounds(int offset = 0)
         {
             //Get the next unpopulated player slot's round and group index, as well as player level requirement.
             int nRound = -1; //round index
             int nGroup = -1; //group index
-            string level = ""; //level requirment
+            string strLevel = ""; //level requirment
 
-            if (eEvent.nAssignmentDepth == 181) //debug
-                eEvent.nAssignmentDepth = 181;
-
-            if (!getNextUnassigned(out nRound, out nGroup, out level)) //after this call, round, group, and level (above) are populated
+            if (!getNextUnassigned(out nRound, out nGroup, out strLevel)) //after this call, round, group, and level (above) are populated
                 return true; //recursive base case. Denotes goal state
 
             //Ini index, based on the last assigned slot's offset, Unless this is the last round (i.e. the first rond we process), 
             // in that case, do not allow the "team" column to shift (i.e. teams play themselves)
             //Else, offset will later be shifted by one from the given offset like a circular linked list until all indexes are tried.
-            int nOrigOffset = offset;
             int nIndex = 0 + offset;
-            //if (nRound + 1 == eEvent.nRounds)
-            //    nIndex = 0;
+
+            //ini a list of teams. We will try each team number once, removing it from the list as we do
+            List<int> lstTried = new List<int>();
+            for (int i = 0; i < nTeamCount; i++)
+                lstTried.Add(i);
 
             //Iterate each "team column", (i.e. all players of the given level, by team)
             while (true) 
             {
                 nIndex += 1;
-                if (nIndex > nTeamCount && nOrigOffset != 0) //start over from 0th element, since we haven't done 0 through nOrigOffset-1 yet
+                if (nIndex > nTeamCount && lstTried.Count != 0) //start over from 0th element, since we haven't gone 0 through nOrigOffset-1 yet
                     nIndex = 1;
-                else if ((nIndex > nTeamCount && nOrigOffset == 0) || (nIndex == nOrigOffset)) //if we've iterated all players for this level
+                else if (lstTried.Count == 0)
                     break;
 
                 Player p = null;
-                if (level == "A")
+                if (strLevel == "A")
                     p = eEvent.lstTeams[nIndex-1].playerA;
-                else if (level == "B")
+                else if (strLevel == "B")
                     p = eEvent.lstTeams[nIndex-1].playerB;
-                else if (level == "C")
+                else if (strLevel == "C")
                     p = eEvent.lstTeams[nIndex-1].playerC;
-                else if (level == "D")
+                else if (strLevel == "D")
                     p = eEvent.lstTeams[nIndex-1].playerD;
+                lstTried.Remove(nIndex - 1);
 
-                if (p.ID == 12)
-                    offset = 0;
                 //Check if the player we want to assign to the current slot has any of the potential group members as constraints
                 // and if if not, assign them. 
                 if (isValidAssignment(nRound, nGroup, p)) 
@@ -177,13 +176,14 @@ namespace AWGAEventTracker
 
                     //Assign player slot, based on the open slot's player level
                     int nPass = nIndex-1;
-                    if (level == "A")
+                    ////int nPass = (nIndex-1)*nRound;
+                    if (strLevel == "A")
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerA = p;
-                    else if (level == "B")
+                    else if (strLevel == "B")
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerB = p;
-                    else if (level == "C")
+                    else if (strLevel == "C")
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerC = p;
-                    else if (level == "D")
+                    else if (strLevel == "D")
                     {
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerD = p;
                         nPass = 0;
@@ -204,7 +204,8 @@ namespace AWGAEventTracker
         // that's when players play themselves. Returns false if no open slot found.
         private bool getNextUnassigned(out int round, out int group, out string level)
         {
-            for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
+            //for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
+            for (round = 0; round < eEvent.nRounds; round++) //for every round (starting from the first)
             {
                 for (group = 0; group < nTeamCount; group++) //Iterate every foursome this round will contain
                 {
