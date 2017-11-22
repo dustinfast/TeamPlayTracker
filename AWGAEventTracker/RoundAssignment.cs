@@ -16,10 +16,6 @@ namespace AWGAEventTracker
         Event eEvent; //the event passed to constructor
         Event eBestEvent; //The event w the deepest node we were able to assign a player at without duplicates. 
         int nTeamCount; 
-        private List<Player> lstAPlayers;
-        private List<Player> lstBPlayers;
-        private List<Player> lstCPlayers;
-        private List<Player> lstDPlayers;
 
         //Constructor
         public RoundAssignment(Event selectedevent)
@@ -69,22 +65,6 @@ namespace AWGAEventTracker
                 MessageBox.Show("ERROR 1009: Could not get rounds for event.\n" + ex0.Message);
             }
 
-            //Construct lists of A, B, C, and D players
-            //Note that across these lists, players that share an index with a player in 
-            // another list are on the same team.
-            lstAPlayers = new List<Player>();
-            lstBPlayers = new List<Player>();
-            lstCPlayers = new List<Player>();
-            lstDPlayers = new List<Player>();
-
-            for (int i = 0; i < nTeamCount; i++)
-            {
-                lstAPlayers.Add(eEvent.lstTeams[i].playerA);
-                lstBPlayers.Add(eEvent.lstTeams[i].playerB);
-                lstCPlayers.Add(eEvent.lstTeams[i].playerC);
-                lstDPlayers.Add(eEvent.lstTeams[i].playerD);
-            }
-
             //Do the round/group assignments
             bool bResult = solveRounds();
 
@@ -98,6 +78,7 @@ namespace AWGAEventTracker
                 strTemp += "However, there were not enough teams to create unique group assignments across all rounds ";
                 strTemp += "- some duplicates will exist.";
                 MessageBox.Show(strTemp);
+                return false;
             }
 
             //Write the rounds/groups to the DB
@@ -140,65 +121,71 @@ namespace AWGAEventTracker
 
         //A recursive backtracking function to generate groups for each round using constraint satisfaction.
         //The constraints are that no player can be in a group with a player that they've been in a group with before.
-        private bool solveRounds()
+        //Note: Do not pass offset as a parameter - it must only be used when called recursively.
+        private bool solveRounds(int offset = 0)
         {
             //Get the next unpopulated player slot's round and group index, as well as player level requirement.
-            int round = -1; //round index
-            int group = -1; //group index
+            int nRound = -1; //round index
+            int nGroup = -1; //group index
             string level = ""; //level requirment
 
             if (eEvent.nAssignmentDepth == 181) //debug
                 eEvent.nAssignmentDepth = 181;
 
-            if (!getNextUnassigned(out round, out group, out level)) //after this call, round, group, and level (above) are populated
+            if (!getNextUnassigned(out nRound, out nGroup, out level)) //after this call, round, group, and level (above) are populated
                 return true; //recursive base case. Denotes goal state
 
-            //Ini player list to operate on. Will be the list for a player of level A-D, depending on which level of player
-            // the current slot needs.
-            List<Player> players = null; 
-            if (level == "A")
-                players = lstAPlayers;
-            else if (level == "B")
-                players = lstBPlayers;
-            else if (level == "C")
-                players = lstCPlayers;
-            else if (level == "D")
-                players = lstDPlayers;
-
-            //iterate each "team column" in Nadines spreadsheet and shift each col down by 1 until we find a valid player 
-            // assignment for the current player slot.
-            for (int i = 0; i < nTeamCount; i++) 
+            //Iterate each "team column" in Nadines spreadsheet and shifting each col up by 1 until we find a valid player for the current player slot.
+            int nTempOffset = offset;
+            if (nRound + 1 == eEvent.nRounds)
+                offset = 0; //allow the first round we process (i.e. the last round) to not shift the team column at all. 
+            for (int i = 1 + offset; i <= nTeamCount; i++) 
             {
                 //starting with team 1 for each rounds  
                 //int nTeamNumber = 1 - i;
                 //if (nTeamNumber <= 0)
                 //    nTeamNumber = nTeamNumber + nTeamCount;
-                Player p = players[i];
+                //Player p = players[i];
+                Player p = null;
+                if (level == "A")
+                    p = eEvent.lstTeams[i-1].playerA;
+                else if (level == "B")
+                    p = eEvent.lstTeams[i-1].playerB;
+                else if (level == "C")
+                    p = eEvent.lstTeams[i-1].playerC;
+                else if (level == "D")
+                    p = eEvent.lstTeams[i-1].playerD;
 
-                //Check if the player we want to assign to the current slot hs any of the potential group members as constraints
+                if (p.ID == 12)
+                    offset = 0;
+                //Check if the player we want to assign to the current slot has any of the potential group members as constraints
                 // and if if not, assign them. 
-                if (isValidAssignment(round, group, p)) 
+                if (isValidAssignment(nRound, nGroup, p)) 
                 {
-                    Event eventCopy = eEvent; //store a copy of event before making changes, to backtrack to
+                    Event eventCopy = eEvent; //store a copy of event before making changes, in order to backtrack to it if needed.
 
-                    //update assignment depths, then if we're deeper than we've been before set new best event
+                    //update assignment depths, then if we're deeper than we've been before, set new best event
                     eEvent.nAssignmentDepth++;
                     if (eEvent.nAssignmentDepth > eBestEvent.nAssignmentDepth)
                         eBestEvent = eEvent;
                     
                     //Assign player slot, based on the open slot's player level
                     if (level == "A")
-                        eEvent.lstRounds[round].lstGroups[group].playerA = p;
+                        eEvent.lstRounds[nRound].lstGroups[nGroup].playerA = p;
                     else if (level == "B")
-                        eEvent.lstRounds[round].lstGroups[group].playerB = p;
+                        eEvent.lstRounds[nRound].lstGroups[nGroup].playerB = p;
                     else if (level == "C")
-                        eEvent.lstRounds[round].lstGroups[group].playerC = p;
+                        eEvent.lstRounds[nRound].lstGroups[nGroup].playerC = p;
                     else if (level == "D")
-                        eEvent.lstRounds[round].lstGroups[group].playerD = p;
+                        eEvent.lstRounds[nRound].lstGroups[nGroup].playerD = p;
 
-                    setConstraints(eEvent.lstRounds[round].lstGroups[group]);
-                    
-                    if (solveRounds())
+                    setConstraints(nRound, nGroup);
+
+                    //determine offset to pass recursively
+                    int nTeamOffset = 0;
+                    if (i == nTeamCount)
+                        nTeamOffset = i - offset;
+                    if (solveRounds(i))
                         return true;
 
                     eEvent = eventCopy; //if we get here, backtrack and try the next value
@@ -285,8 +272,10 @@ namespace AWGAEventTracker
         }
 
         //Given a GroupOfFour, adds each player to the list of constraints for each other player in that group
-        private void setConstraints(GroupOfFour g)
+        private void setConstraints(int round, int group)
         {
+            GroupOfFour g = eEvent.lstRounds[round].lstGroups[group];
+
             //This is gross. Should do it iteritively 
             if (g.playerA != null)
                 g.playerA.setConstraint(g.playerA.ID);

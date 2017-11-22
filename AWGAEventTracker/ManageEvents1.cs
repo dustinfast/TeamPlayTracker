@@ -455,6 +455,7 @@ namespace AWGAEventTracker
                 strCmd = "SELECT * FROM Teams";
                 strCmd += " WHERE Teams.eventID = " + g_selectedEvent.nID;
                 strCmd += " AND Teams.playerID = " + playerID.ToString();
+                strCmd += " ORDER BY teamName, playerLevel";
                 dbComm = new OleDbCommand(strCmd, Globals.g_dbConnection);
                 dbAdapter = new OleDbDataAdapter(dbComm);
                 dataSet = new DataSet();
