@@ -32,7 +32,7 @@ namespace AWGAEventTracker
             eEvent.lstRounds = new List<Round>(eEvent.nRounds);
             for (int i = 0; i < eEvent.nRounds; i++)
             {
-                eEvent.lstRounds.Add(new Round((i + 1), "Week " + (i + 1).ToString()));
+                eEvent.lstRounds.Add(new Round((eEvent.nRounds - i), "Week " + (eEvent.nRounds - i).ToString()));
                 for (int j = 0; j < nTeamCount; j++) //Note: The number of groups in each round is the same as the number of teams in the event
                     eEvent.lstRounds[i].addGroup(new GroupOfFour(j + 1));
             }
@@ -70,22 +70,20 @@ namespace AWGAEventTracker
             bool bResult = solveRounds();
 
             //If assignments failed, there were not enough teams to create unique group assignments across all rounds, 
-            // so finish up with weaker constraints (allow a B and C player to play on the same group again)
-            // 
             if (!bResult)
             {
-
-                string strTemp = "Success! " + eEvent.nRounds.ToString() + " rounds have been generated. ";
-                strTemp += "However, there were not enough teams to create unique group assignments across all rounds ";
-                strTemp += "- some duplicates will exist.";
+                string strTemp = "Error: Rounds could not be generated because " + nTeamCount + " teams is not enough to create " + eEvent.nRounds + " unique rounds.";
                 MessageBox.Show(strTemp);
                 return false;
             }
 
-            //Write the rounds/groups to the DB
+            //Write the rounds/groups to the DB (in reverse order than how we generated them, hence the stack
+            Stack<Round> sRounds = new Stack<Round>();
+            foreach (Round round in eEvent.lstRounds)
+                sRounds.Push(round);
             try
             {
-                foreach (Round round in eEvent.lstRounds)
+                foreach (Round round in sRounds)
                 {
                     //Write the round to the db table Rounds
                     strCmd = "INSERT INTO Rounds (eventID, roundNumber, roundName) ";
@@ -204,8 +202,8 @@ namespace AWGAEventTracker
         // that's when players play themselves. Returns false if no open slot found.
         private bool getNextUnassigned(out int round, out int group, out string level)
         {
-            //for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
-            for (round = 0; round < eEvent.nRounds; round++) //for every round (starting from the first)
+            //for (round = 0; round < eEvent.nRounds; round++) //for every round (starting from the first)
+            for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
             {
                 for (group = 0; group < nTeamCount; group++) //Iterate every foursome this round will contain
                 {
