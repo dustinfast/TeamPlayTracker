@@ -121,7 +121,7 @@ namespace AWGAEventTracker
 
         //A recursive backtracking function to generate groups for each round using constraint satisfaction.
         //The constraints are that no player can be in a group with a player that they've been in a group with before.
-        //Note: Do not pass offset as a parameter - it must only be used when called recursively.
+        //Note: Do not pass index or offset when not calling this function recursively
         private bool solveRounds(int offset = 0)
         {
             //Get the next unpopulated player slot's round and group index, as well as player level requirement.
@@ -135,26 +135,32 @@ namespace AWGAEventTracker
             if (!getNextUnassigned(out nRound, out nGroup, out level)) //after this call, round, group, and level (above) are populated
                 return true; //recursive base case. Denotes goal state
 
-            //Iterate each "team column" in Nadines spreadsheet and shifting each col up by 1 until we find a valid player for the current player slot.
-            int nTempOffset = offset;
-            if (nRound + 1 == eEvent.nRounds)
-                offset = 0; //allow the first round we process (i.e. the last round) to not shift the team column at all. 
-            for (int i = 1 + offset; i <= nTeamCount; i++) 
+            //Ini index, based on the last assigned slot's offset, Unless this is the last round (i.e. the first rond we process), 
+            // in that case, do not allow the "team" column to shift (i.e. teams play themselves)
+            //Else, offset will later be shifted by one from the given offset like a circular linked list until all indexes are tried.
+            int nOrigOffset = offset;
+            int nIndex = 0 + offset;
+            //if (nRound + 1 == eEvent.nRounds)
+            //    nIndex = 0;
+
+            //Iterate each "team column", (i.e. all players of the given level, by team)
+            while (true) 
             {
-                //starting with team 1 for each rounds  
-                //int nTeamNumber = 1 - i;
-                //if (nTeamNumber <= 0)
-                //    nTeamNumber = nTeamNumber + nTeamCount;
-                //Player p = players[i];
+                nIndex += 1;
+                if (nIndex > nTeamCount && nOrigOffset != 0) //start over from 0th element, since we haven't done 0 through nOrigOffset-1 yet
+                    nIndex = 1;
+                else if ((nIndex > nTeamCount && nOrigOffset == 0) || (nIndex == nOrigOffset)) //if we've iterated all players for this level
+                    break;
+
                 Player p = null;
                 if (level == "A")
-                    p = eEvent.lstTeams[i-1].playerA;
+                    p = eEvent.lstTeams[nIndex-1].playerA;
                 else if (level == "B")
-                    p = eEvent.lstTeams[i-1].playerB;
+                    p = eEvent.lstTeams[nIndex-1].playerB;
                 else if (level == "C")
-                    p = eEvent.lstTeams[i-1].playerC;
+                    p = eEvent.lstTeams[nIndex-1].playerC;
                 else if (level == "D")
-                    p = eEvent.lstTeams[i-1].playerD;
+                    p = eEvent.lstTeams[nIndex-1].playerD;
 
                 if (p.ID == 12)
                     offset = 0;
@@ -168,8 +174,9 @@ namespace AWGAEventTracker
                     eEvent.nAssignmentDepth++;
                     if (eEvent.nAssignmentDepth > eBestEvent.nAssignmentDepth)
                         eBestEvent = eEvent;
-                    
+
                     //Assign player slot, based on the open slot's player level
+                    int nPass = nIndex-1;
                     if (level == "A")
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerA = p;
                     else if (level == "B")
@@ -177,22 +184,20 @@ namespace AWGAEventTracker
                     else if (level == "C")
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerC = p;
                     else if (level == "D")
+                    {
                         eEvent.lstRounds[nRound].lstGroups[nGroup].playerD = p;
+                        nPass = 0;
+                    }
 
                     setConstraints(nRound, nGroup);
-
-                    //determine offset to pass recursively
-                    int nTeamOffset = 0;
-                    if (i == nTeamCount)
-                        nTeamOffset = i - offset;
-                    if (solveRounds(i))
+                    
+                    if (solveRounds(nPass))
                         return true;
 
-                    eEvent = eventCopy; //if we get here, backtrack and try the next value
+                    eEvent = eventCopy; //If we made it here, we're backtracking from the previous node
                 }
             }
-            return false; //if we get here, no valid assignment was found.
-
+            return false;
         }
 
         //gets the next player spot that needs populating, starting from the last round because
