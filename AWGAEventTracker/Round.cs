@@ -8,6 +8,7 @@ namespace AWGAEventTracker
 {
     class Round
     {
+        public int nID { get; set;  }
         public int nRoundNumber { get; set; }
         public string strRoundName { get; set; }
         public List<GroupOfFour> lstGroups;

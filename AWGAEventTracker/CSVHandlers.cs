@@ -20,7 +20,7 @@ namespace AWGAEventTracker
             string dbCmd = "SELECT * FROM Teams";
             dbCmd += " LEFT JOIN Players ON Teams.playerID = Players.playerID";
             dbCmd += " WHERE Teams.eventID = " + e.nID;
-            dbCmd += " ORDER BY Teams.teamName, Teams.playerLevel";
+            dbCmd += " ORDER BY Teams.teamNumber, Teams.playerLevel";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -43,17 +43,17 @@ namespace AWGAEventTracker
             }
 
             //build the CSV output string
-            string strPrevTeamName = dataSet.Tables["Teams"].Rows[0]["teamName"].ToString();
+            string strPrevteamNumber = dataSet.Tables["Teams"].Rows[0]["teamNumber"].ToString();
             string strOutput = e.strName + " Teams\n\nTeam 1\n"; //Main header and team 1 header
             foreach (DataRow dRow in dataSet.Tables["Teams"].Rows)
             {
-                string strTeamName = dRow["teamName"].ToString();
+                string strteamNumber = dRow["teamNumber"].ToString();
 
                 //if we're starting a new team, add team header (i.e. Team name and an empty line)
-                if (strPrevTeamName != strTeamName)
+                if (strPrevteamNumber != strteamNumber)
                 {
-                    strOutput += "\nTeam " + strTeamName + "\n";
-                    strPrevTeamName = strTeamName;
+                    strOutput += "\nTeam " + strteamNumber + "\n";
+                    strPrevteamNumber = strteamNumber;
                 }
 
                 //Add the player in this row to the output
@@ -70,7 +70,7 @@ namespace AWGAEventTracker
                 System.IO.Directory.CreateDirectory(strOutputDir); //Create temp dir if it doesn't already exist
                 System.IO.File.WriteAllText(strOutputFile, strOutput); //Create file with strOutput as the content
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("ERROR: Could not write output file.\nEnsure you are not already viewing teams for this event.");
                 return;
@@ -123,7 +123,7 @@ namespace AWGAEventTracker
                 System.IO.Directory.CreateDirectory(strOutputDir); //Create temp dir if it doesn't already exist
                 System.IO.File.WriteAllText(strOutputFile, strOutput); //Create file with strOutput as the content
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("ERROR: Could not write output file.\nEnsure you are not already viewing rounds for this event.");
                 return;

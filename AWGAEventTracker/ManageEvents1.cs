@@ -442,7 +442,7 @@ namespace AWGAEventTracker
                 return;
 
             //else do player/team object population
-            int nTeamName = -1;
+            int nteamNumber = -1;
             string strPlayerLevel = "";
 
             //ini the event objects team list
@@ -462,14 +462,14 @@ namespace AWGAEventTracker
                 strCmd = "SELECT * FROM Teams";
                 strCmd += " WHERE Teams.eventID = " + g_selectedEvent.nID;
                 strCmd += " AND Teams.playerID = " + playerID.ToString();
-                strCmd += " ORDER BY teamName, playerLevel";
+                strCmd += " ORDER BY teamNumber, playerLevel";
                 dbComm = new OleDbCommand(strCmd, Globals.g_dbConnection);
                 dbAdapter = new OleDbDataAdapter(dbComm);
                 dataSet = new DataSet();
                 try
                 {
                     dbAdapter.Fill(dataSet, "Teams");
-                    int.TryParse(dataSet.Tables["Teams"].Rows[0]["teamName"].ToString(), out nTeamName);
+                    int.TryParse(dataSet.Tables["Teams"].Rows[0]["teamNumber"].ToString(), out nteamNumber);
                     strPlayerLevel = dataSet.Tables["Teams"].Rows[0]["playerLevel"].ToString();
                 }
                 catch (Exception ex0)
@@ -479,18 +479,18 @@ namespace AWGAEventTracker
                 }
 
                 //update the player object
-                (g_selectedEvent.lstAssignedPlayers[i] as Player).teamName = nTeamName;
+                (g_selectedEvent.lstAssignedPlayers[i] as Player).teamNumber = nteamNumber;
                 (g_selectedEvent.lstAssignedPlayers[i] as Player).level = strPlayerLevel;
 
                 //update the event's team object 
                 if (strPlayerLevel == "A")
-                    g_selectedEvent.lstTeams[nTeamName-1].playerA = (g_selectedEvent.lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nteamNumber-1].playerA = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "B")
-                    g_selectedEvent.lstTeams[nTeamName-1].playerB = (g_selectedEvent.lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nteamNumber-1].playerB = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "C")
-                    g_selectedEvent.lstTeams[nTeamName-1].playerC = (g_selectedEvent.lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nteamNumber-1].playerC = (g_selectedEvent.lstAssignedPlayers[i] as Player);
                 else if (strPlayerLevel == "D")
-                    g_selectedEvent.lstTeams[nTeamName-1].playerD = (g_selectedEvent.lstAssignedPlayers[i] as Player);
+                    g_selectedEvent.lstTeams[nteamNumber-1].playerD = (g_selectedEvent.lstAssignedPlayers[i] as Player);
             }
 
             //In preperation for updating the event with round info, check if rounds
@@ -538,6 +538,7 @@ namespace AWGAEventTracker
                 {
                     //populate round info
                     g_selectedEvent.lstRounds[nCurrRound - 1].strRoundName = strCurrentRound;
+                    g_selectedEvent.lstRounds[nCurrRound - 1].nID = (int)dRow["Rounds.roundID"];
                     g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerA = getPlayerObjectBtyID((int)dRow["aPlayerID"]);
                     g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerB = getPlayerObjectBtyID((int)dRow["bPlayerID"]);
                     g_selectedEvent.lstRounds[nCurrRound - 1].lstGroups[nCurrGroup - 1].playerC = getPlayerObjectBtyID((int)dRow["cPlayerID"]);
@@ -587,15 +588,8 @@ namespace AWGAEventTracker
         private void buttonEnterScores_Click(object sender, EventArgs e)
         {
             //opens the Enter scores per round dialog box
-            EnterScores dlg = new EnterScores();
-            dlg.nCurrRound = 1;
-            dlg.nCurrGroup = 1;
-            dlg.nNextRound = 1;
-            dlg.nNextGroup = 2;
+            EnterScores dlg = new EnterScores(g_selectedEvent);
             dlg.ShowDialog();
-
-            //if(dlg.DialogResult == DialogResult.)
-
         }
     }
 }

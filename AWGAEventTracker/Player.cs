@@ -12,7 +12,7 @@ namespace AWGAEventTracker
         public int handicap { get; set; }
         public string level { get; set; } //i.e. A, B, C, D
         public string displayName { get; } //lname + "," + fname
-        public int teamName { get; set; }
+        public int teamNumber { get; set; }
         public List<int> lstConstraints; //The constraints on this players schedule. I.e. a list of player IDs this player has been scheduled to play against. Used during round generation.
         public string fName { get; set; }
         public string lName { get; set; }
