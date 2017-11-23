@@ -14,9 +14,9 @@ namespace AWGAEventTracker
         public string displayName { get; } //lname + "," + fname
         public int teamName { get; set; }
         public List<int> lstConstraints; //The constraints on this players schedule. I.e. a list of player IDs this player has been scheduled to play against. Used during round generation.
-        private string fName;
-        private string lName;
-        private string phone;
+        public string fName { get; set; }
+        public string lName { get; set; }
+        public string phone { get; set; }
 
         public Player(int playerid, int playerhandicap, string fname, string lname, string playerphone, string playerlevel)
         {

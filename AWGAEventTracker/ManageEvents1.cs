@@ -98,7 +98,7 @@ namespace AWGAEventTracker
             buttonViewTeams.Enabled = bTeamsResult;
 
             bool bRoundsResult = doRoundsExistForSelectedEvent();
-            GeneratePairings.Enabled = !bRoundsResult;
+            buttonGenerateRounds.Enabled = !bRoundsResult;
             //buttonViewPairings.Enabled = bRoundsResult;
             if (bTeamsResult || bRoundsResult)
                 updateObjects(); //update the players objects, as well as the event's teams, rounds, and groups objects.
@@ -551,7 +551,7 @@ namespace AWGAEventTracker
         }
 
         //Called on user click Generate Rounds button
-        private void GeneratePairings_Click(object sender, EventArgs e)
+        private void buttonGenerateRounds_Click(object sender, EventArgs e)
         {
             // Generate pairings for the rounds tab
             RoundAssignment ra = new RoundAssignment(g_selectedEvent);
@@ -559,8 +559,16 @@ namespace AWGAEventTracker
 
             //on success, set the Generate Rounds button state to disabled.
             if (bResult)
-                GeneratePairings.Enabled = !bResult;
+                buttonGenerateRounds.Enabled = !bResult;
             
+        }
+
+        //Called on user click View Rounds
+        private void buttonViewRounds_Click(object sender, EventArgs e)
+        {
+            //Generates a CSV file with all the round and group assignments, then display it in Excel (or other default)
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenRoundsCSV(g_selectedEvent);
         }
     }
 }

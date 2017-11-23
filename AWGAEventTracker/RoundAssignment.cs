@@ -113,7 +113,7 @@ namespace AWGAEventTracker
                 return false;
             }
 
-            MessageBox.Show("Success! " + eEvent.nRounds.ToString() + " rounds have been generated.");
+            MessageBox.Show("Success! " + eEvent.nRounds.ToString() + " rounds have been generated. Click the \'View Rounds\' button to view them.");
             
             return bResult;
         }
@@ -202,8 +202,8 @@ namespace AWGAEventTracker
         // that's when players play themselves. Returns false if no open slot found.
         private bool getNextUnassigned(out int round, out int group, out string level)
         {
-            //for (round = 0; round < eEvent.nRounds; round++) //for every round (starting from the first)
-            for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
+            //for (round = eEvent.nRounds - 1; round >= 0; round--) //for every round (starting from the last)
+            for (round = 0; round < eEvent.nRounds; round++) //for every round (starting from the first)
             {
                 for (group = 0; group < nTeamCount; group++) //Iterate every foursome this round will contain
                 {

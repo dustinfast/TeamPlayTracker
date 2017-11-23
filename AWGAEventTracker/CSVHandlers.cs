@@ -11,7 +11,10 @@ namespace AWGAEventTracker
 {
     class CSVHandlers
     {
-        //builds a csv file from the teams of eventname, having an event id of eventid
+        //Builds a csv file from the teams of eventname, having an event id of e.nID.
+        //We are getting the data from the database itself rather than the event object (like we 
+        // do in the other buildAndOpenCSV functions in this class because at the time, 
+        // those obejcts didn't exist
         public void buildAndOpenTeamsCSV(Event e)
         {
             string dbCmd = "SELECT * FROM Teams";
@@ -35,7 +38,7 @@ namespace AWGAEventTracker
             //Ensure teams exists
             if (dataSet.Tables["Teams"].Rows.Count <= 0)
             {
-                MessageBox.Show("ERROR: No Teams exist for this event."); 
+                MessageBox.Show("No Teams exist for this event."); 
                 return;
             }
 
@@ -77,17 +80,65 @@ namespace AWGAEventTracker
             openFile(strOutputFile);
         }
 
-        public void buildAndOpenRoundsCSV(string eventid, string eventname)
+        public void buildAndOpenRoundsCSV(Event e)
+        {
+            //TODO: Ensure rounds exist, else return
+            
+            //Since group[0] is actually the final round, we must read the list of rounds in reverse order. So push to stack then read
+            Stack<Round> sRounds = new Stack<Round>();
+            foreach (Round round in e.lstRounds)
+                sRounds.Push(round);
+
+            //build the CSV output string
+            string strPrevRoundName = "";
+            string strOutput = e.strName + " Rounds\nNote: Players play teammates during the last round.\n"; //Main header and round 1 header
+            foreach (Round r in sRounds)
+            {
+                string strRoundName = r.strRoundName;
+
+                //if we're starting a new round, add round header (i.e. Round name and an empty line)
+                if (strPrevRoundName != strRoundName)
+                {
+                    strOutput += "\n" + strRoundName;
+                    strPrevRoundName = strRoundName;
+                }
+
+                int nGroupName = 0;
+                foreach (GroupOfFour g in r.lstGroups)
+                {
+                    nGroupName += 1;
+                    strOutput += "\n,Flight " + nGroupName.ToString() + "\n";
+                    strOutput += ",A," + g.playerA.fName + ", " + g.playerA.lName + ", " + g.playerA.phone + "\n";
+                    strOutput += ",B," + g.playerB.fName + ", " + g.playerB.lName + ", " + g.playerB.phone + "\n";
+                    strOutput += ",C," + g.playerC.fName + ", " + g.playerC.lName + ", " + g.playerC.phone + "\n";
+                    strOutput += ",D," + g.playerD.fName + ", " + g.playerD.lName + ", " + g.playerD.phone + "\n";
+                }
+            }
+
+            //Write the output string to a file
+            string strOutputDir = "TemporaryFiles";
+            string strOutputFile = strOutputDir + "\\" + e.strName + "Rounds.csv";
+            try
+            {
+                System.IO.Directory.CreateDirectory(strOutputDir); //Create temp dir if it doesn't already exist
+                System.IO.File.WriteAllText(strOutputFile, strOutput); //Create file with strOutput as the content
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR: Could not write output file.\nEnsure you are not already viewing rounds for this event.");
+                return;
+            }
+
+            //Open the file
+            openFile(strOutputFile);
+        }
+
+        public void buildAndOpenScoresCSV(Event e)
         {
             //Not implemented
         }
 
-        public void buildAndOpenScoresCSV(string eventid, string eventname)
-        {
-            //Not implemented
-        }
-
-        public void buildAndOpenResultsCSV(string eventid, string eventname)
+        public void buildAndOpenResultsCSV(Event e)
         {
             //Not implemented
         }
