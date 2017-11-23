@@ -107,7 +107,7 @@ namespace AWGAEventTracker
                 foreach (GroupOfFour g in r.lstGroups)
                 {
                     nGroupName += 1;
-                    strOutput += "\n,Flight " + nGroupName.ToString() + "\n";
+                    strOutput += "\n,Group " + nGroupName.ToString() + "\n";
                     strOutput += ",A," + g.playerA.fName + ", " + g.playerA.lName + ", " + g.playerA.phone + "\n";
                     strOutput += ",B," + g.playerB.fName + ", " + g.playerB.lName + ", " + g.playerB.phone + "\n";
                     strOutput += ",C," + g.playerC.fName + ", " + g.playerC.lName + ", " + g.playerC.phone + "\n";

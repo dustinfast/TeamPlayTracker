@@ -606,7 +606,7 @@
             // 
             // buttonViewScores
             // 
-            this.buttonViewScores.Location = new System.Drawing.Point(176, 101);
+            this.buttonViewScores.Location = new System.Drawing.Point(176, 103);
             this.buttonViewScores.Name = "buttonViewScores";
             this.buttonViewScores.Size = new System.Drawing.Size(138, 39);
             this.buttonViewScores.TabIndex = 5;
@@ -615,12 +615,13 @@
             // 
             // buttonEnterScores
             // 
-            this.buttonEnterScores.Location = new System.Drawing.Point(32, 101);
+            this.buttonEnterScores.Location = new System.Drawing.Point(32, 103);
             this.buttonEnterScores.Name = "buttonEnterScores";
             this.buttonEnterScores.Size = new System.Drawing.Size(138, 39);
             this.buttonEnterScores.TabIndex = 4;
             this.buttonEnterScores.Text = "Enter Round Scores";
             this.buttonEnterScores.UseVisualStyleBackColor = true;
+            this.buttonEnterScores.Click += new System.EventHandler(this.buttonEnterScores_Click);
             // 
             // groupBox5
             // 
@@ -632,7 +633,7 @@
             this.groupBox5.Size = new System.Drawing.Size(368, 161);
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Rounds Assignments";
+            this.groupBox5.Text = "Round Assignments";
             // 
             // label4
             // 
@@ -645,7 +646,7 @@
             // 
             // buttonViewRounds
             // 
-            this.buttonViewRounds.Location = new System.Drawing.Point(176, 108);
+            this.buttonViewRounds.Location = new System.Drawing.Point(176, 112);
             this.buttonViewRounds.Name = "buttonViewRounds";
             this.buttonViewRounds.Size = new System.Drawing.Size(138, 39);
             this.buttonViewRounds.TabIndex = 3;
@@ -655,7 +656,7 @@
             // 
             // buttonGenerateRounds
             // 
-            this.buttonGenerateRounds.Location = new System.Drawing.Point(32, 108);
+            this.buttonGenerateRounds.Location = new System.Drawing.Point(32, 112);
             this.buttonGenerateRounds.Name = "buttonGenerateRounds";
             this.buttonGenerateRounds.Size = new System.Drawing.Size(138, 39);
             this.buttonGenerateRounds.TabIndex = 2;

@@ -94,6 +94,12 @@
       <DependentUpon>CreateNewEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="CSVHandlers.cs" />
+    <Compile Include="EnterScores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnterScores.Designer.cs">
+      <DependentUpon>EnterScores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Event.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="GroupOfFour.cs" />
@@ -124,6 +130,9 @@
     <Compile Include="TeamAssignment.cs" />
     <EmbeddedResource Include="CreateNewEvent.resx">
       <DependentUpon>CreateNewEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnterScores.resx">
+      <DependentUpon>EnterScores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

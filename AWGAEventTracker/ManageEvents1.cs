@@ -582,5 +582,20 @@ namespace AWGAEventTracker
             CSVHandlers h = new CSVHandlers();
             h.buildAndOpenRoundsCSV(g_selectedEvent);
         }
+
+        //called on user click Enter Scores
+        private void buttonEnterScores_Click(object sender, EventArgs e)
+        {
+            //opens the Enter scores per round dialog box
+            EnterScores dlg = new EnterScores();
+            dlg.nCurrRound = 1;
+            dlg.nCurrGroup = 1;
+            dlg.nNextRound = 1;
+            dlg.nNextGroup = 2;
+            dlg.ShowDialog();
+
+            //if(dlg.DialogResult == DialogResult.)
+
+        }
     }
 }
