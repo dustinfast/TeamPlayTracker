@@ -161,10 +161,21 @@ namespace AWGAEventTracker
                 strACmd = "UPDATE Scores SET puttScore = " + nAPutts + ", pointScore = " + nAScore + ", isSubstitution = " + nASub;
                 strACmd += " WHERE playerID = " + nAID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
                 strACmd += " AND groupNumber = " + (round+1) + " AND teamNumber = " + nATeamID;
+
+                strBCmd = "UPDATE Scores SET puttScore = " + nBPutts + ", pointScore = " + nBScore + ", isSubstitution = " + nBSub;
+                strBCmd += " WHERE playerID = " + nBID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
+                strBCmd += " AND groupNumber = " + (round + 1) + " AND teamNumber = " + nBTeamID;
+
+                strCCmd = "UPDATE Scores SET puttScore = " + nCPutts + ", pointScore = " + nCScore + ", isSubstitution = " + nCSub;
+                strCCmd += " WHERE playerID = " + nCID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
+                strCCmd += " AND groupNumber = " + (round + 1) + " AND teamNumber = " + nCTeamID;
+
+                strDCmd = "UPDATE Scores SET puttScore = " + nDPutts + ", pointScore = " + nDScore + ", isSubstitution = " + nDSub;
+                strDCmd += " WHERE playerID = " + nDID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
+                strDCmd += " AND groupNumber = " + (round + 1) + " AND teamNumber = " + nDTeamID;
             }
             else
             {
-          
                 strACmd = "INSERT INTO Scores (playerID, roundID, roundNumber, groupNumber, puttScore, pointScore, isSubstitution, teamNumber, eventID) ";
                 strACmd += "VALUES (" + nAID + "," + nRoundID + "," + (round + 1) + "," + (group + 1) + "," + nAPutts + "," + nAScore + ",";
                 strACmd += nASub + "," + nATeamID + "," + theEvent.nID + ")";
@@ -190,9 +201,9 @@ namespace AWGAEventTracker
             try
             {
                 cmdA.ExecuteNonQuery();
-                //cmdB.ExecuteNonQuery();
-                //cmdC.ExecuteNonQuery();
-                //cmdD.ExecuteNonQuery();
+                cmdB.ExecuteNonQuery();
+                cmdC.ExecuteNonQuery();
+                cmdD.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
