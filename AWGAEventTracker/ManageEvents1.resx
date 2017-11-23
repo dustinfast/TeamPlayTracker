@@ -149,7 +149,7 @@ These items are not available if rounds have not been generated (above).</value>
 composed of an A, B, C, and D level player. On the last round, flights
 consist of team members. 
 
-Note: 
-Teams must be assigned before rounds can be generated.</value>
+Note:
+These items are not available if teams have not been assigned (Teams tab).</value>
   </data>
 </root>

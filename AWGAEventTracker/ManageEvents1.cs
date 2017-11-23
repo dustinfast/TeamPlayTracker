@@ -91,15 +91,22 @@ namespace AWGAEventTracker
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
 
-            //Set Teams tab button states (enabled/disabled) and update player/team objects 
-            // with their associated team and level.
+            //Set button states (enabled/disabled) based on existence of Teams
             bool bTeamsResult = doTeamsExistForSelectedEvent();
             buttonGenerateTeams.Enabled = !bTeamsResult;
             buttonViewTeams.Enabled = bTeamsResult;
+            buttonGenerateRounds.Enabled = bTeamsResult;
 
+            //Set button states (enabled/disabled) based on existence of Rounds
             bool bRoundsResult = doRoundsExistForSelectedEvent();
-            buttonGenerateRounds.Enabled = !bRoundsResult;
-            //buttonViewPairings.Enabled = bRoundsResult;
+            buttonViewRounds.Enabled = bRoundsResult;
+            buttonEnterScores.Enabled = bRoundsResult;
+            buttonViewScores.Enabled = bRoundsResult;
+            if (bTeamsResult)
+                buttonGenerateRounds.Enabled = !bRoundsResult;
+            else
+                buttonGenerateRounds.Enabled = bRoundsResult;
+
             if (bTeamsResult || bRoundsResult)
                 updateObjects(); //update the players objects, as well as the event's teams, rounds, and groups objects.
 
@@ -559,7 +566,12 @@ namespace AWGAEventTracker
 
             //on success, set the Generate Rounds button state to disabled.
             if (bResult)
+            {
                 buttonGenerateRounds.Enabled = !bResult;
+                buttonViewRounds.Enabled = bResult;
+                buttonEnterScores.Enabled = bResult;
+                buttonViewScores.Enabled = bResult;
+            }
             
         }
 

@@ -73,6 +73,7 @@
             this.buttonViewTeams = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.buttonViewScores = new System.Windows.Forms.Button();
             this.buttonEnterScores = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -82,7 +83,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -595,6 +595,15 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Round Scores";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 25);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(353, 65);
+            this.label12.TabIndex = 6;
+            this.label12.Text = resources.GetString("label12.Text");
+            // 
             // buttonViewScores
             // 
             this.buttonViewScores.Location = new System.Drawing.Point(176, 101);
@@ -630,7 +639,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(343, 78);
+            this.label4.Size = new System.Drawing.Size(363, 78);
             this.label4.TabIndex = 3;
             this.label4.Text = resources.GetString("label4.Text");
             // 
@@ -685,15 +694,6 @@
             this.buttonClose.Text = "OK";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 25);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(353, 65);
-            this.label12.TabIndex = 6;
-            this.label12.Text = resources.GetString("label12.Text");
             // 
             // ManageEvents1
             // 
