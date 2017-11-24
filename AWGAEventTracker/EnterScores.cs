@@ -24,11 +24,12 @@ namespace AWGAEventTracker
         //called on form load
         private void EnterScores_Load(object sender, EventArgs e)
         {
+            //Starts the "enter scores" process with round 1, group 1.
             populateData(0, 0, 0, 1);
         }
 
         //Populates the form, given a round and group. Assumes isValidGroup(round, group) == true
-        private bool populateData(int round, int group, int nextround, int nextgroup)
+        private void populateData(int round, int group, int nextround, int nextgroup)
         {
             //populate curr and next
             labelCurrRound.Text = (round + 1).ToString();
@@ -43,10 +44,71 @@ namespace AWGAEventTracker
             labelCPlayer.Text = g.playerC.displayName.PadRight(21).Substring(0, 21);
             labelDPlayer.Text = g.playerD.displayName.PadRight(21).Substring(0, 21);
 
-            //TODO: Get scores from db for current round/group and populate scores/subs
+            //Get scores from db for current round/group and populate scores/subs if they exist. Else populate with zeroes.
+            if (!doScoresExistFor(theEvent.nID, (round + 1), (group + 1)))
+            {
+                textBoxAPutts.Text = "0";
+                textBoxBPutts.Text = "0";
+                textBoxCPutts.Text = "0";
+                textBoxDPutts.Text = "0";
+                textBoxAScore.Text = "0";
+                textBoxBScore.Text = "0";
+                textBoxCScore.Text = "0";
+                textBoxDScore.Text = "0";
+                checkBoxASub.Checked = false;
+                checkBoxBSub.Checked = false;
+                checkBoxCSub.Checked = false;
+                checkBoxDSub.Checked = false;
+            }
+            else
+            {
+                string strCmd = "SELECT * FROM Scores WHERE eventID = " + theEvent.nID;
+                strCmd += " AND roundNumber = " + (round + 1) + " AND groupNumber = " + (group + 1);
+                strCmd += " ORDER BY rowID ASC";
+                OleDbCommand dbCmd = new OleDbCommand(strCmd, Globals.g_dbConnection);
+                OleDbDataAdapter dbAdapter = new OleDbDataAdapter(dbCmd);
+                DataSet dataSet = new DataSet();
+                try
+                {
+                    dbAdapter.Fill(dataSet, "Scores");
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR 1013: Could not write to database.\n" + ex.Message);
+                    return;
+                }
 
-
-            return false;
+                int nRow = 0;
+                foreach (DataRow r in dataSet.Tables["Scores"].Rows)
+                {
+                    if (nRow == 0) //0th element
+                    {
+                        textBoxAPutts.Text = r["puttScore"].ToString();
+                        textBoxAScore.Text = r["pointScore"].ToString();
+                        checkBoxASub.Checked = Convert.ToBoolean(r["isSubstitution"].ToString());
+                    }
+                    else if (nRow == 1)
+                    {
+                        textBoxBScore.Text = r["pointScore"].ToString();
+                        textBoxBPutts.Text = r["puttScore"].ToString();
+                        checkBoxBSub.Checked = Convert.ToBoolean(r["isSubstitution"].ToString());
+                    }
+                    else if (nRow == 2)
+                    {
+                        textBoxCPutts.Text = r["puttScore"].ToString();
+                        textBoxCScore.Text = r["pointScore"].ToString();
+                        checkBoxCSub.Checked = Convert.ToBoolean(r["isSubstitution"].ToString());
+                    }
+                    else if (nRow == 3)
+                    {
+                        textBoxDPutts.Text = r["puttScore"].ToString();
+                        textBoxDScore.Text = r["pointScore"].ToString();
+                        checkBoxDSub.Checked = Convert.ToBoolean(r["isSubstitution"].ToString());
+                    }
+                    nRow++;
+                }
+            }
         }
 
         //Validates a round/group. Return true iff valid
@@ -156,23 +218,23 @@ namespace AWGAEventTracker
             string strDCmd = "";
 
             //if scores for this round/group already exist, update them. Else insert them
-            if (doScoresExistFor(theEvent.nID, nRoundID, (round + 1), (group + 1))) 
+            if (doScoresExistFor(theEvent.nID, (round + 1), (group + 1))) 
             {
                 strACmd = "UPDATE Scores SET puttScore = " + nAPutts + ", pointScore = " + nAScore + ", isSubstitution = " + nASub;
                 strACmd += " WHERE playerID = " + nAID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
-                strACmd += " AND groupNumber = " + (round+1) + " AND teamNumber = " + nATeamID;
+                strACmd += " AND groupNumber = " + (group + 1) + " AND teamNumber = " + nATeamID;
 
                 strBCmd = "UPDATE Scores SET puttScore = " + nBPutts + ", pointScore = " + nBScore + ", isSubstitution = " + nBSub;
                 strBCmd += " WHERE playerID = " + nBID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
-                strBCmd += " AND groupNumber = " + (round + 1) + " AND teamNumber = " + nBTeamID;
+                strBCmd += " AND groupNumber = " + (group + 1) + " AND teamNumber = " + nBTeamID;
 
                 strCCmd = "UPDATE Scores SET puttScore = " + nCPutts + ", pointScore = " + nCScore + ", isSubstitution = " + nCSub;
                 strCCmd += " WHERE playerID = " + nCID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
-                strCCmd += " AND groupNumber = " + (round + 1) + " AND teamNumber = " + nCTeamID;
+                strCCmd += " AND groupNumber = " + (group + 1) + " AND teamNumber = " + nCTeamID;
 
                 strDCmd = "UPDATE Scores SET puttScore = " + nDPutts + ", pointScore = " + nDScore + ", isSubstitution = " + nDSub;
                 strDCmd += " WHERE playerID = " + nDID + " AND roundID = " + nRoundID + " AND roundNumber = " + (round + 1);
-                strDCmd += " AND groupNumber = " + (round + 1) + " AND teamNumber = " + nDTeamID;
+                strDCmd += " AND groupNumber = " + (group + 1) + " AND teamNumber = " + nDTeamID;
             }
             else
             {
@@ -207,7 +269,7 @@ namespace AWGAEventTracker
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR: Could not write to database due to an error.\n" + ex.Message);
+                MessageBox.Show("ERROR 1013: Could not write to database.\n" + ex.Message);
                 return;
             }
         }
@@ -239,9 +301,9 @@ namespace AWGAEventTracker
         }
 
         //returns the rowID 
-        private bool doScoresExistFor(int eventid, int roundid, int roundnum, int groupnum)
+        private bool doScoresExistFor(int eventid, int roundnum, int groupnum)
         {
-            string strCmd = "SELECT COUNT (*) FROM Scores WHERE eventID = " + eventid + " AND roundID = " + roundid;
+            string strCmd = "SELECT COUNT (*) FROM Scores WHERE eventID = " + eventid;
             strCmd += " AND roundNumber = " + roundnum + " AND groupNumber = " + groupnum;
             OleDbCommand dbCmd = new OleDbCommand(strCmd, Globals.g_dbConnection);
             if ((int)dbCmd.ExecuteScalar() > 0)
