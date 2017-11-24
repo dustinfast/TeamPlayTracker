@@ -612,6 +612,7 @@
             this.buttonViewScores.TabIndex = 5;
             this.buttonViewScores.Text = "View Round Scores";
             this.buttonViewScores.UseVisualStyleBackColor = true;
+            this.buttonViewScores.Click += new System.EventHandler(this.buttonViewScores_Click);
             // 
             // buttonEnterScores
             // 
@@ -692,7 +693,7 @@
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(69, 34);
             this.buttonClose.TabIndex = 7;
-            this.buttonClose.Text = "OK";
+            this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 

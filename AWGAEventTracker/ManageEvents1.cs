@@ -591,5 +591,12 @@ namespace AWGAEventTracker
             EnterScores dlg = new EnterScores(g_selectedEvent);
             dlg.ShowDialog();
         }
+
+        private void buttonViewScores_Click(object sender, EventArgs e)
+        {
+            //Generates a CSV file with all the scores then displays it in Excel (or similiar)
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenScoresCSV(g_selectedEvent);
+        }
     }
 }
