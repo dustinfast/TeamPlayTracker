@@ -76,14 +76,14 @@ namespace AWGAEventTracker
                 return;
 
             //Since group[0] is actually the final round, we must read the list of rounds in reverse order. So push to stack then read
-            Stack<Round> sRounds = new Stack<Round>();
-            foreach (Round round in e.lstRounds)
-                sRounds.Push(round);
+            //Stack<Round> sRounds = new Stack<Round>();
+            //foreach (Round round in e.lstRounds)
+            //    sRounds.Push(round);
 
             //build the CSV output string
             string strPrevRoundName = "";
             string strOutput = e.strName + " Rounds\nNote: Players play teammates during the last round.\n"; //Main header and round 1 header
-            foreach (Round r in sRounds)
+            foreach (Round r in e.lstRounds)
             {
                 string strRoundName = r.strRoundName;
 

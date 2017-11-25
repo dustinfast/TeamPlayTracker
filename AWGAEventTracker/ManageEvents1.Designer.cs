@@ -65,21 +65,16 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.buttonGenerateTeams = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.buttonViewTeams = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.buttonViewScores = new System.Windows.Forms.Button();
-            this.buttonEnterScores = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonViewScores = new System.Windows.Forms.Button();
+            this.buttonEnterScores = new System.Windows.Forms.Button();
             this.buttonViewRounds = new System.Windows.Forms.Button();
             this.buttonGenerateRounds = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.buttonGenerateTeams = new System.Windows.Forms.Button();
+            this.buttonViewTeams = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
@@ -89,11 +84,8 @@
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,7 +126,6 @@
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage5);
-            this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Controls.Add(this.tabPage4);
             this.tabControl.Enabled = false;
             this.tabControl.Location = new System.Drawing.Point(8, 40);
@@ -269,7 +260,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(136, 43);
+            this.label14.Location = new System.Drawing.Point(159, 43);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(110, 13);
@@ -290,7 +281,7 @@
             // labelFinalResultsStatus
             // 
             this.labelFinalResultsStatus.AutoSize = true;
-            this.labelFinalResultsStatus.Location = new System.Drawing.Point(248, 63);
+            this.labelFinalResultsStatus.Location = new System.Drawing.Point(271, 63);
             this.labelFinalResultsStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFinalResultsStatus.Name = "labelFinalResultsStatus";
             this.labelFinalResultsStatus.Size = new System.Drawing.Size(27, 13);
@@ -310,7 +301,7 @@
             // labelRoundCount
             // 
             this.labelRoundCount.AutoSize = true;
-            this.labelRoundCount.Location = new System.Drawing.Point(248, 22);
+            this.labelRoundCount.Location = new System.Drawing.Point(271, 22);
             this.labelRoundCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelRoundCount.Name = "labelRoundCount";
             this.labelRoundCount.Size = new System.Drawing.Size(27, 13);
@@ -320,7 +311,7 @@
             // labelRoundsWResultsCount
             // 
             this.labelRoundsWResultsCount.AutoSize = true;
-            this.labelRoundsWResultsCount.Location = new System.Drawing.Point(248, 43);
+            this.labelRoundsWResultsCount.Location = new System.Drawing.Point(271, 43);
             this.labelRoundsWResultsCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelRoundsWResultsCount.Name = "labelRoundsWResultsCount";
             this.labelRoundsWResultsCount.Size = new System.Drawing.Size(27, 13);
@@ -330,7 +321,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(174, 63);
+            this.label8.Location = new System.Drawing.Point(197, 63);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(70, 13);
@@ -340,7 +331,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(172, 22);
+            this.label7.Location = new System.Drawing.Point(195, 22);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 13);
@@ -385,7 +376,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage2.Size = new System.Drawing.Size(374, 332);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Players";
+            this.tabPage2.Text = "Step 1: Assign Players";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // labelAssignedCount
@@ -492,121 +483,45 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.groupBox5);
             this.tabPage5.Controls.Add(this.groupBox4);
-            this.tabPage5.Controls.Add(this.groupBox3);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage5.Size = new System.Drawing.Size(374, 332);
             this.tabPage5.TabIndex = 3;
-            this.tabPage5.Text = "Teams";
+            this.tabPage5.Text = "Step 2: Teams/Rounds";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
+            // groupBox5
             // 
-            this.groupBox4.Controls.Add(this.buttonGenerateTeams);
-            this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Location = new System.Drawing.Point(3, 3);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(368, 204);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Generate Teams";
+            this.groupBox5.Controls.Add(this.label4);
+            this.groupBox5.Controls.Add(this.buttonViewScores);
+            this.groupBox5.Controls.Add(this.buttonEnterScores);
+            this.groupBox5.Controls.Add(this.buttonViewRounds);
+            this.groupBox5.Controls.Add(this.buttonGenerateRounds);
+            this.groupBox5.Location = new System.Drawing.Point(0, 142);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(368, 185);
+            this.groupBox5.TabIndex = 6;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Round Assignments";
             // 
-            // buttonGenerateTeams
+            // label4
             // 
-            this.buttonGenerateTeams.Location = new System.Drawing.Point(80, 145);
-            this.buttonGenerateTeams.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonGenerateTeams.Name = "buttonGenerateTeams";
-            this.buttonGenerateTeams.Size = new System.Drawing.Size(189, 45);
-            this.buttonGenerateTeams.TabIndex = 1;
-            this.buttonGenerateTeams.Text = "Generate Teams";
-            this.buttonGenerateTeams.UseVisualStyleBackColor = true;
-            this.buttonGenerateTeams.Click += new System.EventHandler(this.buttonGenerateTeams_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 27);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(351, 104);
-            this.label10.TabIndex = 0;
-            this.label10.Text = resources.GetString("label10.Text");
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.buttonViewTeams);
-            this.groupBox3.Location = new System.Drawing.Point(3, 211);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(368, 119);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "View Teams";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 23);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(336, 26);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Click \"View Teams\" to display teams by player level. This button is not\r\navailabl" +
-    "e if teams have not yet been generated (above).";
-            // 
-            // buttonViewTeams
-            // 
-            this.buttonViewTeams.Location = new System.Drawing.Point(80, 61);
-            this.buttonViewTeams.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonViewTeams.Name = "buttonViewTeams";
-            this.buttonViewTeams.Size = new System.Drawing.Size(189, 45);
-            this.buttonViewTeams.TabIndex = 0;
-            this.buttonViewTeams.Text = "View Teams";
-            this.buttonViewTeams.UseVisualStyleBackColor = true;
-            this.buttonViewTeams.Click += new System.EventHandler(this.buttonViewTeams_Click);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Controls.Add(this.groupBox5);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(374, 332);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Rounds";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.label12);
-            this.groupBox7.Controls.Add(this.buttonViewScores);
-            this.groupBox7.Controls.Add(this.buttonEnterScores);
-            this.groupBox7.Location = new System.Drawing.Point(3, 170);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(368, 151);
-            this.groupBox7.TabIndex = 7;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Round Scores";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 25);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(353, 65);
-            this.label12.TabIndex = 6;
-            this.label12.Text = resources.GetString("label12.Text");
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(350, 39);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Click \"Generate Rounds\" to create groups for each round. Each group is\r\ncomposed " +
+    "of an A, B, C, and D level player. On the last round, groups\r\nconsist of team me" +
+    "mbers. ";
             // 
             // buttonViewScores
             // 
-            this.buttonViewScores.Location = new System.Drawing.Point(176, 103);
+            this.buttonViewScores.Location = new System.Drawing.Point(177, 131);
             this.buttonViewScores.Name = "buttonViewScores";
             this.buttonViewScores.Size = new System.Drawing.Size(138, 39);
             this.buttonViewScores.TabIndex = 5;
@@ -616,7 +531,7 @@
             // 
             // buttonEnterScores
             // 
-            this.buttonEnterScores.Location = new System.Drawing.Point(32, 103);
+            this.buttonEnterScores.Location = new System.Drawing.Point(33, 131);
             this.buttonEnterScores.Name = "buttonEnterScores";
             this.buttonEnterScores.Size = new System.Drawing.Size(138, 39);
             this.buttonEnterScores.TabIndex = 4;
@@ -624,30 +539,9 @@
             this.buttonEnterScores.UseVisualStyleBackColor = true;
             this.buttonEnterScores.Click += new System.EventHandler(this.buttonEnterScores_Click);
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Controls.Add(this.buttonViewRounds);
-            this.groupBox5.Controls.Add(this.buttonGenerateRounds);
-            this.groupBox5.Location = new System.Drawing.Point(3, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(368, 161);
-            this.groupBox5.TabIndex = 5;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Round Assignments";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(363, 78);
-            this.label4.TabIndex = 3;
-            this.label4.Text = resources.GetString("label4.Text");
-            // 
             // buttonViewRounds
             // 
-            this.buttonViewRounds.Location = new System.Drawing.Point(176, 112);
+            this.buttonViewRounds.Location = new System.Drawing.Point(177, 86);
             this.buttonViewRounds.Name = "buttonViewRounds";
             this.buttonViewRounds.Size = new System.Drawing.Size(138, 39);
             this.buttonViewRounds.TabIndex = 3;
@@ -657,13 +551,61 @@
             // 
             // buttonGenerateRounds
             // 
-            this.buttonGenerateRounds.Location = new System.Drawing.Point(32, 112);
+            this.buttonGenerateRounds.Location = new System.Drawing.Point(33, 86);
             this.buttonGenerateRounds.Name = "buttonGenerateRounds";
             this.buttonGenerateRounds.Size = new System.Drawing.Size(138, 39);
             this.buttonGenerateRounds.TabIndex = 2;
             this.buttonGenerateRounds.Text = "Generate Rounds";
             this.buttonGenerateRounds.UseVisualStyleBackColor = true;
             this.buttonGenerateRounds.Click += new System.EventHandler(this.buttonGenerateRounds_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.buttonGenerateTeams);
+            this.groupBox4.Controls.Add(this.buttonViewTeams);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Location = new System.Drawing.Point(3, 3);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Size = new System.Drawing.Size(368, 134);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Team Assignments";
+            // 
+            // buttonGenerateTeams
+            // 
+            this.buttonGenerateTeams.Location = new System.Drawing.Point(30, 79);
+            this.buttonGenerateTeams.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonGenerateTeams.Name = "buttonGenerateTeams";
+            this.buttonGenerateTeams.Size = new System.Drawing.Size(138, 39);
+            this.buttonGenerateTeams.TabIndex = 1;
+            this.buttonGenerateTeams.Text = "Generate Teams";
+            this.buttonGenerateTeams.UseVisualStyleBackColor = true;
+            this.buttonGenerateTeams.Click += new System.EventHandler(this.buttonGenerateTeams_Click);
+            // 
+            // buttonViewTeams
+            // 
+            this.buttonViewTeams.Location = new System.Drawing.Point(174, 79);
+            this.buttonViewTeams.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonViewTeams.Name = "buttonViewTeams";
+            this.buttonViewTeams.Size = new System.Drawing.Size(138, 39);
+            this.buttonViewTeams.TabIndex = 0;
+            this.buttonViewTeams.Text = "View Teams";
+            this.buttonViewTeams.UseVisualStyleBackColor = true;
+            this.buttonViewTeams.Click += new System.EventHandler(this.buttonViewTeams_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 20);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(339, 39);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "\"Generate Teams\" automatically assigns every player in this event a\r\nlevel (A-D, " +
+    "based on handicap) and subsequently builds teams of four, \r\nwith each team conta" +
+    "ining one player from each level.";
             // 
             // tabPage4
             // 
@@ -673,7 +615,7 @@
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(374, 332);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "Results";
+            this.tabPage4.Text = "Step 3: Results";
             // 
             // label5
             // 
@@ -719,15 +661,10 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage5.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
@@ -742,7 +679,6 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonClose;
@@ -777,18 +713,14 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button buttonGenerateTeams;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonViewTeams;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button buttonGenerateRounds;
         private System.Windows.Forms.Label labelAssignedCount;
         private System.Windows.Forms.Label labelUnassignedCount;
-        private System.Windows.Forms.Button buttonViewRounds;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button buttonViewScores;
         private System.Windows.Forms.Button buttonEnterScores;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button buttonViewRounds;
+        private System.Windows.Forms.Button buttonGenerateRounds;
     }
 }

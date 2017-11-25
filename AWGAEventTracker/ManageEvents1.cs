@@ -163,13 +163,8 @@ namespace AWGAEventTracker
             labelPlayerCount.Text = (playerNum).ToString();
 
             // If teams exist, count number of teams and display in events page
-            // also update player objects with their team assignment, level, etc.
-            if (doTeamsExistForSelectedEvent() == true)
-            {
-                labelTeamCount.Text = displayNumberOfTeams().ToString();
-            }
-            else
-                labelTeamCount.Text = "N/A";
+            labelTeamCount.Text = displayNumberOfTeams().ToString();
+            
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Assumes g_selectedEvent.strAssignedPlayers is populated.
@@ -346,6 +341,13 @@ namespace AWGAEventTracker
         //Called on user click Teams:Generate Teams button. 
         private void buttonGenerateTeams_Click(object sender, EventArgs e)
         {
+            //Confirm user action
+            string strMsg = "You may no longer make changes to the players assigned to this event in Step 1 ";
+            strMsg += "after this action is performed. Are you sure you want to proceed?";
+            DialogResult dlgResult = MessageBox.Show(strMsg, "Are you sure?", MessageBoxButtons.YesNo);
+            if (dlgResult != DialogResult.Yes)
+                return;
+
             //Calls a function (generateTeams()) that ensures no teams have been assigned for this event and that numPlayers is divisible by four. 
             //Generates numPlayers/4 teams of four players each (one for each level, A-D)
             //The function returns a bool denoting the state of what the Generate Teams button should be. True = enabled, False = disabled.
@@ -429,7 +431,7 @@ namespace AWGAEventTracker
                 return rowCount.ToString();
             }
             else
-                return "N/A";
+                return "Unassigned";
         }
 
         //For each player object, updates that object with that player's assigned level (A-D)
@@ -598,5 +600,6 @@ namespace AWGAEventTracker
             CSVHandlers h = new CSVHandlers();
             h.buildAndOpenScoresCSV(g_selectedEvent);
         }
+
     }
 }

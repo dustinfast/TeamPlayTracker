@@ -117,13 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Enter scores for each round by clicking "Enter Round Scores". You may
-view existing scores by clicking "View Scores".
-
-Note: 
-These items are not available if rounds have not been generated (above).</value>
-  </data>
   <data name="label21.Text" xml:space="preserve">
     <value>Setup: Use the Players and Teams tab to set up the event.
 
@@ -133,23 +126,5 @@ Results: At the conclusion of the event, use the Results tab to process
 and display final results.
 
 </value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Click "Generate Teams" to automatically assign every player in this event
-a level (A-D, based on handicap) and subsequently build teams of four 
-with each team containing one player from each level.
-
-Note:
-Total number of players in the event must be a multiple of 4.
-After generating teams, players cannot be added to or removed from this
-event, and teams will be locked.</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Click "Generate Rounds" to create groups for each round. Each group is
-composed of an A, B, C, and D level player. On the last round, groups
-consist of team members. 
-
-Note:
-These items are not available if teams have not been assigned (Teams tab).</value>
   </data>
 </root>
