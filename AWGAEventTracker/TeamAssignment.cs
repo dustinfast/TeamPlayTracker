@@ -20,7 +20,7 @@ namespace AWGAEventTracker
 
         private struct TeamTry
         {
-            public double nVariance;
+            public double nHeuristic;
             public List<Player> lstTeams;
         }
 
@@ -60,16 +60,17 @@ namespace AWGAEventTracker
             //List<Player> teams = new List<Player>();
 
             //do team gen 1000 times and pick the best
-            Dictionary<double, List<Player>> dictPossibleTeams = new Dictionary<double, List<Player>>();
+            SortedDictionary<double, List<Player>> dictPossibleTeams = new SortedDictionary<double, List<Player>>();
 
-            for (int i = 0; i < 5; i++)
+            Cursor.Current = Cursors.WaitCursor;
+            for (int i = 0; i < 1000; i++)
             {
                 TeamTry t = new TeamTry();
                 t = generateTeams(eventid, playerobjects);
 
                 try
                 {
-                    dictPossibleTeams.Add(t.nVariance, t.lstTeams);
+                    dictPossibleTeams.Add(t.nHeuristic, t.lstTeams);
                 }
                 catch (Exception)
                 { } //if we fail to add to the dict, it's because a try with the same variance already exists. We don't care if that fails.
@@ -94,6 +95,7 @@ namespace AWGAEventTracker
                 if ((i + 1) % 4 == 0)
                     nteamNumber++;
             }
+            Cursor.Current = Cursors.Default;
 
             MessageBox.Show("Success! " + (nteamNumber - 1).ToString() + " teams for this event have been generated. Click the \'View Teams' button to view them.");
             return false;
@@ -212,11 +214,11 @@ namespace AWGAEventTracker
             Double dblVariance = 0;
             for (int i = 0; i < lstAverages.Count; i++)
                 dblVariance += Math.Pow(dblGrandAvg - lstAverages[i], 2);
-
+            dblVariance = dblVariance / lstAverages.Count;
 
             TeamTry t = new TeamTry();
             t.lstTeams = teams;
-            t.nVariance = dblVariance;
+            t.nHeuristic = Math.Sqrt(dblVariance); //i.e. standard deviation
 
             return t;
         }

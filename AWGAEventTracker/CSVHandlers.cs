@@ -57,8 +57,8 @@ namespace AWGAEventTracker
                 }
 
                 //Add the player in this row to the output
-                //strOutput += dRow["playerLevel"].ToString() + " (" + dRow["handicap"].ToString() + "),"; //player level and handicap
-                strOutput += dRow["handicap"].ToString() + ","; //player level and handicap
+                //strOutput += dRow["handicap"].ToString() + ","; //playerhandicap
+                strOutput += dRow["playerLevel"].ToString() + " (" + dRow["handicap"].ToString() + "),"; //player level and handicap
                 strOutput += dRow["fName"].ToString() + "," + dRow["lName"].ToString() + ","; //player name
                 strOutput += dRow["phone"].ToString() + "\n";
             }
@@ -75,11 +75,6 @@ namespace AWGAEventTracker
             //Ensure rounds exist, else return
             if (e.lstRounds == null || e.lstRounds[0].lstGroups[0] == null)
                 return;
-
-            //Since group[0] is actually the final round, we must read the list of rounds in reverse order. So push to stack then read
-            //Stack<Round> sRounds = new Stack<Round>();
-            //foreach (Round round in e.lstRounds)
-            //    sRounds.Push(round);
 
             //build the CSV output string
             string strPrevRoundName = "";
