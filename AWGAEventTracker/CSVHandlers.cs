@@ -115,7 +115,7 @@ namespace AWGAEventTracker
             string dbCmd = "SELECT * FROM Scores";
             dbCmd += " LEFT JOIN Players ON Scores.playerID = Players.playerID";
             dbCmd += " WHERE Scores.eventID = " + e.nID;
-            dbCmd += " ORDER BY Players.lName, Scores.roundNumber";
+            dbCmd += " ORDER BY Players.lName, Players.fName";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -140,7 +140,7 @@ namespace AWGAEventTracker
             //Start building the CSV output string
             int nPrevPlayerID = -1;
             int nRowCount = 0;
-            string strOutput = e.strName + " Scores\n\n"; //Title 
+            string strOutput = ""; // e.strName + " Scores\n\n"; //Title 
 
             //build column headers
             strOutput += " ,Last Name,First Name,Team,Position,"; 
@@ -158,11 +158,12 @@ namespace AWGAEventTracker
                 foreach (Player p in e.lstAssignedPlayers)
                     if (p.ID == nPlayerID)
                         strPlayerLevel = p.level;
-                nRowCount++;
-
+                
                 //Start a new player line
                 if (nPrevPlayerID != nPlayerID)
                 {
+                    nRowCount++;
+                    nPrevPlayerID = nPlayerID;
                     strOutput += nRowCount.ToString() + "," + dRow["lName"].ToString() + "," + dRow["fName"].ToString() + ",";
                     strOutput += dRow["teamNumber"].ToString() + "," + strPlayerLevel + ",";
 
@@ -198,15 +199,18 @@ namespace AWGAEventTracker
                             strOutput += "s";
                         strOutput += ",";
                     }
-
-                    strOutput += nTotalPoints.ToString() + ",";
+                    
                     if (!bSubFlag)
+                    {
+                        strOutput += nTotalPoints.ToString() + ",";
                         strOutput += nTotalPutts.ToString();
+                    }
                     else
-                        strOutput += "n/e";
+                    {
+                        strOutput += nTotalPoints.ToString() + "s,";
+                        strOutput += nTotalPutts.ToString() + "s";
+                    }
                     strOutput += "\n";
-
-                    nPrevPlayerID = nPlayerID;
                 }
             }
 

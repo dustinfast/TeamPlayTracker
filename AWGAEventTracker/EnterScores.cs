@@ -14,18 +14,20 @@ namespace AWGAEventTracker
     partial class EnterScores : Form
     {
         Event theEvent;
+        public int nBegin;
         
-        public EnterScores(Event e)
+        public EnterScores(Event e, int round)
         {
             theEvent = e;
+            nBegin = round;
             InitializeComponent();
         }
 
         //called on form load
         private void EnterScores_Load(object sender, EventArgs e)
         {
-            //Starts the "enter scores" process with round 1, group 1.
-            populateData(0, 0, 0, 1);
+            //Starts the "enter scores" process with round 1, group 1 (unless otherwise specified by jumpto)
+            populateData((nBegin-1), 0, (nBegin - 1), 1);
         }
 
         //Populates the form, given a round and group. Assumes isValidGroup(round, group) == true

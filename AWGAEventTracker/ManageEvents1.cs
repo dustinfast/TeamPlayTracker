@@ -143,6 +143,7 @@ namespace AWGAEventTracker
             g_selectedEvent.strName = dataSet.Tables["Events"].Rows[0]["eventName"].ToString();
             labelRoundCount.Text = dataSet.Tables["Events"].Rows[0]["numRounds"].ToString();
             int.TryParse(dataSet.Tables["Events"].Rows[0]["numRounds"].ToString(), out nTemp);
+            numericJumpTo.Maximum = nTemp;
             g_selectedEvent.nRounds = nTemp;
             string strStartDate = dataSet.Tables["Events"].Rows[0]["startDate"].ToString();
             string strEndDate = dataSet.Tables["Events"].Rows[0]["endDate"].ToString();
@@ -589,7 +590,7 @@ namespace AWGAEventTracker
         private void buttonEnterScores_Click(object sender, EventArgs e)
         {
             //opens the Enter scores per round dialog box
-            EnterScores dlg = new EnterScores(g_selectedEvent);
+            EnterScores dlg = new EnterScores(g_selectedEvent, (int)numericJumpTo.Value);
             dlg.ShowDialog();
         }
 
@@ -599,6 +600,5 @@ namespace AWGAEventTracker
             CSVHandlers h = new CSVHandlers();
             h.buildAndOpenScoresCSV(g_selectedEvent);
         }
-
     }
 }
