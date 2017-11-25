@@ -205,7 +205,7 @@ namespace AWGAEventTracker
             textBoxEditID.Text = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
             textBoxEditFN.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
             textBoxEditLN.Text = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
-            textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
+            textBoxEditPhone.Text = dataGridView.SelectedRows[0].Cells[3].Value.ToString().Replace("-", "").Replace(".", ""); ;
             textBoxEditHandicap.Text = dataGridView.SelectedRows[0].Cells[4].Value.ToString();
 
             //handle phone numbers w no area code
@@ -336,7 +336,6 @@ namespace AWGAEventTracker
 
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
-            // Insert a try around this query exexute 
             if (command.ExecuteNonQuery() == 0)
             {
                 MessageBox.Show("ERROR: Could modify user due to an unspecified database error.");
@@ -371,22 +370,22 @@ namespace AWGAEventTracker
 
             return phone;
         }
-        private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            toolTipPhoneNum.ToolTipTitle = "Invalid Input";
-            toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxAddPhone, textBoxAddPhone.Location, 5000);
+        //private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        //{
+        //    toolTipPhoneNum.ToolTipTitle = "Invalid Input";
+        //    toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxAddPhone, textBoxAddPhone.Location, 5000);
 
-        }
+        //}
 
-        private void toolTipPhoneNum_Popup(object sender, PopupEventArgs e)
-        {
+        //private void toolTipPhoneNum_Popup(object sender, PopupEventArgs e)
+        //{
 
-        }
-        private void textBoxEditPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-            toolTipPhoneNum.ToolTipTitle = "Invalid Input";
-            toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxEditPhone, textBoxEditPhone.Location, 5000);
+        //}
+        //private void textBoxEditPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        //{
+        //    toolTipPhoneNum.ToolTipTitle = "Invalid Input";
+        //    toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxEditPhone, textBoxEditPhone.Location, 5000);
 
-        }
+        //}
     }
 }

@@ -176,7 +176,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(222, 47);
+            this.label12.Location = new System.Drawing.Point(289, 47);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(34, 13);
             this.label12.TabIndex = 12;
@@ -185,11 +185,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(270, 47);
+            this.label13.Location = new System.Drawing.Point(219, 47);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(38, 13);
+            this.label13.Size = new System.Drawing.Size(39, 13);
             this.label13.TabIndex = 13;
-            this.label13.Text = "Score:";
+            this.label13.Text = "Points:";
             // 
             // checkBoxASub
             // 
@@ -233,7 +233,7 @@
             // 
             // textBoxAPutts
             // 
-            this.textBoxAPutts.Location = new System.Drawing.Point(224, 66);
+            this.textBoxAPutts.Location = new System.Drawing.Point(291, 66);
             this.textBoxAPutts.Name = "textBoxAPutts";
             this.textBoxAPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxAPutts.TabIndex = 1;
@@ -241,7 +241,7 @@
             // 
             // textBoxAScore
             // 
-            this.textBoxAScore.Location = new System.Drawing.Point(272, 66);
+            this.textBoxAScore.Location = new System.Drawing.Point(221, 66);
             this.textBoxAScore.Name = "textBoxAScore";
             this.textBoxAScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxAScore.TabIndex = 2;
@@ -249,7 +249,7 @@
             // 
             // textBoxBPutts
             // 
-            this.textBoxBPutts.Location = new System.Drawing.Point(224, 92);
+            this.textBoxBPutts.Location = new System.Drawing.Point(291, 92);
             this.textBoxBPutts.Name = "textBoxBPutts";
             this.textBoxBPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxBPutts.TabIndex = 4;
@@ -257,7 +257,7 @@
             // 
             // textBoxBScore
             // 
-            this.textBoxBScore.Location = new System.Drawing.Point(272, 92);
+            this.textBoxBScore.Location = new System.Drawing.Point(221, 92);
             this.textBoxBScore.Name = "textBoxBScore";
             this.textBoxBScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxBScore.TabIndex = 5;
@@ -265,7 +265,7 @@
             // 
             // textBoxDScore
             // 
-            this.textBoxDScore.Location = new System.Drawing.Point(272, 145);
+            this.textBoxDScore.Location = new System.Drawing.Point(221, 145);
             this.textBoxDScore.Name = "textBoxDScore";
             this.textBoxDScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxDScore.TabIndex = 11;
@@ -273,7 +273,7 @@
             // 
             // textBoxDPutts
             // 
-            this.textBoxDPutts.Location = new System.Drawing.Point(224, 145);
+            this.textBoxDPutts.Location = new System.Drawing.Point(291, 145);
             this.textBoxDPutts.Name = "textBoxDPutts";
             this.textBoxDPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxDPutts.TabIndex = 10;
@@ -281,7 +281,7 @@
             // 
             // textBoxCScore
             // 
-            this.textBoxCScore.Location = new System.Drawing.Point(272, 119);
+            this.textBoxCScore.Location = new System.Drawing.Point(221, 119);
             this.textBoxCScore.Name = "textBoxCScore";
             this.textBoxCScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxCScore.TabIndex = 8;
@@ -289,7 +289,7 @@
             // 
             // textBoxCPutts
             // 
-            this.textBoxCPutts.Location = new System.Drawing.Point(224, 119);
+            this.textBoxCPutts.Location = new System.Drawing.Point(291, 119);
             this.textBoxCPutts.Name = "textBoxCPutts";
             this.textBoxCPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxCPutts.TabIndex = 7;
@@ -370,7 +370,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 247);
+            this.ClientSize = new System.Drawing.Size(438, 247);
             this.Controls.Add(this.labelAPlayer);
             this.Controls.Add(this.labelCurrGroup);
             this.Controls.Add(this.textBoxNextGroup);

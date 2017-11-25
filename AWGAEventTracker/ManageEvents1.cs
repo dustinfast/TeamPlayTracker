@@ -164,7 +164,6 @@ namespace AWGAEventTracker
 
             // If teams exist, count number of teams and display in events page
             labelTeamCount.Text = displayNumberOfTeams().ToString();
-            
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Assumes g_selectedEvent.strAssignedPlayers is populated.
@@ -574,8 +573,8 @@ namespace AWGAEventTracker
                 buttonViewRounds.Enabled = bResult;
                 buttonEnterScores.Enabled = bResult;
                 buttonViewScores.Enabled = bResult;
+                populateEvent();
             }
-            
         }
 
         //Called on user click View Rounds

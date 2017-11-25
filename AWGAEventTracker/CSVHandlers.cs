@@ -154,13 +154,17 @@ namespace AWGAEventTracker
             foreach (DataRow dRow in dataSet.Tables["Scores"].Rows)
             {
                 int nPlayerID = (int)dRow["Scores.playerID"];
+                string strPlayerLevel = "X";
+                foreach (Player p in e.lstAssignedPlayers)
+                    if (p.ID == nPlayerID)
+                        strPlayerLevel = p.level;
                 nRowCount++;
 
                 //Start a new player line
                 if (nPrevPlayerID != nPlayerID)
                 {
                     strOutput += nRowCount.ToString() + "," + dRow["lName"].ToString() + "," + dRow["fName"].ToString() + ",";
-                    strOutput += dRow["teamNumber"].ToString() + "," + "X" + ",";
+                    strOutput += dRow["teamNumber"].ToString() + "," + strPlayerLevel + ",";
 
                     int nTotalPoints = 0;
                     int nTotalPutts = 0;
