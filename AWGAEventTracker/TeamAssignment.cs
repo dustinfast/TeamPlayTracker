@@ -11,13 +11,20 @@ namespace AWGAEventTracker
 {
     class TeamAssignment
     {
-        //Constains a single function that generates teams from a list of player objects.
+        //Generates 1000 different variations of teams and then chooses the "best" among them to be 
+        // the team assignments. "Best" is defined as having the lowest variance among the avarage player handicap per team.
         //Before proceeding, ensures teams have not yet been generated for this event 
         // and that the number of players assigned is divisible by four. Then generates 
         // numPlayers/4 teams of four players each. Returns a bool denoting the status 
         // of what the Generate Teams button should be. I.e. True = enabled, False = disabled.
 
-        public bool generateTeams(int eventid, List<Player> playerobjects)
+        private struct TeamTry
+        {
+            public double nVariance;
+            public List<Player> lstTeams;
+        }
+
+        public bool generateBestTeams(int eventid, List<Player> playerobjects)
         {
             //Ensure teams for this eventID do not already exist
             string dbCmd = "SELECT * FROM Teams WHERE eventID = " + eventid;
@@ -49,6 +56,52 @@ namespace AWGAEventTracker
                 return true;
             }
 
+            //Container for the teams. Will contain members of all players in chunks of 4, denoting team assignment.
+            //List<Player> teams = new List<Player>();
+
+            //do team gen 1000 times and pick the best
+            Dictionary<double, List<Player>> dictPossibleTeams = new Dictionary<double, List<Player>>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                TeamTry t = new TeamTry();
+                t = generateTeams(eventid, playerobjects);
+
+                try
+                {
+                    dictPossibleTeams.Add(t.nVariance, t.lstTeams);
+                }
+                catch (Exception)
+                { } //if we fail to add to the dict, it's because a try with the same variance already exists. We don't care if that fails.
+            }
+
+            List<Player> teams = dictPossibleTeams.First().Value;
+
+            //Write the teams to the database
+            int nteamNumber = 1;
+            for (int i = 0; i < teams.Count; i++)
+            {
+                string strCmd = "INSERT INTO Teams (eventID, playerID, teamNumber, playerLevel)";
+                strCmd = strCmd + "VALUES (" + eventid + ", " + teams[i].ID + ", " + nteamNumber + ", '" + teams[i].level + "')";
+
+                OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
+
+                if (command.ExecuteNonQuery() == 0)
+                {
+                    MessageBox.Show("ERROR: Could not generate teams due to an unspecified database error.");
+                    return true;
+                }
+                if ((i + 1) % 4 == 0)
+                    nteamNumber++;
+            }
+
+            MessageBox.Show("Success! " + (nteamNumber - 1).ToString() + " teams for this event have been generated. Click the \'View Teams' button to view them.");
+            return false;
+
+        }
+
+        private TeamTry generateTeams(int eventid, List<Player> playerobjects)
+        {
             //A copy of the player objects in g_lstAssignedPlayers, but this one is sorted by handicap (lowest to highest)
             List<Player> players = playerobjects.OrderBy(o => o.handicap).ToList();
 
@@ -139,27 +192,34 @@ namespace AWGAEventTracker
                 teams.Add(dPlayers[i]);
             }
 
-            //Write the teams to the database
-            int nteamNumber = 1;
+            //determine variance across team handicap averages.
+            List<Double> lstAverages = new List<Double>(teams.Count/4);
+            Double dblAvg = 0;
             for (int i = 0; i < teams.Count; i++)
             {
-                string strCmd = "INSERT INTO Teams (eventID, playerID, teamNumber, playerLevel)";
-                strCmd = strCmd + "VALUES (" + eventid + ", " + teams[i].ID + ", " + nteamNumber + ", '" + teams[i].level + "')";
-
-                OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
-
-                if (command.ExecuteNonQuery() == 0)
+                dblAvg += teams[i].handicap/4.0;
+                if (i % 4 == 3)
                 {
-                    MessageBox.Show("ERROR: Could not generate teams due to an unspecified database error.");
-                    return true;
+                    lstAverages.Add(dblAvg);
+                    dblAvg = 0;
                 }
-                if ((i + 1) % 4 == 0)
-                    nteamNumber++;
             }
 
-            MessageBox.Show("Success! " + (nteamNumber -1).ToString() + " teams for this event have been generated. Click the \'View Teams' button to view them.");
-            return false;
+            Double dblGrandAvg = 0;
+            for (int i = 0; i < lstAverages.Count; i++)
+                dblGrandAvg += lstAverages[i] / lstAverages.Count;
 
+            Double dblVariance = 0;
+            for (int i = 0; i < lstAverages.Count; i++)
+                dblVariance += Math.Pow(dblGrandAvg - lstAverages[i], 2);
+
+
+            TeamTry t = new TeamTry();
+            t.lstTeams = teams;
+            t.nVariance = dblVariance;
+
+            return t;
         }
+
     }
 }

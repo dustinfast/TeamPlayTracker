@@ -352,7 +352,7 @@ namespace AWGAEventTracker
             //Generates numPlayers/4 teams of four players each (one for each level, A-D)
             //The function returns a bool denoting the state of what the Generate Teams button should be. True = enabled, False = disabled.
             TeamAssignment t = new TeamAssignment();
-            bool bResult = t.generateTeams(g_selectedEvent.nID, g_selectedEvent.lstAssignedPlayers.ToList());
+            bool bResult = t.generateBestTeams(g_selectedEvent.nID, g_selectedEvent.lstAssignedPlayers.ToList());
             buttonGenerateTeams.Enabled = bResult;
             buttonViewTeams.Enabled = !bResult;
 
