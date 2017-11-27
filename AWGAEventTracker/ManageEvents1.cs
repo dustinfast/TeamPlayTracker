@@ -101,7 +101,7 @@ namespace AWGAEventTracker
             bool bRoundsResult = doRoundsExistForSelectedEvent();
             buttonViewRounds.Enabled = bRoundsResult;
             buttonEnterScores.Enabled = bRoundsResult;
-            buttonViewScores.Enabled = bRoundsResult;
+            buttonViewScoresByPlayer.Enabled = bRoundsResult;
             if (bTeamsResult)
                 buttonGenerateRounds.Enabled = !bRoundsResult;
             else
@@ -573,7 +573,7 @@ namespace AWGAEventTracker
                 buttonGenerateRounds.Enabled = !bResult;
                 buttonViewRounds.Enabled = bResult;
                 buttonEnterScores.Enabled = bResult;
-                buttonViewScores.Enabled = bResult;
+                buttonViewScoresByPlayer.Enabled = bResult;
                 populateEvent();
             }
         }
@@ -594,11 +594,20 @@ namespace AWGAEventTracker
             dlg.ShowDialog();
         }
 
-        private void buttonViewScores_Click(object sender, EventArgs e)
+        private void buttonViewScoresByPlayer_Click(object sender, EventArgs e)
         {
-            //Generates a CSV file with all the scores then displays it in Excel (or similiar)
+            //Generates a CSV file with all the scores per player then displays it in Excel (or similiar)
             CSVHandlers h = new CSVHandlers();
-            h.buildAndOpenScoresCSV(g_selectedEvent);
+            h.buildAndOpenScoresByPlayerCSV(g_selectedEvent);
         }
+
+        private void buttonViewScoresByTeam_Click(object sender, EventArgs e)
+        {
+            //Generates a CSV file with all the scores per team then displays it in Excel (or similiar)
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenScoresByTeamCSV(g_selectedEvent);
+        }
+
+
     }
 }

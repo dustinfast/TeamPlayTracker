@@ -109,8 +109,8 @@ namespace AWGAEventTracker
             openFile(strOutputFile);
         }
 
-        //Builds and opens the scores for the current round in an alphabetized list by player
-        public void buildAndOpenScoresCSV(Event e)
+        //Builds and opens the scores for the current event in an alphabetized list by player
+        public void buildAndOpenScoresByPlayerCSV(Event e)
         {
             string dbCmd = "SELECT * FROM Scores";
             dbCmd += " LEFT JOIN Players ON Scores.playerID = Players.playerID";
@@ -200,6 +200,118 @@ namespace AWGAEventTracker
                         strOutput += ",";
                     }
                     
+                    if (!bSubFlag)
+                    {
+                        strOutput += nTotalPoints.ToString() + ",";
+                        strOutput += nTotalPutts.ToString();
+                    }
+                    else
+                    {
+                        strOutput += nTotalPoints.ToString() + "s,";
+                        strOutput += nTotalPutts.ToString() + "s";
+                    }
+                    strOutput += "\n";
+                }
+            }
+
+            //Write the output string to a file
+            string strOutputFile = doFileWrite(e.strName + "Scores.csv", strOutput);
+
+            //Open the file
+            openFile(strOutputFile);
+        }
+
+        //Builds and opens the scores for the current event by team
+        public void buildAndOpenScoresByTeamCSV(Event e)
+        {
+            string dbCmd = "SELECT * FROM Scores";
+            dbCmd += " LEFT JOIN Teams ON Scores.teamNumber = Teams.teamNumber";
+            dbCmd += " WHERE Scores.eventID = " + e.nID;
+            dbCmd += " ORDER BY Scores.teamNumber";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Scores");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
+            //Ensure Scores exists
+            if (dataSet.Tables["Scores"].Rows.Count <= 0)
+            {
+                MessageBox.Show("No Scores have been entered for this event.");
+                return;
+            }
+
+            //Start building the CSV output string
+            int nPrevPlayerID = -1;
+            int nRowCount = 0;
+            string strOutput = ""; // e.strName + " Scores\n\n"; //Title 
+
+            //build column headers
+            strOutput += " ,Last Name,First Name,Team,Position,";
+            for (int i = 1; i <= e.nRounds; i++)
+            {
+                strOutput += " Rnd " + i.ToString() + " Points,";
+                strOutput += " Rnd " + i.ToString() + " Putts,";
+            }
+            strOutput += "Total Points,Total Putts\n";
+
+            foreach (DataRow dRow in dataSet.Tables["Scores"].Rows)
+            {
+                int nPlayerID = (int)dRow["Scores.playerID"];
+                string strPlayerLevel = "X";
+                foreach (Player p in e.lstAssignedPlayers)
+                    if (p.ID == nPlayerID)
+                        strPlayerLevel = p.level;
+
+                //Start a new player line
+                if (nPrevPlayerID != nPlayerID)
+                {
+                    nRowCount++;
+                    nPrevPlayerID = nPlayerID;
+                    strOutput += nRowCount.ToString() + "," + dRow["lName"].ToString() + "," + dRow["fName"].ToString() + ",";
+                    strOutput += dRow["teamNumber"].ToString() + "," + strPlayerLevel + ",";
+
+                    int nTotalPoints = 0;
+                    int nTotalPutts = 0;
+                    bool bSubFlag = false;
+                    for (int i = 0; i < e.nRounds; i++) //for each round we have for this player
+                    {
+                        Score s = new Score(e.nID, nPlayerID, (i + 1));
+
+                        string strPointsDisp = "";
+                        int nPoints = s.getPointScore();
+                        if (nPoints != -1)
+                        {
+                            nTotalPoints += nPoints;
+                            strPointsDisp = nPoints.ToString();
+                        }
+
+                        string strPuttsDisp = "";
+                        int nPutts = s.getPuttScore();
+                        if (nPutts != -1)
+                        {
+                            nTotalPutts += nPutts;
+                            strPuttsDisp = nPutts.ToString();
+                        }
+
+                        if (s.getSubScore())
+                            bSubFlag = true;
+
+                        strOutput += strPointsDisp + "," + strPuttsDisp;
+
+                        if (s.getSubScore())
+                            strOutput += "s";
+                        strOutput += ",";
+                    }
+
                     if (!bSubFlag)
                     {
                         strOutput += nTotalPoints.ToString() + ",";

@@ -72,8 +72,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.buttonViewScores = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonViewScoresByPlayer = new System.Windows.Forms.Button();
+            this.buttonViewScoresByTeam = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.numericJumpTo = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -557,8 +557,8 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label11);
-            this.groupBox6.Controls.Add(this.buttonViewScores);
-            this.groupBox6.Controls.Add(this.button1);
+            this.groupBox6.Controls.Add(this.buttonViewScoresByPlayer);
+            this.groupBox6.Controls.Add(this.buttonViewScoresByTeam);
             this.groupBox6.Location = new System.Drawing.Point(4, 127);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(367, 124);
@@ -576,24 +576,25 @@
             this.label11.Text = "You may view scores at any time. If all scores have been entered\r\nthese reports m" +
     "ay serve as standings.";
             // 
-            // buttonViewScores
+            // buttonViewScoresByPlayer
             // 
-            this.buttonViewScores.Location = new System.Drawing.Point(31, 68);
-            this.buttonViewScores.Name = "buttonViewScores";
-            this.buttonViewScores.Size = new System.Drawing.Size(149, 40);
-            this.buttonViewScores.TabIndex = 7;
-            this.buttonViewScores.Text = "View Scores By Player";
-            this.buttonViewScores.UseVisualStyleBackColor = true;
-            this.buttonViewScores.Click += new System.EventHandler(this.buttonViewScores_Click);
+            this.buttonViewScoresByPlayer.Location = new System.Drawing.Point(31, 68);
+            this.buttonViewScoresByPlayer.Name = "buttonViewScoresByPlayer";
+            this.buttonViewScoresByPlayer.Size = new System.Drawing.Size(149, 40);
+            this.buttonViewScoresByPlayer.TabIndex = 7;
+            this.buttonViewScoresByPlayer.Text = "View Scores By Player";
+            this.buttonViewScoresByPlayer.UseVisualStyleBackColor = true;
+            this.buttonViewScoresByPlayer.Click += new System.EventHandler(this.buttonViewScoresByPlayer_Click);
             // 
-            // button1
+            // buttonViewScoresByTeam
             // 
-            this.button1.Location = new System.Drawing.Point(186, 68);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(149, 40);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "View Scores by Team";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonViewScoresByTeam.Location = new System.Drawing.Point(186, 68);
+            this.buttonViewScoresByTeam.Name = "buttonViewScoresByTeam";
+            this.buttonViewScoresByTeam.Size = new System.Drawing.Size(149, 40);
+            this.buttonViewScoresByTeam.TabIndex = 8;
+            this.buttonViewScoresByTeam.Text = "View Scores by Team";
+            this.buttonViewScoresByTeam.UseVisualStyleBackColor = true;
+            this.buttonViewScoresByTeam.Click += new System.EventHandler(this.buttonViewScoresByTeam_Click);
             // 
             // groupBox3
             // 
@@ -735,8 +736,8 @@
         private System.Windows.Forms.Button buttonViewRounds;
         private System.Windows.Forms.Button buttonGenerateRounds;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Button buttonViewScores;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonViewScoresByPlayer;
+        private System.Windows.Forms.Button buttonViewScoresByTeam;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonEnterScores;
