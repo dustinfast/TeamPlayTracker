@@ -225,9 +225,8 @@ namespace AWGAEventTracker
         public void buildAndOpenScoresByTeamCSV(Event e)
         {
             string dbCmd = "SELECT * FROM Scores";
-            dbCmd += " LEFT JOIN Teams ON Scores.teamNumber = Teams.teamNumber";
             dbCmd += " WHERE Scores.eventID = " + e.nID;
-            dbCmd += " ORDER BY Scores.teamNumber";
+            dbCmd += " ORDER BY teamNumber";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -250,81 +249,33 @@ namespace AWGAEventTracker
             }
 
             //Start building the CSV output string
-            int nPrevPlayerID = -1;
+            int nPrevTeam = 1;
+            int nTeam = 0;
             int nRowCount = 0;
-            string strOutput = ""; // e.strName + " Scores\n\n"; //Title 
+            int nPointCount = 0;
+            string strOutput = "";
 
             //build column headers
-            strOutput += " ,Last Name,First Name,Team,Position,";
-            for (int i = 1; i <= e.nRounds; i++)
-            {
-                strOutput += " Rnd " + i.ToString() + " Points,";
-                strOutput += " Rnd " + i.ToString() + " Putts,";
-            }
-            strOutput += "Total Points,Total Putts\n";
+            strOutput += "Team, Total Points\n";
 
             foreach (DataRow dRow in dataSet.Tables["Scores"].Rows)
             {
-                int nPlayerID = (int)dRow["Scores.playerID"];
-                string strPlayerLevel = "X";
-                foreach (Player p in e.lstAssignedPlayers)
-                    if (p.ID == nPlayerID)
-                        strPlayerLevel = p.level;
+                nTeam = (int)dRow["teamNumber"];
 
-                //Start a new player line
-                if (nPrevPlayerID != nPlayerID)
+                if(nPrevTeam != nTeam)
                 {
                     nRowCount++;
-                    nPrevPlayerID = nPlayerID;
-                    strOutput += nRowCount.ToString() + "," + dRow["lName"].ToString() + "," + dRow["fName"].ToString() + ",";
-                    strOutput += dRow["teamNumber"].ToString() + "," + strPlayerLevel + ",";
-
-                    int nTotalPoints = 0;
-                    int nTotalPutts = 0;
-                    bool bSubFlag = false;
-                    for (int i = 0; i < e.nRounds; i++) //for each round we have for this player
-                    {
-                        Score s = new Score(e.nID, nPlayerID, (i + 1));
-
-                        string strPointsDisp = "";
-                        int nPoints = s.getPointScore();
-                        if (nPoints != -1)
-                        {
-                            nTotalPoints += nPoints;
-                            strPointsDisp = nPoints.ToString();
-                        }
-
-                        string strPuttsDisp = "";
-                        int nPutts = s.getPuttScore();
-                        if (nPutts != -1)
-                        {
-                            nTotalPutts += nPutts;
-                            strPuttsDisp = nPutts.ToString();
-                        }
-
-                        if (s.getSubScore())
-                            bSubFlag = true;
-
-                        strOutput += strPointsDisp + "," + strPuttsDisp;
-
-                        if (s.getSubScore())
-                            strOutput += "s";
-                        strOutput += ",";
-                    }
-
-                    if (!bSubFlag)
-                    {
-                        strOutput += nTotalPoints.ToString() + ",";
-                        strOutput += nTotalPutts.ToString();
-                    }
-                    else
-                    {
-                        strOutput += nTotalPoints.ToString() + "s,";
-                        strOutput += nTotalPutts.ToString() + "s";
-                    }
-                    strOutput += "\n";
+                    strOutput += nPrevTeam + "," + nPointCount + "\n"; 
+                    //strOutput += nRowCount + "," + nPrevTeam + "," + nPointCount + "\n"; //outputs row numbers
+                    nPointCount = 0;
                 }
+                nPrevTeam = nTeam;
+                nPointCount += (int)dRow["pointScore"];
             }
+
+            //get the last team, since it's not output by the foreach loop, above
+            strOutput += nTeam + "," + nPointCount + "\n";
+            //strOutput += ++nRowCount + "," + nTeam + "," + nPointCount + "\n"; //outputs row numbers
 
             //Write the output string to a file
             string strOutputFile = doFileWrite(e.strName + "Scores.csv", strOutput);
