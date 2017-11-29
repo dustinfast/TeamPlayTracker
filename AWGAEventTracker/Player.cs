@@ -13,7 +13,8 @@ namespace AWGAEventTracker
         public string level { get; set; } //i.e. A, B, C, D
         public string displayName { get; } //lname + "," + fname
         public int teamNumber { get; set; }
-        public List<int> lstConstraints; //The constraints on this players schedule. I.e. a list of player IDs this player has been scheduled to play against. Used during round generation.
+        public List<int> lstConstraintsStrong; //The strong constraints on this players schedule. I.e. a list of player IDs this player has been scheduled to play against. Used during round generation.
+        public List<int> lstConstraintsWeak; //The weak constraints on this players schedule. I.e. a list of player IDs this player has been scheduled to play against. Same as lstConstraintsStrong but Weak constraints are only for A vs B and C vs D matchups.
         public string fName { get; set; }
         public string lName { get; set; }
         public string phone { get; set; }
@@ -27,23 +28,40 @@ namespace AWGAEventTracker
             phone = playerphone;
             level = playerlevel;
             displayName = lName + ", " + fName;
-            lstConstraints = new List<int>();
+            lstConstraintsStrong = new List<int>();
+            lstConstraintsWeak = new List<int>();
         }
 
         //returns true iff n (a player id) is in lstConstraints
-        public bool isConstrained(int n)
+        public bool isConstrainedStrong(int n)
         {
-            foreach (int m in lstConstraints)
+            foreach (int m in lstConstraintsStrong)
                 if (m == n)
                     return true;
             return false;
         }
 
         //sets n (a player ID) as a constraint, if it isn't in the list
-        public void setConstraint(int n)
+        public void setConstraintStrong(int n)
         {
-            if (!isConstrained(n))
-                lstConstraints.Add(n);
-        }   
+            if (!isConstrainedStrong(n))
+                lstConstraintsStrong.Add(n);
+        }
+
+        //returns true iff n (a player id) is in lstConstraints
+        public bool isConstrainedWeak(int n)
+        {
+            foreach (int m in lstConstraintsWeak)
+                if (m == n)
+                    return true;
+            return false;
+        }
+
+        //sets n (a player ID) as a constraint, if it isn't in the list
+        public void setConstraintWeak(int n)
+        {
+            if (!isConstrainedWeak(n))
+                lstConstraintsWeak.Add(n);
+        }
     }
 }
