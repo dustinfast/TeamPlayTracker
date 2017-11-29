@@ -567,7 +567,8 @@ namespace AWGAEventTracker
             RoundAssignment ra = new RoundAssignment(g_selectedEvent);
             bool bResult = ra.generateRounds();
 
-            //on success, set the Generate Rounds button state to disabled.
+            //on success, set the Generate Rounds button state to disabled and populate
+            // the event again from the db through populateEvent()
             if (bResult)
             {
                 buttonGenerateRounds.Enabled = !bResult;
@@ -608,6 +609,43 @@ namespace AWGAEventTracker
             h.buildAndOpenScoresByTeamCSV(g_selectedEvent);
         }
 
+        private void checkBoxDeleteEvent_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonDeleteEvent.Enabled = checkBoxDeleteEvent.Checked;
+        }
 
+        private void buttonDeleteEvent_Click(object sender, EventArgs e)
+        {
+            string strMsg = "This action will delete this event, including all associated rounds, groups, ";
+            strMsg += "and scores. This action cannot be undone. Are you sure you wish to proceed?";
+            DialogResult dlgResult = MessageBox.Show(strMsg, "Are you sure?", MessageBoxButtons.YesNo);
+            if (dlgResult != DialogResult.Yes)
+                return;
+
+            List<String> lstCmds = new List<String>();
+            //lstCmds.Add("DELETE FROM Groups LEFT JOIN Rounds ON Rounds.roundID = Groups.roundID WHERE eventID = " + g_selectedEvent.nID);
+            lstCmds.Add("DELETE FROM Groups WHERE roundID IN (SELECT roundID FROM Rounds WHERE eventID = " + g_selectedEvent.nID + ")");
+            lstCmds.Add("DELETE FROM Rounds WHERE eventID = " + g_selectedEvent.nID);
+            lstCmds.Add("DELETE FROM Teams WHERE eventID = " + g_selectedEvent.nID);
+            lstCmds.Add("DELETE FROM Scores WHERE eventID = " + g_selectedEvent.nID);
+            lstCmds.Add("DELETE FROM Events WHERE eventID = " + g_selectedEvent.nID);
+
+            foreach(String cmd in lstCmds)
+            {
+                try
+                {
+                    OleDbCommand command = new OleDbCommand(cmd, Globals.g_dbConnection);
+                    command.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("ERROR: Could not delete event due to a database error\n" + cmd + "\n" + ex.Message);
+                    return;
+                }
+            }
+
+            MessageBox.Show("Success! This event has been deleted. The Manage Event window will now close.");
+            this.Close();
+        }
     }
 }

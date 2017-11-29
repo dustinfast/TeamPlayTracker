@@ -174,6 +174,8 @@ namespace AWGAEventTracker
             getNextGroup(nNextRound, nNextGroup, out nCurrRound, out nCurrGroup);
 
             populateData(nNextRound, nNextGroup, nCurrRound, nCurrGroup);
+
+            textBoxAScore.Focus();
         }
 
         //Called on user click Save and Close
@@ -311,6 +313,21 @@ namespace AWGAEventTracker
             if ((int)dbCmd.ExecuteScalar() > 0)
                 return true;
             return false;
+        }
+
+        //closes the dialog without saving the current user entries
+        private void buttonCloseNoSave_click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //Checks to see if the entered key was 'enter', if so, "submits" the form with the Save and Next Button.
+        private void onScoreBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonNext_Click(sender, e);
+            }
         }
     }
 }

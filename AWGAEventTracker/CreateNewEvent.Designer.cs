@@ -43,9 +43,10 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(439, 223);
+            this.btnOk.Location = new System.Drawing.Point(220, 116);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(138, 65);
+            this.btnOk.Size = new System.Drawing.Size(69, 34);
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -53,10 +54,11 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(295, 223);
+            this.btnCancel.Location = new System.Drawing.Point(148, 116);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(138, 65);
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Size = new System.Drawing.Size(69, 34);
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -64,72 +66,80 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 29);
+            this.label1.Location = new System.Drawing.Point(17, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 25);
+            this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Name (ex: 2017):";
             // 
             // textBoxEventName
             // 
-            this.textBoxEventName.Location = new System.Drawing.Point(217, 26);
+            this.textBoxEventName.Location = new System.Drawing.Point(108, 14);
+            this.textBoxEventName.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEventName.Name = "textBoxEventName";
-            this.textBoxEventName.Size = new System.Drawing.Size(360, 31);
-            this.textBoxEventName.TabIndex = 6;
+            this.textBoxEventName.Size = new System.Drawing.Size(182, 20);
+            this.textBoxEventName.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 105);
+            this.label2.Location = new System.Drawing.Point(48, 59);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 25);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Start Date:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(104, 145);
+            this.label3.Location = new System.Drawing.Point(52, 80);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 25);
+            this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "End Date:";
             // 
             // dateTimePickerStartDate
             // 
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(217, 100);
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(108, 56);
+            this.dateTimePickerStartDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(360, 31);
-            this.dateTimePickerStartDate.TabIndex = 9;
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(182, 20);
+            this.dateTimePickerStartDate.TabIndex = 2;
             // 
             // dateTimePickerEndDate
             // 
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(217, 140);
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(108, 78);
+            this.dateTimePickerEndDate.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(360, 31);
-            this.dateTimePickerEndDate.TabIndex = 10;
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(182, 20);
+            this.dateTimePickerEndDate.TabIndex = 3;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 66);
+            this.label4.Location = new System.Drawing.Point(7, 37);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(197, 25);
+            this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "Number of Rounds:";
             // 
             // numRounds
             // 
-            this.numRounds.Location = new System.Drawing.Point(217, 63);
+            this.numRounds.Location = new System.Drawing.Point(108, 35);
+            this.numRounds.Margin = new System.Windows.Forms.Padding(2);
             this.numRounds.Name = "numRounds";
-            this.numRounds.Size = new System.Drawing.Size(360, 31);
-            this.numRounds.TabIndex = 7;
+            this.numRounds.Size = new System.Drawing.Size(182, 20);
+            this.numRounds.TabIndex = 1;
             // 
             // CreateNewEvent
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 315);
+            this.ClientSize = new System.Drawing.Size(310, 164);
             this.ControlBox = false;
             this.Controls.Add(this.numRounds);
             this.Controls.Add(this.label4);
@@ -141,6 +151,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreateNewEvent";
             this.Text = "Create New Team-Play Event";
             ((System.ComponentModel.ISupportInitialize)(this.numRounds)).EndInit();

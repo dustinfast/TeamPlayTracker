@@ -55,20 +55,20 @@
             this.textBoxCScore = new System.Windows.Forms.TextBox();
             this.textBoxCPutts = new System.Windows.Forms.TextBox();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
             this.textBoxNextRound = new System.Windows.Forms.TextBox();
             this.textBoxNextGroup = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.labelCurrRound = new System.Windows.Forms.Label();
             this.labelCurrGroup = new System.Windows.Forms.Label();
+            this.buttonCloseNoSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonNext
             // 
-            this.buttonNext.Location = new System.Drawing.Point(298, 188);
+            this.buttonNext.Location = new System.Drawing.Point(301, 193);
             this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(132, 45);
+            this.buttonNext.Size = new System.Drawing.Size(132, 33);
             this.buttonNext.TabIndex = 13;
             this.buttonNext.Text = "Save and goto Next ->";
             this.buttonNext.UseVisualStyleBackColor = true;
@@ -77,7 +77,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(209, 13);
             this.label1.TabIndex = 1;
@@ -86,7 +86,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 189);
+            this.label2.Location = new System.Drawing.Point(330, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 2;
@@ -96,7 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 216);
+            this.label3.Location = new System.Drawing.Point(332, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 3;
@@ -202,6 +202,7 @@
             this.checkBoxASub.TabIndex = 3;
             this.checkBoxASub.Text = "Substitution";
             this.checkBoxASub.UseVisualStyleBackColor = true;
+            this.checkBoxASub.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // checkBoxBSub
             // 
@@ -212,6 +213,7 @@
             this.checkBoxBSub.TabIndex = 6;
             this.checkBoxBSub.Text = "Substitution";
             this.checkBoxBSub.UseVisualStyleBackColor = true;
+            this.checkBoxBSub.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // checkBoxCSub
             // 
@@ -222,6 +224,7 @@
             this.checkBoxCSub.TabIndex = 9;
             this.checkBoxCSub.Text = "Substitution";
             this.checkBoxCSub.UseVisualStyleBackColor = true;
+            this.checkBoxCSub.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // checkBoxDSub
             // 
@@ -232,6 +235,7 @@
             this.checkBoxDSub.TabIndex = 12;
             this.checkBoxDSub.Text = "Substitution";
             this.checkBoxDSub.UseVisualStyleBackColor = true;
+            this.checkBoxDSub.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxAPutts
             // 
@@ -240,6 +244,7 @@
             this.textBoxAPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxAPutts.TabIndex = 2;
             this.textBoxAPutts.Text = "0";
+            this.textBoxAPutts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxAScore
             // 
@@ -248,6 +253,7 @@
             this.textBoxAScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxAScore.TabIndex = 1;
             this.textBoxAScore.Text = "0";
+            this.textBoxAScore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxBPutts
             // 
@@ -256,6 +262,7 @@
             this.textBoxBPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxBPutts.TabIndex = 5;
             this.textBoxBPutts.Text = "0";
+            this.textBoxBPutts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxBScore
             // 
@@ -264,6 +271,7 @@
             this.textBoxBScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxBScore.TabIndex = 4;
             this.textBoxBScore.Text = "0";
+            this.textBoxBScore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxDScore
             // 
@@ -272,6 +280,7 @@
             this.textBoxDScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxDScore.TabIndex = 10;
             this.textBoxDScore.Text = "0";
+            this.textBoxDScore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxDPutts
             // 
@@ -280,6 +289,7 @@
             this.textBoxDPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxDPutts.TabIndex = 11;
             this.textBoxDPutts.Text = "0";
+            this.textBoxDPutts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxCScore
             // 
@@ -288,6 +298,7 @@
             this.textBoxCScore.Size = new System.Drawing.Size(59, 20);
             this.textBoxCScore.TabIndex = 7;
             this.textBoxCScore.Text = "0";
+            this.textBoxCScore.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // textBoxCPutts
             // 
@@ -296,29 +307,21 @@
             this.textBoxCPutts.Size = new System.Drawing.Size(39, 20);
             this.textBoxCPutts.TabIndex = 8;
             this.textBoxCPutts.Text = "0";
+            this.textBoxCPutts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.onScoreBoxKeyDown);
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(144, 188);
+            this.buttonClose.Location = new System.Drawing.Point(174, 193);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(121, 45);
+            this.buttonClose.Size = new System.Drawing.Size(121, 33);
             this.buttonClose.TabIndex = 14;
             this.buttonClose.Text = "Save and Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(271, 202);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(23, 13);
-            this.label16.TabIndex = 29;
-            this.label16.Text = "OR";
-            // 
             // textBoxNextRound
             // 
-            this.textBoxNextRound.Location = new System.Drawing.Point(74, 186);
+            this.textBoxNextRound.Location = new System.Drawing.Point(400, 6);
             this.textBoxNextRound.Name = "textBoxNextRound";
             this.textBoxNextRound.Size = new System.Drawing.Size(39, 20);
             this.textBoxNextRound.TabIndex = 14;
@@ -326,7 +329,7 @@
             // 
             // textBoxNextGroup
             // 
-            this.textBoxNextGroup.Location = new System.Drawing.Point(74, 212);
+            this.textBoxNextGroup.Location = new System.Drawing.Point(400, 32);
             this.textBoxNextGroup.Name = "textBoxNextGroup";
             this.textBoxNextGroup.Size = new System.Drawing.Size(39, 20);
             this.textBoxNextGroup.TabIndex = 15;
@@ -370,18 +373,29 @@
             this.labelCurrGroup.TabIndex = 33;
             this.labelCurrGroup.Text = "G";
             // 
+            // buttonCloseNoSave
+            // 
+            this.buttonCloseNoSave.Location = new System.Drawing.Point(12, 193);
+            this.buttonCloseNoSave.Name = "buttonCloseNoSave";
+            this.buttonCloseNoSave.Size = new System.Drawing.Size(121, 33);
+            this.buttonCloseNoSave.TabIndex = 34;
+            this.buttonCloseNoSave.Text = "Close";
+            this.buttonCloseNoSave.UseVisualStyleBackColor = true;
+            this.buttonCloseNoSave.Click += new System.EventHandler(this.buttonCloseNoSave_click);
+            // 
             // EnterScores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 247);
+            this.ClientSize = new System.Drawing.Size(445, 238);
+            this.ControlBox = false;
+            this.Controls.Add(this.buttonCloseNoSave);
             this.Controls.Add(this.labelAPlayer);
             this.Controls.Add(this.labelCurrGroup);
             this.Controls.Add(this.textBoxNextGroup);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxNextRound);
             this.Controls.Add(this.labelCurrRound);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.label15);
@@ -446,12 +460,12 @@
         private System.Windows.Forms.TextBox textBoxCScore;
         private System.Windows.Forms.TextBox textBoxCPutts;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxNextRound;
         private System.Windows.Forms.TextBox textBoxNextGroup;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label labelCurrRound;
         private System.Windows.Forms.Label labelCurrGroup;
+        private System.Windows.Forms.Button buttonCloseNoSave;
     }
 }
