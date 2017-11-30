@@ -414,7 +414,7 @@
             this.buttonShowAddPlayersDlg.Name = "buttonShowAddPlayersDlg";
             this.buttonShowAddPlayersDlg.Size = new System.Drawing.Size(127, 29);
             this.buttonShowAddPlayersDlg.TabIndex = 3;
-            this.buttonShowAddPlayersDlg.Text = "Manage All Players";
+            this.buttonShowAddPlayersDlg.Text = "Manage All Members";
             this.buttonShowAddPlayersDlg.UseVisualStyleBackColor = true;
             this.buttonShowAddPlayersDlg.Click += new System.EventHandler(this.buttonShowAddPlayersDlg_Click);
             // 

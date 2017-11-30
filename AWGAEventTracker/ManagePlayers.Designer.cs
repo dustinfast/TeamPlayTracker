@@ -78,19 +78,19 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(1);
             this.groupBox1.Size = new System.Drawing.Size(589, 84);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Add New Player:";
+            this.groupBox1.Text = "Add New Member:";
             // 
             // textBoxAddPhone
             // 
             this.textBoxAddPhone.BeepOnError = true;
             this.textBoxAddPhone.Location = new System.Drawing.Point(455, 24);
-            this.textBoxAddPhone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxAddPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAddPhone.Mask = "(999) 000-0000";
             this.textBoxAddPhone.Name = "textBoxAddPhone";
             this.textBoxAddPhone.Size = new System.Drawing.Size(102, 20);
@@ -101,7 +101,7 @@
             // btnAddNewPlayer
             // 
             this.btnAddNewPlayer.Location = new System.Drawing.Point(505, 51);
-            this.btnAddNewPlayer.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnAddNewPlayer.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddNewPlayer.Name = "btnAddNewPlayer";
             this.btnAddNewPlayer.Size = new System.Drawing.Size(63, 25);
             this.btnAddNewPlayer.TabIndex = 0;
@@ -112,7 +112,7 @@
             // textBoxAddHandicap
             // 
             this.textBoxAddHandicap.Location = new System.Drawing.Point(370, 24);
-            this.textBoxAddHandicap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxAddHandicap.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAddHandicap.Name = "textBoxAddHandicap";
             this.textBoxAddHandicap.Size = new System.Drawing.Size(35, 20);
             this.textBoxAddHandicap.TabIndex = 7;
@@ -121,7 +121,7 @@
             // textBoxAddLN
             // 
             this.textBoxAddLN.Location = new System.Drawing.Point(227, 24);
-            this.textBoxAddLN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxAddLN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxAddLN.Name = "textBoxAddLN";
             this.textBoxAddLN.Size = new System.Drawing.Size(77, 20);
             this.textBoxAddLN.TabIndex = 6;
@@ -130,7 +130,7 @@
             // textBoxAddFN
             // 
             this.textBoxAddFN.Location = new System.Drawing.Point(77, 24);
-            this.textBoxAddFN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxAddFN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxAddFN.Name = "textBoxAddFN";
             this.textBoxAddFN.Size = new System.Drawing.Size(77, 20);
             this.textBoxAddFN.TabIndex = 5;
@@ -195,20 +195,20 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.dataGridView);
             this.groupBox2.Location = new System.Drawing.Point(7, 94);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(1);
             this.groupBox2.Size = new System.Drawing.Size(589, 408);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Modify/Remove Players:";
+            this.groupBox2.Text = "Modify/Remove Members:";
             // 
             // textBoxEditPhone
             // 
             this.textBoxEditPhone.BeepOnError = true;
             this.textBoxEditPhone.Enabled = false;
             this.textBoxEditPhone.Location = new System.Drawing.Point(455, 307);
-            this.textBoxEditPhone.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxEditPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEditPhone.Mask = "(999) 000-0000";
             this.textBoxEditPhone.Name = "textBoxEditPhone";
             this.textBoxEditPhone.Size = new System.Drawing.Size(102, 20);
@@ -231,7 +231,7 @@
             this.radioButtonSortLN.AutoSize = true;
             this.radioButtonSortLN.Checked = true;
             this.radioButtonSortLN.Location = new System.Drawing.Point(493, 14);
-            this.radioButtonSortLN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radioButtonSortLN.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonSortLN.Name = "radioButtonSortLN";
             this.radioButtonSortLN.Size = new System.Drawing.Size(76, 17);
             this.radioButtonSortLN.TabIndex = 23;
@@ -244,7 +244,7 @@
             // 
             this.radioButtonSortFN.AutoSize = true;
             this.radioButtonSortFN.Location = new System.Drawing.Point(415, 14);
-            this.radioButtonSortFN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radioButtonSortFN.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonSortFN.Name = "radioButtonSortFN";
             this.radioButtonSortFN.Size = new System.Drawing.Size(75, 17);
             this.radioButtonSortFN.TabIndex = 22;
@@ -266,7 +266,7 @@
             // textBoxEditID
             // 
             this.textBoxEditID.Location = new System.Drawing.Point(77, 326);
-            this.textBoxEditID.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxEditID.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditID.Name = "textBoxEditID";
             this.textBoxEditID.Size = new System.Drawing.Size(77, 20);
             this.textBoxEditID.TabIndex = 20;
@@ -276,11 +276,11 @@
             // 
             this.buttonModifyPlayer.Enabled = false;
             this.buttonModifyPlayer.Location = new System.Drawing.Point(481, 334);
-            this.buttonModifyPlayer.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonModifyPlayer.Margin = new System.Windows.Forms.Padding(1);
             this.buttonModifyPlayer.Name = "buttonModifyPlayer";
             this.buttonModifyPlayer.Size = new System.Drawing.Size(87, 25);
             this.buttonModifyPlayer.TabIndex = 19;
-            this.buttonModifyPlayer.Text = "Modify Player";
+            this.buttonModifyPlayer.Text = "Modify Member";
             this.buttonModifyPlayer.UseVisualStyleBackColor = true;
             this.buttonModifyPlayer.Click += new System.EventHandler(this.buttonModifyPlayer_Click);
             // 
@@ -288,11 +288,11 @@
             // 
             this.buttonDeletePlayer.Enabled = false;
             this.buttonDeletePlayer.Location = new System.Drawing.Point(387, 334);
-            this.buttonDeletePlayer.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonDeletePlayer.Margin = new System.Windows.Forms.Padding(1);
             this.buttonDeletePlayer.Name = "buttonDeletePlayer";
             this.buttonDeletePlayer.Size = new System.Drawing.Size(91, 25);
             this.buttonDeletePlayer.TabIndex = 18;
-            this.buttonDeletePlayer.Text = "Delete Player";
+            this.buttonDeletePlayer.Text = "Delete Member";
             this.buttonDeletePlayer.UseVisualStyleBackColor = true;
             this.buttonDeletePlayer.Click += new System.EventHandler(this.buttonDeletePlayer_Click);
             // 
@@ -300,7 +300,7 @@
             // 
             this.textBoxEditHandicap.Enabled = false;
             this.textBoxEditHandicap.Location = new System.Drawing.Point(370, 307);
-            this.textBoxEditHandicap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxEditHandicap.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEditHandicap.Name = "textBoxEditHandicap";
             this.textBoxEditHandicap.Size = new System.Drawing.Size(35, 20);
             this.textBoxEditHandicap.TabIndex = 16;
@@ -309,7 +309,7 @@
             // 
             this.textBoxEditLN.Enabled = false;
             this.textBoxEditLN.Location = new System.Drawing.Point(227, 307);
-            this.textBoxEditLN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxEditLN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditLN.Name = "textBoxEditLN";
             this.textBoxEditLN.Size = new System.Drawing.Size(77, 20);
             this.textBoxEditLN.TabIndex = 15;
@@ -318,7 +318,7 @@
             // 
             this.textBoxEditFN.Enabled = false;
             this.textBoxEditFN.Location = new System.Drawing.Point(77, 307);
-            this.textBoxEditFN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxEditFN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditFN.Name = "textBoxEditFN";
             this.textBoxEditFN.Size = new System.Drawing.Size(77, 20);
             this.textBoxEditFN.TabIndex = 14;
@@ -386,7 +386,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.Location = new System.Drawing.Point(3, 34);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -405,7 +405,7 @@
             // buttonClose
             // 
             this.buttonClose.Location = new System.Drawing.Point(511, 470);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(1);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(63, 25);
             this.buttonClose.TabIndex = 9;
@@ -422,7 +422,7 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "ManagePlayers";
             this.Text = "Manage All Players";
             this.Load += new System.EventHandler(this.ManagePlayers_Load);
