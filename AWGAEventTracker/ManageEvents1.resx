@@ -132,9 +132,16 @@ Step 3: Generate and view both team and round assignments.
 
 Step 4: Enter scores for each round and view standings.</value>
   </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Click "Generate Rounds" to create groups for each round. Each group is
+composed of an A, B, C, and D level player, with no A vs. B or C vs. D 
+matchups duplicated. On the last round, groups consist of team members.  </value>
+  </data>
   <data name="label10.Text" xml:space="preserve">
     <value>"Generate Teams" automatically assigns every player in this event a
 level (A-D, based on handicap) and subsequently builds balanced teams
-of four, with each team containing one player from each level.</value>
+of four, with each team containing one player from each level.
+
+Note: This process may take several moments.</value>
   </data>
 </root>

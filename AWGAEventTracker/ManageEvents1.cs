@@ -296,6 +296,29 @@ namespace AWGAEventTracker
             populateEvent();
         }
 
+        //Moves all players from the Players:Assigned list to the Players:Unassignedlist
+        private void buttonUnassignAll_Click(object sender, EventArgs e)
+        {
+            if (doTeamsExistForSelectedEvent())
+            {
+                MessageBox.Show("Cannot modify the players assigned to this event: Teams have already been generated.");
+                return;
+            }
+
+            //Update events db table directly then update the event. This will cause the players lists to be rebuilt
+            string strCmd = "UPDATE events SET players = '' where eventID = " + g_selectedEvent.nID;
+            OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
+
+            if (command.ExecuteNonQuery() == 0)
+            {
+                MessageBox.Show("ERROR: Could not modify players due to a database error.");
+                return;
+            }
+
+            g_selectedEvent.strAssignedPlayers = "";
+            populateEvent();
+        }
+
         //Updates the count of the players at the top of the Players:assigned/unassigned boxes
         private void populatePlayersTabAssignmentCounts()
         {
@@ -322,7 +345,7 @@ namespace AWGAEventTracker
 
             if (command.ExecuteNonQuery() == 0)
             {
-                MessageBox.Show("ERROR: Could not modify user due to a database error.");
+                MessageBox.Show("ERROR: Could not modify players due to a database error.");
                 return;
             }
 
@@ -642,5 +665,7 @@ namespace AWGAEventTracker
             MessageBox.Show("Success! This event has been deleted. The Manage Event window will now close.");
             this.Close();
         }
+
+        
     }
 }

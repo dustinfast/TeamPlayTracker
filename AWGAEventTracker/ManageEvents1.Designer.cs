@@ -84,6 +84,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.buttonEnterScores = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonUnassignAll = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -326,6 +327,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonUnassignAll);
             this.tabPage2.Controls.Add(this.labelAssignedCount);
             this.tabPage2.Controls.Add(this.labelUnassignedCount);
             this.tabPage2.Controls.Add(this.buttonAssignAll);
@@ -465,7 +467,7 @@
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.buttonViewRounds);
             this.groupBox5.Controls.Add(this.buttonGenerateRounds);
-            this.groupBox5.Location = new System.Drawing.Point(0, 149);
+            this.groupBox5.Location = new System.Drawing.Point(3, 172);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(368, 143);
             this.groupBox5.TabIndex = 6;
@@ -477,11 +479,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(5, 25);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(350, 39);
+            this.label4.Size = new System.Drawing.Size(358, 39);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Click \"Generate Rounds\" to create groups for each round. Each group is\r\ncomposed " +
-    "of an A, B, C, and D level player. On the last round, groups\r\nconsist of team me" +
-    "mbers. ";
+            this.label4.Text = resources.GetString("label4.Text");
             // 
             // buttonViewRounds
             // 
@@ -512,14 +512,14 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(368, 141);
+            this.groupBox4.Size = new System.Drawing.Size(368, 164);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Team Assignments";
             // 
             // buttonGenerateTeams
             // 
-            this.buttonGenerateTeams.Location = new System.Drawing.Point(30, 84);
+            this.buttonGenerateTeams.Location = new System.Drawing.Point(30, 106);
             this.buttonGenerateTeams.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGenerateTeams.Name = "buttonGenerateTeams";
             this.buttonGenerateTeams.Size = new System.Drawing.Size(149, 40);
@@ -530,7 +530,7 @@
             // 
             // buttonViewTeams
             // 
-            this.buttonViewTeams.Location = new System.Drawing.Point(187, 84);
+            this.buttonViewTeams.Location = new System.Drawing.Point(187, 106);
             this.buttonViewTeams.Margin = new System.Windows.Forms.Padding(2);
             this.buttonViewTeams.Name = "buttonViewTeams";
             this.buttonViewTeams.Size = new System.Drawing.Size(149, 40);
@@ -545,7 +545,7 @@
             this.label10.Location = new System.Drawing.Point(8, 24);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(347, 39);
+            this.label10.Size = new System.Drawing.Size(347, 65);
             this.label10.TabIndex = 0;
             this.label10.Text = resources.GetString("label10.Text");
             // 
@@ -670,7 +670,7 @@
             // 
             // numericJumpTo
             // 
-            this.numericJumpTo.Location = new System.Drawing.Point(219, 24);
+            this.numericJumpTo.Location = new System.Drawing.Point(229, 24);
             this.numericJumpTo.Minimum = new decimal(new int[] {
             1,
             0,
@@ -714,6 +714,17 @@
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            // 
+            // buttonUnassignAll
+            // 
+            this.buttonUnassignAll.Location = new System.Drawing.Point(175, 203);
+            this.buttonUnassignAll.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonUnassignAll.Name = "buttonUnassignAll";
+            this.buttonUnassignAll.Size = new System.Drawing.Size(28, 28);
+            this.buttonUnassignAll.TabIndex = 10;
+            this.buttonUnassignAll.Text = "<<";
+            this.buttonUnassignAll.UseVisualStyleBackColor = true;
+            this.buttonUnassignAll.Click += new System.EventHandler(this.buttonUnassignAll_Click);
             // 
             // ManageEvents1
             // 
@@ -810,5 +821,6 @@
         private System.Windows.Forms.CheckBox checkBoxDeleteEvent;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonDeleteEvent;
+        private System.Windows.Forms.Button buttonUnassignAll;
     }
 }
