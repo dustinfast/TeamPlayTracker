@@ -79,11 +79,11 @@ namespace AWGAEventTracker
             List<Player> teams = dictPossibleTeams.First().Value;
 
             //Write the teams to the database
-            int nteamNumber = 1;
+            int nTeamNumber = 1;
             for (int i = 0; i < teams.Count; i++)
             {
                 string strCmd = "INSERT INTO Teams (eventID, playerID, teamNumber, playerLevel)";
-                strCmd = strCmd + "VALUES (" + eventid + ", " + teams[i].ID + ", " + nteamNumber + ", '" + teams[i].level + "')";
+                strCmd = strCmd + "VALUES (" + eventid + ", " + teams[i].ID + ", " + nTeamNumber + ", '" + teams[i].level + "')";
 
                 OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
@@ -93,11 +93,11 @@ namespace AWGAEventTracker
                     return true;
                 }
                 if ((i + 1) % 4 == 0)
-                    nteamNumber++;
+                    nTeamNumber++;
             }
             Cursor.Current = Cursors.Default;
 
-            MessageBox.Show("Success! " + (nteamNumber - 1).ToString() + " teams for this event have been generated. Click the \'View Teams' button to view them.");
+            MessageBox.Show("Success! " + (nTeamNumber - 1).ToString() + " teams for this event have been generated. Click the \'View Teams\' button to view them.");
             return false;
 
         }
@@ -105,7 +105,7 @@ namespace AWGAEventTracker
         private TeamTry generateTeams(int eventid, List<Player> playerobjects)
         {
             //A copy of the player objects in g_lstAssignedPlayers, but this one is sorted by handicap (lowest to highest)
-            List<Player> players = playerobjects.OrderBy(o => o.handicap).ToList();
+            List<Player> players = playerobjects.OrderBy(p => p.handicap).ToList();
 
             //Container for the teams. Will contain members of all players in chunks of 4, denoting team assignment.
             List<Player> teams = new List<Player>();
@@ -119,6 +119,7 @@ namespace AWGAEventTracker
             //Set player handicap based on position in sorted list and set player object handicap property
             //this will result in population of the four list containers above.
             int a = players.Count / 4;
+
             //A players (i.e. the first quarter of the list)
             for (int i = 0; i < a; i++)
             {
@@ -148,7 +149,6 @@ namespace AWGAEventTracker
 
             //// Randomly shuffle the players so that skill level is randomly distributed in each list
             Random random = new Random();
-            int randomNumber = random.Next();
 
             //// Shuffle A players
             for (int k = 0; k < aPlayers.Count; k++)

@@ -57,7 +57,7 @@ namespace AWGAEventTracker
             {
                 adapter.Fill(dataSet, "Scores");
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 return;
             }

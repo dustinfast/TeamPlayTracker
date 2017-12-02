@@ -193,8 +193,12 @@ namespace AWGAEventTracker
                         if (s.getSubScore())
                             bSubFlag = true;
 
-                        strOutput += strPointsDisp + "," + strPuttsDisp;
+                        strOutput += strPointsDisp;
+                        if (s.getSubScore())
+                            strOutput += "s";
+                        strOutput += ",";
 
+                        strOutput += strPuttsDisp;
                         if (s.getSubScore())
                             strOutput += "s";
                         strOutput += ",";
@@ -215,7 +219,7 @@ namespace AWGAEventTracker
             }
 
             //Write the output string to a file
-            string strOutputFile = doFileWrite(e.strName + "Scores.csv", strOutput);
+            string strOutputFile = doFileWrite(e.strName + "PlayerScores.csv", strOutput);
 
             //Open the file
             openFile(strOutputFile);
@@ -266,7 +270,7 @@ namespace AWGAEventTracker
                 {
                     nRowCount++;
                     strOutput += nPrevTeam + "," + nPointCount + "\n"; 
-                    //strOutput += nRowCount + "," + nPrevTeam + "," + nPointCount + "\n"; //outputs row numbers
+                    //strOutput += nRowCount + "," + nPrevTeam + "," + nPointCount + "\n"; //outputs row numbers. Not used because they're confusing after sorting
                     nPointCount = 0;
                 }
                 nPrevTeam = nTeam;
@@ -275,10 +279,10 @@ namespace AWGAEventTracker
 
             //get the last team, since it's not output by the foreach loop, above
             strOutput += nTeam + "," + nPointCount + "\n";
-            //strOutput += ++nRowCount + "," + nTeam + "," + nPointCount + "\n"; //outputs row numbers
+            //strOutput += ++nRowCount + "," + nTeam + "," + nPointCount + "\n"; //outputs row numbers. Not used because they're confusing after sorting
 
             //Write the output string to a file
-            string strOutputFile = doFileWrite(e.strName + "Scores.csv", strOutput);
+            string strOutputFile = doFileWrite(e.strName + "TeamScores.csv", strOutput);
 
             //Open the file
             openFile(strOutputFile);
@@ -297,9 +301,8 @@ namespace AWGAEventTracker
             {
                 System.Diagnostics.Process.Start(filename);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //MessageBox.Show("ERROR: Could not open file.\n\n" + ex.ToString());
                 return;
             }
         }

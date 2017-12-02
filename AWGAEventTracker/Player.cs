@@ -9,7 +9,7 @@ namespace AWGAEventTracker
     public class Player //An abstraction of a player
     {
         public int ID { get; set; }
-        public int handicap { get; set; }
+        public double handicap { get; set; }
         public string level { get; set; } //i.e. A, B, C, D
         public string displayName { get; } //lname + "," + fname
         public int teamNumber { get; set; }
@@ -19,7 +19,7 @@ namespace AWGAEventTracker
         public string lName { get; set; }
         public string phone { get; set; }
 
-        public Player(int playerid, int playerhandicap, string fname, string lname, string playerphone, string playerlevel)
+        public Player(int playerid, double playerhandicap, string fname, string lname, string playerphone, string playerlevel)
         {
             handicap = playerhandicap;
             ID = playerid;

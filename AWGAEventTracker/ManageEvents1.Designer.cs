@@ -690,9 +690,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(32, 26);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(181, 13);
+            this.label8.Size = new System.Drawing.Size(198, 13);
             this.label8.TabIndex = 8;
-            this.label8.Text = "Specify a round to jump to (Optional):";
+            this.label8.Text = "Specify a round to navigate to (optional):";
             // 
             // buttonEnterScores
             // 

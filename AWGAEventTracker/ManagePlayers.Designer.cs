@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxAddPhone = new System.Windows.Forms.MaskedTextBox();
             this.btnAddNewPlayer = new System.Windows.Forms.Button();
@@ -61,6 +61,9 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonClose = new System.Windows.Forms.Button();
             this.toolTipPhoneNum = new System.Windows.Forms.ToolTip(this.components);
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.labelTotalMemberCount = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -68,6 +71,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.textBoxAddPhone);
             this.groupBox1.Controls.Add(this.btnAddNewPlayer);
             this.groupBox1.Controls.Add(this.textBoxAddHandicap);
@@ -81,7 +85,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(1);
-            this.groupBox1.Size = new System.Drawing.Size(589, 84);
+            this.groupBox1.Size = new System.Drawing.Size(589, 122);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add New Member:";
@@ -89,7 +93,7 @@
             // textBoxAddPhone
             // 
             this.textBoxAddPhone.BeepOnError = true;
-            this.textBoxAddPhone.Location = new System.Drawing.Point(455, 24);
+            this.textBoxAddPhone.Location = new System.Drawing.Point(468, 50);
             this.textBoxAddPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAddPhone.Mask = "(999) 000-0000";
             this.textBoxAddPhone.Name = "textBoxAddPhone";
@@ -100,7 +104,7 @@
             // 
             // btnAddNewPlayer
             // 
-            this.btnAddNewPlayer.Location = new System.Drawing.Point(505, 51);
+            this.btnAddNewPlayer.Location = new System.Drawing.Point(505, 85);
             this.btnAddNewPlayer.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddNewPlayer.Name = "btnAddNewPlayer";
             this.btnAddNewPlayer.Size = new System.Drawing.Size(63, 25);
@@ -111,7 +115,7 @@
             // 
             // textBoxAddHandicap
             // 
-            this.textBoxAddHandicap.Location = new System.Drawing.Point(370, 24);
+            this.textBoxAddHandicap.Location = new System.Drawing.Point(383, 50);
             this.textBoxAddHandicap.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAddHandicap.Name = "textBoxAddHandicap";
             this.textBoxAddHandicap.Size = new System.Drawing.Size(35, 20);
@@ -120,7 +124,7 @@
             // 
             // textBoxAddLN
             // 
-            this.textBoxAddLN.Location = new System.Drawing.Point(227, 24);
+            this.textBoxAddLN.Location = new System.Drawing.Point(240, 50);
             this.textBoxAddLN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxAddLN.Name = "textBoxAddLN";
             this.textBoxAddLN.Size = new System.Drawing.Size(77, 20);
@@ -129,7 +133,7 @@
             // 
             // textBoxAddFN
             // 
-            this.textBoxAddFN.Location = new System.Drawing.Point(77, 24);
+            this.textBoxAddFN.Location = new System.Drawing.Point(90, 50);
             this.textBoxAddFN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxAddFN.Name = "textBoxAddFN";
             this.textBoxAddFN.Size = new System.Drawing.Size(77, 20);
@@ -139,7 +143,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(413, 25);
+            this.label4.Location = new System.Drawing.Point(426, 51);
             this.label4.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
@@ -149,7 +153,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(163, 25);
+            this.label3.Location = new System.Drawing.Point(176, 51);
             this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 13);
@@ -159,7 +163,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(315, 25);
+            this.label2.Location = new System.Drawing.Point(328, 51);
             this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
@@ -169,7 +173,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 25);
+            this.label1.Location = new System.Drawing.Point(26, 51);
             this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 13);
@@ -178,6 +182,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labelTotalMemberCount);
+            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.textBoxEditPhone);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.radioButtonSortLN);
@@ -194,11 +200,11 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.dataGridView);
-            this.groupBox2.Location = new System.Drawing.Point(7, 94);
+            this.groupBox2.Location = new System.Drawing.Point(6, 130);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(1);
-            this.groupBox2.Size = new System.Drawing.Size(589, 408);
+            this.groupBox2.Size = new System.Drawing.Size(589, 415);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Modify/Remove Members:";
@@ -207,7 +213,7 @@
             // 
             this.textBoxEditPhone.BeepOnError = true;
             this.textBoxEditPhone.Enabled = false;
-            this.textBoxEditPhone.Location = new System.Drawing.Point(455, 307);
+            this.textBoxEditPhone.Location = new System.Drawing.Point(461, 341);
             this.textBoxEditPhone.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEditPhone.Mask = "(999) 000-0000";
             this.textBoxEditPhone.Name = "textBoxEditPhone";
@@ -218,7 +224,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 328);
+            this.label10.Location = new System.Drawing.Point(19, 362);
             this.label10.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(64, 13);
@@ -230,7 +236,7 @@
             // 
             this.radioButtonSortLN.AutoSize = true;
             this.radioButtonSortLN.Checked = true;
-            this.radioButtonSortLN.Location = new System.Drawing.Point(493, 14);
+            this.radioButtonSortLN.Location = new System.Drawing.Point(499, 48);
             this.radioButtonSortLN.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonSortLN.Name = "radioButtonSortLN";
             this.radioButtonSortLN.Size = new System.Drawing.Size(76, 17);
@@ -243,7 +249,7 @@
             // radioButtonSortFN
             // 
             this.radioButtonSortFN.AutoSize = true;
-            this.radioButtonSortFN.Location = new System.Drawing.Point(415, 14);
+            this.radioButtonSortFN.Location = new System.Drawing.Point(421, 48);
             this.radioButtonSortFN.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonSortFN.Name = "radioButtonSortFN";
             this.radioButtonSortFN.Size = new System.Drawing.Size(75, 17);
@@ -256,7 +262,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(367, 16);
+            this.label9.Location = new System.Drawing.Point(373, 50);
             this.label9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
@@ -265,7 +271,7 @@
             // 
             // textBoxEditID
             // 
-            this.textBoxEditID.Location = new System.Drawing.Point(77, 326);
+            this.textBoxEditID.Location = new System.Drawing.Point(83, 360);
             this.textBoxEditID.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditID.Name = "textBoxEditID";
             this.textBoxEditID.Size = new System.Drawing.Size(77, 20);
@@ -275,7 +281,7 @@
             // buttonModifyPlayer
             // 
             this.buttonModifyPlayer.Enabled = false;
-            this.buttonModifyPlayer.Location = new System.Drawing.Point(481, 334);
+            this.buttonModifyPlayer.Location = new System.Drawing.Point(487, 368);
             this.buttonModifyPlayer.Margin = new System.Windows.Forms.Padding(1);
             this.buttonModifyPlayer.Name = "buttonModifyPlayer";
             this.buttonModifyPlayer.Size = new System.Drawing.Size(87, 25);
@@ -287,7 +293,7 @@
             // buttonDeletePlayer
             // 
             this.buttonDeletePlayer.Enabled = false;
-            this.buttonDeletePlayer.Location = new System.Drawing.Point(387, 334);
+            this.buttonDeletePlayer.Location = new System.Drawing.Point(393, 368);
             this.buttonDeletePlayer.Margin = new System.Windows.Forms.Padding(1);
             this.buttonDeletePlayer.Name = "buttonDeletePlayer";
             this.buttonDeletePlayer.Size = new System.Drawing.Size(91, 25);
@@ -299,7 +305,7 @@
             // textBoxEditHandicap
             // 
             this.textBoxEditHandicap.Enabled = false;
-            this.textBoxEditHandicap.Location = new System.Drawing.Point(370, 307);
+            this.textBoxEditHandicap.Location = new System.Drawing.Point(376, 341);
             this.textBoxEditHandicap.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEditHandicap.Name = "textBoxEditHandicap";
             this.textBoxEditHandicap.Size = new System.Drawing.Size(35, 20);
@@ -308,7 +314,7 @@
             // textBoxEditLN
             // 
             this.textBoxEditLN.Enabled = false;
-            this.textBoxEditLN.Location = new System.Drawing.Point(227, 307);
+            this.textBoxEditLN.Location = new System.Drawing.Point(233, 341);
             this.textBoxEditLN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditLN.Name = "textBoxEditLN";
             this.textBoxEditLN.Size = new System.Drawing.Size(77, 20);
@@ -317,7 +323,7 @@
             // textBoxEditFN
             // 
             this.textBoxEditFN.Enabled = false;
-            this.textBoxEditFN.Location = new System.Drawing.Point(77, 307);
+            this.textBoxEditFN.Location = new System.Drawing.Point(83, 341);
             this.textBoxEditFN.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditFN.Name = "textBoxEditFN";
             this.textBoxEditFN.Size = new System.Drawing.Size(77, 20);
@@ -326,7 +332,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(413, 308);
+            this.label5.Location = new System.Drawing.Point(419, 342);
             this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
@@ -336,7 +342,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(163, 308);
+            this.label6.Location = new System.Drawing.Point(169, 342);
             this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 13);
@@ -346,7 +352,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(315, 308);
+            this.label7.Location = new System.Drawing.Point(321, 342);
             this.label7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
@@ -356,7 +362,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 308);
+            this.label8.Location = new System.Drawing.Point(19, 342);
             this.label8.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 13);
@@ -367,36 +373,36 @@
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView.Location = new System.Drawing.Point(3, 34);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.NullValue = null;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView.Location = new System.Drawing.Point(9, 68);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView.RowTemplate.Height = 33;
             this.dataGridView.Size = new System.Drawing.Size(570, 261);
             this.dataGridView.TabIndex = 0;
@@ -404,7 +410,7 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(511, 470);
+            this.buttonClose.Location = new System.Drawing.Point(522, 558);
             this.buttonClose.Margin = new System.Windows.Forms.Padding(1);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(63, 25);
@@ -413,12 +419,39 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(13, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(282, 13);
+            this.label11.TabIndex = 25;
+            this.label11.Text = "Select an existing member in the list to modify/delete them.";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(13, 25);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(203, 13);
+            this.label12.TabIndex = 26;
+            this.label12.Text = "Enter member information, then click Add.";
+            // 
+            // labelTotalMemberCount
+            // 
+            this.labelTotalMemberCount.AutoSize = true;
+            this.labelTotalMemberCount.Location = new System.Drawing.Point(16, 50);
+            this.labelTotalMemberCount.Name = "labelTotalMemberCount";
+            this.labelTotalMemberCount.Size = new System.Drawing.Size(89, 13);
+            this.labelTotalMemberCount.TabIndex = 26;
+            this.labelTotalMemberCount.Text = "Total Members: 0";
+            // 
             // ManagePlayers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(619, 545);
+            this.ClientSize = new System.Drawing.Size(619, 596);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -466,5 +499,8 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.ToolTip toolTipPhoneNum;
         private System.Windows.Forms.MaskedTextBox textBoxEditPhone;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labelTotalMemberCount;
     }
 }

@@ -26,7 +26,6 @@ namespace AWGAEventTracker
         {
             //Load data from Players table and populate gridview, sorted by lname
             showPlayerData("SELECT * FROM Players ORDER BY lName");
-            //radioButtonSortLN.Checked = true;
 
             //Set focus to the first text box
             this.ActiveControl = textBoxAddFN;
@@ -63,8 +62,11 @@ namespace AWGAEventTracker
                 dataGridView.ReadOnly = true;
                 dataGridView.ClearSelection();
 
-                //Set the last used command, to be used later if we need it.
+                //Set the last used command, to be used later in refreshing the grid when we need to
                 g_strLastSelectCmd = sqlselectcmd;
+
+                //update total player count
+                labelTotalMemberCount.Text = "Total Members: " + dataGridView.Rows.Count;
 
             }
             catch (OleDbException)
@@ -90,57 +92,15 @@ namespace AWGAEventTracker
             string strLName = Globals.removeTicksFromString(textBoxAddLN.Text);
             string strPhone = Globals.removeTicksFromString(textBoxAddPhone.Text).Replace("-", "").Replace(".", "");
             string strHandicap = Globals.removeTicksFromString(textBoxAddHandicap.Text);
-            double dTemp = 0;
 
-            //Validate user input
-            if (strFName == "")
-            {
-                MessageBox.Show("ERROR: First name must be populated");
+            if (!validateUserInput(strFName, strLName, strHandicap, strPhone))
                 return;
-            }
 
-            if (strLName == "")
-            {
-                MessageBox.Show("ERROR: Last name must be populated.");
-                return;
-            }
-
-            if (strHandicap == "")
-            {
-                MessageBox.Show("ERROR: Handicap must be populated.");
-                return;
-            }
-            else
-            {
-                if (!double.TryParse(strHandicap, out dTemp))
-                {
-                    MessageBox.Show("ERROR: Handicap must be a numeric value.");
-                    return;
-                }
-            }
-
-            if (strPhone.Length != 0 && strPhone.Length != 10 && strPhone.Length != 7)
-            {
-                MessageBox.Show("ERROR: Invalid phone number.");
-                return;
-            }
-            else
-            {
-                strPhone = formatPhoneString(strPhone.Trim());
-            }
+            strPhone = formatPhoneString(strPhone.Trim());
 
             //Insert user into database
-            string strCmd;
-            if (strHandicap == "") //format the query based existence of the handicap field
-            {
-                strCmd = "INSERT INTO Players (fName, lName, phone)";
-                strCmd = strCmd + "VALUES('" + strFName + "', '" + strLName + "', '" + strPhone + "')";
-            }
-            else
-            {
-                strCmd = "INSERT INTO Players (fName, lName, phone, handicap)";
+            string strCmd = "INSERT INTO Players (fName, lName, phone, handicap)";
                 strCmd = strCmd + "VALUES('" + strFName + "', '" + strLName + "', '" + strPhone + "', " + strHandicap + ")";
-            }
 
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
@@ -237,7 +197,7 @@ namespace AWGAEventTracker
                 adapter.Fill(dataSet, "Events");
                 if (dataSet.Tables["Events"].Rows.Count > 0)
                 {
-                    MessageBox.Show("Cannot Delete: Player is currently assigned to an event.");
+                    MessageBox.Show("Cannot Delete: Player is currently assigned to at least one event.");
                     return;
                 }
             }
@@ -284,55 +244,14 @@ namespace AWGAEventTracker
             string strLName = Globals.removeTicksFromString(textBoxEditLN.Text);
             string strPhone = Globals.removeTicksFromString(textBoxEditPhone.Text).Replace("-", "").Replace(".", "");
             string strHandicap = Globals.removeTicksFromString(textBoxEditHandicap.Text);
-            double dTemp = 0;
-
-            //Validate user input
-            if (strFName == "")
-            {
-                MessageBox.Show("ERROR: First name must be populated");
-                return;
-            }
-
-            if (strLName == "")
-            {
-                MessageBox.Show("ERROR: Last name must be populated.");
-                return;
-            }
             
-            if (strHandicap == "")
-            {
-                MessageBox.Show("ERROR: Handicap must be populated.");
+            if (!validateUserInput(strFName, strLName, strHandicap, strPhone))
                 return;
-            }
-            else
-            {
-                if (!double.TryParse(strHandicap, out dTemp))
-                {
-                    MessageBox.Show("ERROR: Handicap must be a numeric value.");
-                    return;
-                }
-            }
 
-            if (strPhone.Length != 0 && strPhone.Length != 10 && strPhone.Length != 7)
-            {
-                MessageBox.Show("ERROR: Invalid phone number.");
-                return;
-            }
-            else
-            {
-                strPhone = formatPhoneString(strPhone.Trim());
-            }
+            strPhone = formatPhoneString(strPhone.Trim());
 
             //Insert user into database
-            string strCmd;
-            if (strHandicap == "") //format the query based existence of the handicap field
-            {
-                strCmd = "UPDATE players set fName = '" + strFName + "', lName = '" + strLName + "', phone = '" + strPhone + "', handicap = null WHERE playerID = " + textBoxEditID.Text;
-            }
-            else
-            {
-                strCmd = "UPDATE players set fName = '" + strFName + "', lName = '" + strLName + "', phone = '" + strPhone + "', handicap = " + strHandicap + " WHERE playerID = " + textBoxEditID.Text;
-            }
+            string strCmd = "UPDATE players set fName = '" + strFName + "', lName = '" + strLName + "', phone = '" + strPhone + "', handicap = " + strHandicap + " WHERE playerID = " + textBoxEditID.Text;
 
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
@@ -357,6 +276,54 @@ namespace AWGAEventTracker
             dataGridView.ClearSelection();
         }
 
+        private bool validateUserInput(string fname, string lname, string handicap, string phone)
+        {
+            //Validate user input
+            double dTemp = 0;
+            
+            if (fname == "")
+            {
+                MessageBox.Show("ERROR: First name must be populated");
+                return false;
+            }
+
+            if (lname == "")
+            {
+                MessageBox.Show("ERROR: Last name must be populated.");
+                return false;
+            }
+
+            if (handicap == "")
+            {
+                MessageBox.Show("ERROR: Handicap must be populated.");
+                return false;
+            }
+            else
+            {
+                if (!double.TryParse(handicap, out dTemp))
+                {
+                    MessageBox.Show("ERROR: Handicap must be a numeric value.");
+                    return false;
+                }
+                else
+                {
+                    if (Math.Abs(dTemp) > 40.4) //max allowed USGA handicap 
+                    {
+                        MessageBox.Show("ERROR: Handicap must be a reasonable numeric value.");
+                        return false;
+                    }
+                }
+            }
+
+            if (phone.Length != 0 && phone.Length != 10 && phone.Length != 7)
+            {
+                MessageBox.Show("ERROR: Invalid phone number.");
+                return false;
+            }
+
+            return true;
+        }
+
         //formats a numeric string of 7 or 10 digits into a phone number. (i.e. inserts dashes)
         private string formatPhoneString(string phone)
         {
@@ -370,22 +337,5 @@ namespace AWGAEventTracker
 
             return phone;
         }
-        //private void textBoxAddPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        //{
-        //    toolTipPhoneNum.ToolTipTitle = "Invalid Input";
-        //    toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxAddPhone, textBoxAddPhone.Location, 5000);
-
-        //}
-
-        //private void toolTipPhoneNum_Popup(object sender, PopupEventArgs e)
-        //{
-
-        //}
-        //private void textBoxEditPhone_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        //{
-        //    toolTipPhoneNum.ToolTipTitle = "Invalid Input";
-        //    toolTipPhoneNum.Show("The phone number input is invalid. Valid inputs are a digits 0-9. Area code is not required.", textBoxEditPhone, textBoxEditPhone.Location, 5000);
-
-        //}
     }
 }

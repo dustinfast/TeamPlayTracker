@@ -47,7 +47,7 @@ namespace AWGAEventTracker
         private void comboBoxEventSelector_Enter(object sender, EventArgs e)
         {
             //Populate drop down box with team-play events from the database
-            string dbCmd = "SELECT * FROM Events";
+            string dbCmd = "SELECT * FROM Events ORDER BY eventName";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -79,15 +79,8 @@ namespace AWGAEventTracker
         private void populateEvent()
         {
             //Populate event details here for all tabs
-            //////////////////////////////////////////////
-
-            ///////////////////// Details tab: 
-
-            //TODO Details Tab: number of Players, Teams, and Rounds assigned to event
-            //TODO Details Tab: Calculate and display "Rounds with Results"
-            //TODO Details Tab: Update Final Results display
-
-            populateEventDetails(); //Populates event details tab and g_strAssignedPlayers
+            
+            populateEventDetails(); //Populates event details tab and g_selectedEvent.strAssignedPlayers
             populatePlayersLists(); //Populates Player tab assigned/unassgined player lists 
             populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
 
@@ -102,18 +95,15 @@ namespace AWGAEventTracker
             buttonViewRounds.Enabled = bRoundsResult;
             buttonEnterScores.Enabled = bRoundsResult;
             buttonViewScoresByPlayer.Enabled = bRoundsResult;
+            buttonViewScoresByTeam.Enabled = bRoundsResult;
             if (bTeamsResult)
                 buttonGenerateRounds.Enabled = !bRoundsResult;
             else
                 buttonGenerateRounds.Enabled = bRoundsResult;
 
             if (bTeamsResult || bRoundsResult)
-                updateObjects(); //update the players objects, as well as the event's teams, rounds, and groups objects.
+                updateObjects(); //update the players objects, as well as the event objects teams, rounds, and groups objects/properties.
 
-            //Set 
-            //TODO Popualte Rounds tab
-
-            //TODO Populate Results tab
         }
 
         //Populates the event details tab and also populates the g_selectedEvent.strAssignedPlayers 
@@ -156,6 +146,7 @@ namespace AWGAEventTracker
                 g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(0, 1); //leading
                 g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(g_selectedEvent.strAssignedPlayers.Length - 1, 1); //trailing
             }
+
             // Count the number of players and display to events page
             int playerNum = 0;
             playerNum = Regex.Matches(g_selectedEvent.strAssignedPlayers, ",").Count + 1;
@@ -165,6 +156,10 @@ namespace AWGAEventTracker
 
             // If teams exist, count number of teams and display in events page
             labelTeamCount.Text = displayNumberOfTeams().ToString();
+
+            //Ensure Delete checkbox and button are reset
+            checkBoxDeleteEvent.Checked = false;
+            buttonDeleteEvent.Enabled = false;
         }
 
         //Populates the Players tab lists with the assigned and unassigned players. Assumes g_selectedEvent.strAssignedPlayers is populated.
@@ -183,7 +178,7 @@ namespace AWGAEventTracker
             //Populate Assigned players
             if (g_selectedEvent.strAssignedPlayers.Length > 0)
             {
-                dbCmd = "SELECT * FROM Players WHERE playerID in (" + g_selectedEvent.strAssignedPlayers + ")";
+                dbCmd = "SELECT * FROM Players WHERE playerID in (" + g_selectedEvent.strAssignedPlayers + ") ORDER BY lName";
                 dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
                 adapter = new OleDbDataAdapter(dbComm);
 
@@ -201,7 +196,7 @@ namespace AWGAEventTracker
                 foreach (DataRow dRow in dataSet.Tables["Players"].Rows)
                 {
                     Player p = new Player(Convert.ToInt32(dRow["playerID"].ToString()),
-                                          Convert.ToInt16(dRow["handicap"].ToString()),
+                                          Convert.ToDouble(dRow["handicap"].ToString()),
                                           dRow["fName"].ToString(), dRow["lName"].ToString(),
                                           dRow["phone"].ToString(), "");
                     g_selectedEvent.lstAssignedPlayers.Add(p);
@@ -215,6 +210,7 @@ namespace AWGAEventTracker
             dbCmd = "SELECT * FROM Players";
             if (g_selectedEvent.strAssignedPlayers.Length != 0)
                 dbCmd += " WHERE playerID not in (" + g_selectedEvent.strAssignedPlayers + ")";
+            dbCmd += " ORDER BY lName";
 
             dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             adapter = new OleDbDataAdapter(dbComm);
@@ -233,7 +229,7 @@ namespace AWGAEventTracker
             foreach (DataRow dRow in dataSet.Tables["Players"].Rows)
             {
                 Player p = new Player(Convert.ToInt32(dRow["playerID"].ToString()),
-                                      Convert.ToInt16(dRow["handicap"].ToString()),
+                                      Convert.ToDouble(dRow["handicap"].ToString()),
                                       dRow["fName"].ToString(), dRow["lName"].ToString(),
                                       dRow["phone"].ToString(), "");
                 g_selectedEvent.lstUnassignedPlayers.Add(p);
@@ -623,7 +619,6 @@ namespace AWGAEventTracker
                 return;
 
             List<String> lstCmds = new List<String>();
-            //lstCmds.Add("DELETE FROM Groups LEFT JOIN Rounds ON Rounds.roundID = Groups.roundID WHERE eventID = " + g_selectedEvent.nID);
             lstCmds.Add("DELETE FROM Groups WHERE roundID IN (SELECT roundID FROM Rounds WHERE eventID = " + g_selectedEvent.nID + ")");
             lstCmds.Add("DELETE FROM Rounds WHERE eventID = " + g_selectedEvent.nID);
             lstCmds.Add("DELETE FROM Teams WHERE eventID = " + g_selectedEvent.nID);
