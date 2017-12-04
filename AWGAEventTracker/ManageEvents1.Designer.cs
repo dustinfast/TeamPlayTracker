@@ -37,6 +37,9 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDeleteEvent = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.buttonDeleteEvent = new System.Windows.Forms.Button();
             this.labelEndDate = new System.Windows.Forms.Label();
             this.labelStartDate = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -50,6 +53,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonUnassignAll = new System.Windows.Forms.Button();
             this.labelAssignedCount = new System.Windows.Forms.Label();
             this.labelUnassignedCount = new System.Windows.Forms.Label();
             this.buttonAssignAll = new System.Windows.Forms.Button();
@@ -71,10 +75,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.buttonViewPuttStandings = new System.Windows.Forms.Button();
+            this.buttonViewTeamStandings = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.checkBoxDeleteEvent = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.buttonDeleteEvent = new System.Windows.Forms.Button();
+            this.buttonViewPointStandings = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonViewScoresByPlayer = new System.Windows.Forms.Button();
@@ -84,7 +88,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.buttonEnterScores = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonUnassignAll = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -162,11 +165,11 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Location = new System.Drawing.Point(4, 108);
+            this.groupBox2.Location = new System.Drawing.Point(4, 132);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(368, 222);
+            this.groupBox2.Size = new System.Drawing.Size(368, 196);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Guide";
@@ -177,12 +180,15 @@
             this.label21.Location = new System.Drawing.Point(9, 22);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(354, 169);
+            this.label21.Size = new System.Drawing.Size(354, 156);
             this.label21.TabIndex = 0;
             this.label21.Text = resources.GetString("label21.Text");
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxDeleteEvent);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.buttonDeleteEvent);
             this.groupBox1.Controls.Add(this.labelEndDate);
             this.groupBox1.Controls.Add(this.labelStartDate);
             this.groupBox1.Controls.Add(this.label18);
@@ -199,15 +205,45 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(368, 100);
+            this.groupBox1.Size = new System.Drawing.Size(368, 124);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Event Info";
             // 
+            // checkBoxDeleteEvent
+            // 
+            this.checkBoxDeleteEvent.AutoSize = true;
+            this.checkBoxDeleteEvent.Location = new System.Drawing.Point(264, 97);
+            this.checkBoxDeleteEvent.Name = "checkBoxDeleteEvent";
+            this.checkBoxDeleteEvent.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxDeleteEvent.TabIndex = 24;
+            this.checkBoxDeleteEvent.UseVisualStyleBackColor = true;
+            this.checkBoxDeleteEvent.CheckedChanged += new System.EventHandler(this.checkBoxDeleteEvent_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(183, 97);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 13);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Delete Event?";
+            // 
+            // buttonDeleteEvent
+            // 
+            this.buttonDeleteEvent.Enabled = false;
+            this.buttonDeleteEvent.Location = new System.Drawing.Point(285, 92);
+            this.buttonDeleteEvent.Name = "buttonDeleteEvent";
+            this.buttonDeleteEvent.Size = new System.Drawing.Size(73, 23);
+            this.buttonDeleteEvent.TabIndex = 22;
+            this.buttonDeleteEvent.Text = "Delete";
+            this.buttonDeleteEvent.UseVisualStyleBackColor = true;
+            this.buttonDeleteEvent.Click += new System.EventHandler(this.buttonDeleteEvent_Click);
+            // 
             // labelEndDate
             // 
             this.labelEndDate.AutoSize = true;
-            this.labelEndDate.Location = new System.Drawing.Point(271, 63);
+            this.labelEndDate.Location = new System.Drawing.Point(271, 65);
             this.labelEndDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelEndDate.Name = "labelEndDate";
             this.labelEndDate.Size = new System.Drawing.Size(27, 13);
@@ -217,7 +253,7 @@
             // labelStartDate
             // 
             this.labelStartDate.AutoSize = true;
-            this.labelStartDate.Location = new System.Drawing.Point(271, 43);
+            this.labelStartDate.Location = new System.Drawing.Point(271, 45);
             this.labelStartDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelStartDate.Name = "labelStartDate";
             this.labelStartDate.Size = new System.Drawing.Size(27, 13);
@@ -227,7 +263,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(214, 63);
+            this.label18.Location = new System.Drawing.Point(214, 65);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(55, 13);
@@ -237,7 +273,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(211, 43);
+            this.label17.Location = new System.Drawing.Point(211, 45);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(58, 13);
@@ -247,7 +283,7 @@
             // labelTeamCount
             // 
             this.labelTeamCount.AutoSize = true;
-            this.labelTeamCount.Location = new System.Drawing.Point(78, 63);
+            this.labelTeamCount.Location = new System.Drawing.Point(78, 65);
             this.labelTeamCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTeamCount.Name = "labelTeamCount";
             this.labelTeamCount.Size = new System.Drawing.Size(27, 13);
@@ -257,7 +293,7 @@
             // labelEventName
             // 
             this.labelEventName.AutoSize = true;
-            this.labelEventName.Location = new System.Drawing.Point(78, 22);
+            this.labelEventName.Location = new System.Drawing.Point(78, 24);
             this.labelEventName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelEventName.Name = "labelEventName";
             this.labelEventName.Size = new System.Drawing.Size(27, 13);
@@ -268,7 +304,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(35, 22);
+            this.label13.Location = new System.Drawing.Point(35, 24);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(38, 13);
@@ -278,7 +314,7 @@
             // labelPlayerCount
             // 
             this.labelPlayerCount.AutoSize = true;
-            this.labelPlayerCount.Location = new System.Drawing.Point(78, 43);
+            this.labelPlayerCount.Location = new System.Drawing.Point(78, 45);
             this.labelPlayerCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPlayerCount.Name = "labelPlayerCount";
             this.labelPlayerCount.Size = new System.Drawing.Size(27, 13);
@@ -288,7 +324,7 @@
             // labelRoundCount
             // 
             this.labelRoundCount.AutoSize = true;
-            this.labelRoundCount.Location = new System.Drawing.Point(271, 22);
+            this.labelRoundCount.Location = new System.Drawing.Point(271, 24);
             this.labelRoundCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelRoundCount.Name = "labelRoundCount";
             this.labelRoundCount.Size = new System.Drawing.Size(27, 13);
@@ -298,7 +334,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(195, 22);
+            this.label7.Location = new System.Drawing.Point(195, 24);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 13);
@@ -308,7 +344,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 43);
+            this.label6.Location = new System.Drawing.Point(30, 45);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 13);
@@ -318,7 +354,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 63);
+            this.label2.Location = new System.Drawing.Point(33, 65);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
@@ -346,6 +382,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Step 2: Assign Players";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonUnassignAll
+            // 
+            this.buttonUnassignAll.Location = new System.Drawing.Point(175, 203);
+            this.buttonUnassignAll.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonUnassignAll.Name = "buttonUnassignAll";
+            this.buttonUnassignAll.Size = new System.Drawing.Size(28, 28);
+            this.buttonUnassignAll.TabIndex = 10;
+            this.buttonUnassignAll.Text = "<<";
+            this.buttonUnassignAll.UseVisualStyleBackColor = true;
+            this.buttonUnassignAll.Click += new System.EventHandler(this.buttonUnassignAll_Click);
             // 
             // labelAssignedCount
             // 
@@ -563,82 +610,81 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.buttonViewPuttStandings);
+            this.groupBox7.Controls.Add(this.buttonViewTeamStandings);
             this.groupBox7.Controls.Add(this.label12);
-            this.groupBox7.Controls.Add(this.checkBoxDeleteEvent);
-            this.groupBox7.Controls.Add(this.label5);
-            this.groupBox7.Controls.Add(this.buttonDeleteEvent);
-            this.groupBox7.Location = new System.Drawing.Point(4, 233);
+            this.groupBox7.Controls.Add(this.buttonViewPointStandings);
+            this.groupBox7.Location = new System.Drawing.Point(4, 217);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(367, 96);
+            this.groupBox7.Size = new System.Drawing.Size(367, 112);
             this.groupBox7.TabIndex = 12;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Delete Event";
+            this.groupBox7.Text = "View Standings";
+            // 
+            // buttonViewPuttStandings
+            // 
+            this.buttonViewPuttStandings.Location = new System.Drawing.Point(131, 59);
+            this.buttonViewPuttStandings.Name = "buttonViewPuttStandings";
+            this.buttonViewPuttStandings.Size = new System.Drawing.Size(108, 40);
+            this.buttonViewPuttStandings.TabIndex = 23;
+            this.buttonViewPuttStandings.Text = "Putt Standings";
+            this.buttonViewPuttStandings.UseVisualStyleBackColor = true;
+            this.buttonViewPuttStandings.Click += new System.EventHandler(this.buttonViewPuttStandings_Click);
+            // 
+            // buttonViewTeamStandings
+            // 
+            this.buttonViewTeamStandings.Location = new System.Drawing.Point(245, 59);
+            this.buttonViewTeamStandings.Name = "buttonViewTeamStandings";
+            this.buttonViewTeamStandings.Size = new System.Drawing.Size(108, 40);
+            this.buttonViewTeamStandings.TabIndex = 10;
+            this.buttonViewTeamStandings.Text = "Team Standings";
+            this.buttonViewTeamStandings.UseVisualStyleBackColor = true;
+            this.buttonViewTeamStandings.Click += new System.EventHandler(this.buttonViewTeamStandings_Click);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 20);
+            this.label12.Location = new System.Drawing.Point(7, 21);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(320, 26);
+            this.label12.Size = new System.Drawing.Size(311, 26);
             this.label12.TabIndex = 22;
-            this.label12.Text = "The following action will delete this event, including the associated\r\nteams, rou" +
-    "nds, groups, and scores. This action cannot be undone.";
+            this.label12.Text = "You may view standings at any time. If scores for all rounds have\r\nbeen entered, " +
+    "the standings are the final tournament results. ";
             // 
-            // checkBoxDeleteEvent
+            // buttonViewPointStandings
             // 
-            this.checkBoxDeleteEvent.AutoSize = true;
-            this.checkBoxDeleteEvent.Location = new System.Drawing.Point(267, 66);
-            this.checkBoxDeleteEvent.Name = "checkBoxDeleteEvent";
-            this.checkBoxDeleteEvent.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxDeleteEvent.TabIndex = 21;
-            this.checkBoxDeleteEvent.UseVisualStyleBackColor = true;
-            this.checkBoxDeleteEvent.CheckedChanged += new System.EventHandler(this.checkBoxDeleteEvent_CheckedChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(186, 66);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 13);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "Delete Event?";
-            // 
-            // buttonDeleteEvent
-            // 
-            this.buttonDeleteEvent.Enabled = false;
-            this.buttonDeleteEvent.Location = new System.Drawing.Point(288, 61);
-            this.buttonDeleteEvent.Name = "buttonDeleteEvent";
-            this.buttonDeleteEvent.Size = new System.Drawing.Size(73, 23);
-            this.buttonDeleteEvent.TabIndex = 19;
-            this.buttonDeleteEvent.Text = "Delete";
-            this.buttonDeleteEvent.UseVisualStyleBackColor = true;
-            this.buttonDeleteEvent.Click += new System.EventHandler(this.buttonDeleteEvent_Click);
+            this.buttonViewPointStandings.Location = new System.Drawing.Point(17, 59);
+            this.buttonViewPointStandings.Name = "buttonViewPointStandings";
+            this.buttonViewPointStandings.Size = new System.Drawing.Size(108, 40);
+            this.buttonViewPointStandings.TabIndex = 11;
+            this.buttonViewPointStandings.Text = "Point Standings";
+            this.buttonViewPointStandings.UseVisualStyleBackColor = true;
+            this.buttonViewPointStandings.Click += new System.EventHandler(this.buttonViewPointStandings_Click);
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.buttonViewScoresByPlayer);
             this.groupBox6.Controls.Add(this.buttonViewScoresByTeam);
-            this.groupBox6.Location = new System.Drawing.Point(4, 116);
+            this.groupBox6.Location = new System.Drawing.Point(3, 110);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(367, 111);
+            this.groupBox6.Size = new System.Drawing.Size(367, 101);
             this.groupBox6.TabIndex = 11;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "View Results";
+            this.groupBox6.Text = "View Scores";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 20);
+            this.label11.Location = new System.Drawing.Point(8, 20);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(337, 26);
+            this.label11.Size = new System.Drawing.Size(167, 13);
             this.label11.TabIndex = 9;
-            this.label11.Text = "You may view scores at any time. If all scores for the event have been\r\nentered, " +
-    "these reports may be sorted to serve as standings.";
+            this.label11.Text = "You may view scores at any time. ";
             // 
             // buttonViewScoresByPlayer
             // 
-            this.buttonViewScoresByPlayer.Location = new System.Drawing.Point(31, 59);
+            this.buttonViewScoresByPlayer.Location = new System.Drawing.Point(32, 47);
             this.buttonViewScoresByPlayer.Name = "buttonViewScoresByPlayer";
             this.buttonViewScoresByPlayer.Size = new System.Drawing.Size(149, 40);
             this.buttonViewScoresByPlayer.TabIndex = 7;
@@ -648,7 +694,7 @@
             // 
             // buttonViewScoresByTeam
             // 
-            this.buttonViewScoresByTeam.Location = new System.Drawing.Point(186, 59);
+            this.buttonViewScoresByTeam.Location = new System.Drawing.Point(187, 47);
             this.buttonViewScoresByTeam.Name = "buttonViewScoresByTeam";
             this.buttonViewScoresByTeam.Size = new System.Drawing.Size(149, 40);
             this.buttonViewScoresByTeam.TabIndex = 8;
@@ -661,16 +707,16 @@
             this.groupBox3.Controls.Add(this.numericJumpTo);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.buttonEnterScores);
-            this.groupBox3.Location = new System.Drawing.Point(4, 4);
+            this.groupBox3.Location = new System.Drawing.Point(3, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(367, 106);
+            this.groupBox3.Size = new System.Drawing.Size(367, 100);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Enter Scores";
             // 
             // numericJumpTo
             // 
-            this.numericJumpTo.Location = new System.Drawing.Point(229, 24);
+            this.numericJumpTo.Location = new System.Drawing.Point(205, 23);
             this.numericJumpTo.Minimum = new decimal(new int[] {
             1,
             0,
@@ -688,7 +734,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(32, 26);
+            this.label8.Location = new System.Drawing.Point(8, 25);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(198, 13);
             this.label8.TabIndex = 8;
@@ -696,7 +742,7 @@
             // 
             // buttonEnterScores
             // 
-            this.buttonEnterScores.Location = new System.Drawing.Point(186, 54);
+            this.buttonEnterScores.Location = new System.Drawing.Point(187, 52);
             this.buttonEnterScores.Name = "buttonEnterScores";
             this.buttonEnterScores.Size = new System.Drawing.Size(149, 40);
             this.buttonEnterScores.TabIndex = 6;
@@ -714,17 +760,6 @@
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // buttonUnassignAll
-            // 
-            this.buttonUnassignAll.Location = new System.Drawing.Point(175, 203);
-            this.buttonUnassignAll.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonUnassignAll.Name = "buttonUnassignAll";
-            this.buttonUnassignAll.Size = new System.Drawing.Size(28, 28);
-            this.buttonUnassignAll.TabIndex = 10;
-            this.buttonUnassignAll.Text = "<<";
-            this.buttonUnassignAll.UseVisualStyleBackColor = true;
-            this.buttonUnassignAll.Click += new System.EventHandler(this.buttonUnassignAll_Click);
             // 
             // ManageEvents1
             // 
@@ -818,9 +853,12 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button buttonUnassignAll;
         private System.Windows.Forms.CheckBox checkBoxDeleteEvent;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonDeleteEvent;
-        private System.Windows.Forms.Button buttonUnassignAll;
+        private System.Windows.Forms.Button buttonViewPuttStandings;
+        private System.Windows.Forms.Button buttonViewTeamStandings;
+        private System.Windows.Forms.Button buttonViewPointStandings;
     }
 }

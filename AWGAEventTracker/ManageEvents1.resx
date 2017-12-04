@@ -118,9 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label21.Text" xml:space="preserve">
-    <value>Welcome to the Team-Play Event Manager. 
-Using the following steps (above) you can set up the event, enter
-scores, and view results.
+    <value>Welcome to the Team-Play Event Manager.  Use the following steps
+(above) to set up the event, enter scores, and view results.
 
 -- Help --
 Step 1: Select a Team-Play event to manage from the dropdown list. You

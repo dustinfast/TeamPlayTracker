@@ -12,9 +12,6 @@ namespace AWGAEventTracker
     class CSVHandlers
     {
         //Builds a csv file from the teams of eventname, having an event id of e.nID.
-        //We are getting the data from the database itself rather than the event object (like we 
-        // do in the other buildAndOpenCSV functions in this class because at the time, 
-        // those obejcts didn't exist
         public void buildAndOpenTeamsCSV(Event e)
         {
             string dbCmd = "SELECT * FROM Teams";
@@ -288,9 +285,140 @@ namespace AWGAEventTracker
             openFile(strOutputFile);
         }
 
-        public void buildAndOpenResultsCSV(Event e)
+        public void buildAndOpenPointResultsCSV(Event e)
         {
-            //Not implemented
+            string dbCmd = "SELECT Players.fName, Players.lName, Teams.playerLevel, Sum(Scores.pointScore) AS TotalPoints, ";
+            dbCmd += "Teams.teamNumber, Teams.eventID, Events.eventName FROM Events ";
+            dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
+            dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
+            dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = " + e.nID + " AND Scores.isSubstitution = 0 ";
+            dbCmd += "GROUP BY Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
+            dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.pointScore) DESC";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Standings");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
+            //Ensure Scores exists
+            if (dataSet.Tables["Standings"].Rows.Count <= 0)
+            {
+                MessageBox.Show("No Scores have been entered for this event.");
+                return;
+            }
+
+            string strOutput = e.strName + " Point Standings\n";
+            strOutput += "\nPlace, Team, Score\n";
+
+            //int nCount = 1;
+            //foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
+            //{
+            //    strOutput += nCount + "," + dRow["teamNumber"] + "," + dRow["TotalScore"] + "\n";
+            //    nCount++;
+            //}
+
+            //Write the output string to a file
+            string strOutputFile = doFileWrite(e.strName + "PointStandings.csv", strOutput);
+
+            //Open the file
+            openFile(strOutputFile);
+        }
+
+        public void buildAndOpenPuttResultsCSV(Event e)
+        {
+            string dbCmd = "SELECT Players.fName, Players.lName, Teams.playerLevel, Sum(Scores.puttScore) AS TotalPutts, ";
+            dbCmd += "Teams.teamNumber, Teams.eventID, Events.eventName FROM Events ";
+            dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
+            dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
+            dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = " + e.nID + " AND Scores.isSubstitution = 0 ";
+            dbCmd += "GROUP BY Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
+            dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.puttScore) ASC";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Standings");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
+            //Ensure Scores exists
+            if (dataSet.Tables["Standings"].Rows.Count <= 0)
+            {
+                MessageBox.Show("No Scores have been entered for this event.");
+                return;
+            }
+
+            string strOutput = e.strName + " Point Standings\n";
+            strOutput += "\nPlace, Team, Score\n";
+
+            //int nCount = 1;
+            //foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
+            //{
+            //    strOutput += nCount + "," + dRow["teamNumber"] + "," + dRow["TotalScore"] + "\n";
+            //    nCount++;
+            //}
+
+            //Write the output string to a file
+            string strOutputFile = doFileWrite(e.strName + "PuttStandings.csv", strOutput);
+
+            //Open the file
+            openFile(strOutputFile);
+        }
+
+        public void buildAndOpenTeamResultsCSV(Event e)
+        {
+            string dbCmd = "SELECT teamNumber,  SUM (pointScore) AS TotalScore ";
+            dbCmd += " FROM Scores WHERE Scores.eventID = " + e.nID + " GROUP BY teamNumber ORDER BY SUM (pointScore) DESC";
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+
+            OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
+            DataSet dataSet = new DataSet();
+            try
+            {
+                adapter.Fill(dataSet, "Standings");
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+                return;
+            }
+
+            //Ensure Scores exists
+            if (dataSet.Tables["Standings"].Rows.Count <= 0)
+            {
+                MessageBox.Show("No Scores have been entered for this event.");
+                return;
+            }
+
+            string strOutput = e.strName + " Team Standings\n";
+            strOutput += "\nPlace, Team, Score\n";
+
+            int nCount = 1;
+            foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
+            {
+                strOutput += nCount + "," + dRow["teamNumber"] + "," + dRow["TotalScore"] + "\n";
+                nCount++;
+            }
+
+            //Write the output string to a file
+            string strOutputFile = doFileWrite(e.strName + "TeamStandings.csv", strOutput);
+
+            //Open the file
+            openFile(strOutputFile);
         }
 
         //Opens a file with localhost's default program for a file of filename's extension.

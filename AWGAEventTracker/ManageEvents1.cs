@@ -666,6 +666,20 @@ namespace AWGAEventTracker
             this.Close();
         }
 
-        
+        private void buttonViewPointStandings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonViewPuttStandings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonViewTeamStandings_Click(object sender, EventArgs e)
+        {
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenTeamResultsCSV(g_selectedEvent);
+        }
     }
 }
