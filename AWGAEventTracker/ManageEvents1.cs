@@ -668,12 +668,14 @@ namespace AWGAEventTracker
 
         private void buttonViewPointStandings_Click(object sender, EventArgs e)
         {
-
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenPointResultsCSV(g_selectedEvent);
         }
 
         private void buttonViewPuttStandings_Click(object sender, EventArgs e)
         {
-
+            CSVHandlers h = new CSVHandlers();
+            h.buildAndOpenPuttResultsCSV(g_selectedEvent);
         }
 
         private void buttonViewTeamStandings_Click(object sender, EventArgs e)

@@ -291,7 +291,7 @@ namespace AWGAEventTracker
             dbCmd += "Teams.teamNumber, Teams.eventID, Events.eventName FROM Events ";
             dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
             dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
-            dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = " + e.nID + " AND Scores.isSubstitution = 0 ";
+            dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = '" + e.strName + "' AND Scores.isSubstitution = 0 ";
             dbCmd += "GROUP BY Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
             dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.pointScore) DESC";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
@@ -316,14 +316,25 @@ namespace AWGAEventTracker
             }
 
             string strOutput = e.strName + " Point Standings\n";
-            strOutput += "\nPlace, Team, Score\n";
+            strOutput += "\nPlace, Level, Last Name, First Name, Points";
 
-            //int nCount = 1;
-            //foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
-            //{
-            //    strOutput += nCount + "," + dRow["teamNumber"] + "," + dRow["TotalScore"] + "\n";
-            //    nCount++;
-            //}
+            string strPrev = "";
+            int nCount = 1;
+            foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
+            {
+                string strCurr = dRow["playerLevel"].ToString();
+
+                if (strPrev != strCurr) //starting a new level.. Ex: B standings start
+                {
+                    nCount = 1;
+                    strOutput += "\n";
+                }
+
+                strOutput += nCount + "," + dRow["playerLevel"] + "," + dRow["fName"] + "," + dRow["lName"] + "," + dRow["TotalPoints"] + "\n";
+                nCount++;
+
+                strPrev = strCurr;
+            }
 
             //Write the output string to a file
             string strOutputFile = doFileWrite(e.strName + "PointStandings.csv", strOutput);
@@ -338,9 +349,9 @@ namespace AWGAEventTracker
             dbCmd += "Teams.teamNumber, Teams.eventID, Events.eventName FROM Events ";
             dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
             dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
-            dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = " + e.nID + " AND Scores.isSubstitution = 0 ";
+            dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = '" + e.strName + "' AND Scores.isSubstitution = 0 ";
             dbCmd += "GROUP BY Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
-            dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.puttScore) ASC";
+            dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.puttScore) DESC";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -362,15 +373,26 @@ namespace AWGAEventTracker
                 return;
             }
 
-            string strOutput = e.strName + " Point Standings\n";
-            strOutput += "\nPlace, Team, Score\n";
+            string strOutput = e.strName + " Putt Standings\n";
+            strOutput += "\nPlace, Level, Last Name, First Name, Putts";
 
-            //int nCount = 1;
-            //foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
-            //{
-            //    strOutput += nCount + "," + dRow["teamNumber"] + "," + dRow["TotalScore"] + "\n";
-            //    nCount++;
-            //}
+            string strPrev = "";
+            int nCount = 1;
+            foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
+            {
+                string strCurr = dRow["playerLevel"].ToString();
+
+                if (strPrev != strCurr) //starting a new level.. Ex: B standings start
+                {
+                    nCount = 1;
+                    strOutput += "\n";
+                }
+
+                strOutput += nCount + "," + dRow["playerLevel"] + "," + dRow["fName"] + "," + dRow["lName"] + "," + dRow["TotalPutts"] + "\n";
+                nCount++;
+
+                strPrev = strCurr;
+            }
 
             //Write the output string to a file
             string strOutputFile = doFileWrite(e.strName + "PuttStandings.csv", strOutput);
@@ -405,7 +427,7 @@ namespace AWGAEventTracker
             }
 
             string strOutput = e.strName + " Team Standings\n";
-            strOutput += "\nPlace, Team, Score\n";
+            strOutput += "\nPlace, Team, Points\n";
 
             int nCount = 1;
             foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
