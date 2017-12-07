@@ -330,7 +330,7 @@ namespace AWGAEventTracker
                     strOutput += "\n";
                 }
 
-                strOutput += nCount + "," + dRow["playerLevel"] + "," + dRow["fName"] + "," + dRow["lName"] + "," + dRow["TotalPoints"] + "\n";
+                strOutput += nCount + "," + dRow["playerLevel"] + "," + dRow["lName"] + "," + dRow["fName"] + "," + dRow["TotalPoints"] + "\n";
                 nCount++;
 
                 strPrev = strCurr;
@@ -350,8 +350,8 @@ namespace AWGAEventTracker
             dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
             dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
             dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = '" + e.strName + "' AND Scores.isSubstitution = 0 ";
-            dbCmd += "GROUP BY Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
-            dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.puttScore) DESC";
+            dbCmd += "GROUP BY Players.lName, Players.fName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
+            dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.puttScore) ASC";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
@@ -388,7 +388,7 @@ namespace AWGAEventTracker
                     strOutput += "\n";
                 }
 
-                strOutput += nCount + "," + dRow["playerLevel"] + "," + dRow["fName"] + "," + dRow["lName"] + "," + dRow["TotalPutts"] + "\n";
+                strOutput += nCount + "," + dRow["playerLevel"] + "," + dRow["lName"] + "," + dRow["fName"] + "," + dRow["TotalPutts"] + "\n";
                 nCount++;
 
                 strPrev = strCurr;
