@@ -287,12 +287,12 @@ namespace AWGAEventTracker
 
         public void buildAndOpenPointResultsCSV(Event e)
         {
-            string dbCmd = "SELECT Players.fName, Players.lName, Teams.playerLevel, Sum(Scores.pointScore) AS TotalPoints, ";
+            string dbCmd = "SELECT Players.playerID, Players.fName, Players.lName, Teams.playerLevel, Sum(Scores.pointScore) AS TotalPoints, ";
             dbCmd += "Teams.teamNumber, Teams.eventID, Events.eventName FROM Events ";
             dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
             dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
             dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = '" + e.strName + "' AND Scores.isSubstitution = 0 ";
-            dbCmd += "GROUP BY Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
+            dbCmd += "GROUP BY Players.playerID, Players.fName, Players.lName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
             dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.pointScore) DESC";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
@@ -322,6 +322,9 @@ namespace AWGAEventTracker
             int nCount = 1;
             foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
             {
+                if (e.getPlayerObjectByID((int)dRow["playerID"]).hadSubbedRound(e))
+                    continue;
+
                 string strCurr = dRow["playerLevel"].ToString();
 
                 if (strPrev != strCurr) //starting a new level.. Ex: B standings start
@@ -345,15 +348,15 @@ namespace AWGAEventTracker
 
         public void buildAndOpenPuttResultsCSV(Event e)
         {
-            string dbCmd = "SELECT Players.fName, Players.lName, Teams.playerLevel, Sum(Scores.puttScore) AS TotalPutts, ";
+            string dbCmd = "SELECT Players.playerID, Players.fName, Players.lName, Teams.playerLevel, Sum(Scores.puttScore) AS TotalPutts, ";
             dbCmd += "Teams.teamNumber, Teams.eventID, Events.eventName FROM Events ";
             dbCmd += "INNER JOIN ((Players INNER JOIN Scores ON Players.playerID = Scores.playerID) ";
             dbCmd += "INNER JOIN Teams ON Players.playerID = Teams.playerID) ON (Scores.eventID = Events.eventID) ";
             dbCmd += "AND (Events.eventID = Teams.eventID) WHERE Events.eventName = '" + e.strName + "' AND Scores.isSubstitution = 0 ";
-            dbCmd += "GROUP BY Players.lName, Players.fName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
+            dbCmd += "GROUP BY Players.playerID, Players.lName, Players.fName, Teams.playerLevel, Teams.teamNumber, Teams.eventID, Scores.eventID, Events.eventName ";
             dbCmd += "ORDER BY Teams.playerLevel, Sum(Scores.puttScore) ASC";
-            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
+            OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
             DataSet dataSet = new DataSet();
             try
@@ -378,8 +381,12 @@ namespace AWGAEventTracker
 
             string strPrev = "";
             int nCount = 1;
+            
             foreach (DataRow dRow in dataSet.Tables["Standings"].Rows)
             {
+                if (e.getPlayerObjectByID((int)dRow["playerID"]).hadSubbedRound(e))
+                    continue;
+
                 string strCurr = dRow["playerLevel"].ToString();
 
                 if (strPrev != strCurr) //starting a new level.. Ex: B standings start

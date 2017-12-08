@@ -44,5 +44,14 @@ namespace AWGAEventTracker
             lstAssignedPlayers = e.lstAssignedPlayers;
             lstUnassignedPlayers = e.lstUnassignedPlayers;
         }
+
+        //Parses all the player objects of the given event and returns the one with the specified ID
+        public Player getPlayerObjectByID(int id)
+        {
+            foreach (Player p in this.lstAssignedPlayers)
+                if (p.ID == id)
+                    return p;
+            return null;
+        }
     }
 }

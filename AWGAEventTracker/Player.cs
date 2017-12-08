@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AWGAEventTracker
 {
-    public class Player //An abstraction of a player
+    class Player //An abstraction of a player
     {
         public int ID { get; set; }
         public double handicap { get; set; }
@@ -30,6 +32,27 @@ namespace AWGAEventTracker
             displayName = lName + ", " + fName;
             lstConstraintsStrong = new List<int>();
             lstConstraintsWeak = new List<int>();
+        }
+
+        //returns true iff a player has a substitution attached to any of their scores for the given event
+        public bool hadSubbedRound(Event e)
+        {
+            string dbCmd = "SELECT COUNT (playerID) FROM Scores WHERE ";
+            dbCmd += "playerID = " + this.ID.ToString() + " AND ";
+            dbCmd += "isSubstitution = True AND ";
+            dbCmd += "eventID = " + e.nID.ToString();
+            OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
+            try
+            {
+                if ((int)command.ExecuteScalar() == 0)
+                    return false;
+            }
+            catch (Exception ex0)
+            {
+                MessageBox.Show(ex0.Message);
+            }
+
+            return true;
         }
 
         //returns true iff n (a player id) is in lstConstraints
