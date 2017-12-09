@@ -180,7 +180,7 @@
             this.label21.Location = new System.Drawing.Point(9, 22);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(354, 156);
+            this.label21.Size = new System.Drawing.Size(354, 169);
             this.label21.TabIndex = 0;
             this.label21.Text = resources.GetString("label21.Text");
             // 
@@ -334,12 +334,12 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(195, 24);
+            this.label7.Location = new System.Drawing.Point(222, 24);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 13);
+            this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 2;
-            this.label7.Text = "Total Rounds:";
+            this.label7.Text = "Rounds:";
             // 
             // label6
             // 

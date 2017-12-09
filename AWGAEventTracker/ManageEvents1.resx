@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label21.Text" xml:space="preserve">
+    <value>Welcome to the Team-Play Event Manager. Use steps 1 - 4 to set up
+the event, enter scores, and view results.
+
+-- Help --
+Step 1: Select a Team-Play event to manage from the dropdown list. You
+may also create a new event using 'Create New...'.
+
+Step 2: Assign players to the selected event from the pool of all members. 
+
+Step 3: Generate and view both team and round assignments. Once
+generated, they cannot be modified for this particular event.
+
+Step 4: Enter scores for each round and view standings.</value>
+  </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Click "Generate Rounds" to create groups for each round. Each group is
 composed of an A, B, C, and D level player, with no A vs. B or C vs. D 
@@ -128,19 +143,5 @@ level (A-D, based on handicap) and subsequently builds balanced teams
 of four, with each team containing one player from each level.
 
 Note: This process may take several moments.</value>
-  </data>
-  <data name="label21.Text" xml:space="preserve">
-    <value>Welcome to the Team-Play Event Manager.  Use the following steps
-(above) to set up the event, enter scores, and view results.
-
--- Help --
-Step 1: Select a Team-Play event to manage from the dropdown list. You
-may also create a new event using 'Create New...'.
-
-Step 2: Assign players to the selected event from the pool of all members. 
-
-Step 3: Generate and view both team and round assignments. 
-
-Step 4: Enter scores for each round and view standings.</value>
   </data>
 </root>
