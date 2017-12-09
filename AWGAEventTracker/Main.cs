@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Developed by Dustin Fast (dustin.fast@outlook.com), Tricia Reilly (pereilly@alaska.edu), and Brooks Woods (woodsak49@hotmail.com)
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,7 +24,7 @@ namespace AWGAEventTracker
         private void Form1_Load(object sender, EventArgs e)
         {
             //Open the database
-            Globals.g_dbConnection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=AWGA.mdb;Jet OLEDB:Database Password=AWGA");
+            Globals.g_dbConnection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=AWGA.mdb;Jet OLEDB:Database Password=@Wg@!2017"); //AWGA.dat is a .mdb file
 
             try
             {

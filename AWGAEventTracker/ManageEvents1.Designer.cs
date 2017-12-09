@@ -771,8 +771,10 @@
             this.Controls.Add(this.comboBoxEventSelector);
             this.Controls.Add(this.btnCreateNewEvent);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ManageEvents1";
+            this.ShowIcon = false;
             this.Text = "Team-Play Event Management";
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
