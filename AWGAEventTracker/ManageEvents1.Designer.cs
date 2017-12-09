@@ -119,7 +119,7 @@
             this.btnCreateNewEvent.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateNewEvent.Name = "btnCreateNewEvent";
             this.btnCreateNewEvent.Size = new System.Drawing.Size(96, 23);
-            this.btnCreateNewEvent.TabIndex = 4;
+            this.btnCreateNewEvent.TabIndex = 1;
             this.btnCreateNewEvent.Text = "Create New...";
             this.btnCreateNewEvent.UseVisualStyleBackColor = true;
             this.btnCreateNewEvent.Click += new System.EventHandler(this.btnCreateNewEvent_Click);
@@ -131,7 +131,7 @@
             this.comboBoxEventSelector.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxEventSelector.Name = "comboBoxEventSelector";
             this.comboBoxEventSelector.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxEventSelector.TabIndex = 5;
+            this.comboBoxEventSelector.TabIndex = 1;
             this.comboBoxEventSelector.SelectedIndexChanged += new System.EventHandler(this.comboBoxEventSelector_SelectedIndexChanged);
             this.comboBoxEventSelector.Enter += new System.EventHandler(this.comboBoxEventSelector_Enter);
             // 
@@ -147,7 +147,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(382, 358);
-            this.tabControl.TabIndex = 6;
+            this.tabControl.TabIndex = 4;
             // 
             // tabPage1
             // 
@@ -216,7 +216,7 @@
             this.checkBoxDeleteEvent.Location = new System.Drawing.Point(264, 97);
             this.checkBoxDeleteEvent.Name = "checkBoxDeleteEvent";
             this.checkBoxDeleteEvent.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxDeleteEvent.TabIndex = 24;
+            this.checkBoxDeleteEvent.TabIndex = 3;
             this.checkBoxDeleteEvent.UseVisualStyleBackColor = true;
             this.checkBoxDeleteEvent.CheckedChanged += new System.EventHandler(this.checkBoxDeleteEvent_CheckedChanged);
             // 
@@ -235,7 +235,7 @@
             this.buttonDeleteEvent.Location = new System.Drawing.Point(285, 92);
             this.buttonDeleteEvent.Name = "buttonDeleteEvent";
             this.buttonDeleteEvent.Size = new System.Drawing.Size(73, 23);
-            this.buttonDeleteEvent.TabIndex = 22;
+            this.buttonDeleteEvent.TabIndex = 4;
             this.buttonDeleteEvent.Text = "Delete";
             this.buttonDeleteEvent.UseVisualStyleBackColor = true;
             this.buttonDeleteEvent.Click += new System.EventHandler(this.buttonDeleteEvent_Click);
@@ -389,7 +389,7 @@
             this.buttonUnassignAll.Margin = new System.Windows.Forms.Padding(2);
             this.buttonUnassignAll.Name = "buttonUnassignAll";
             this.buttonUnassignAll.Size = new System.Drawing.Size(28, 28);
-            this.buttonUnassignAll.TabIndex = 10;
+            this.buttonUnassignAll.TabIndex = 8;
             this.buttonUnassignAll.Text = "<<";
             this.buttonUnassignAll.UseVisualStyleBackColor = true;
             this.buttonUnassignAll.Click += new System.EventHandler(this.buttonUnassignAll_Click);
@@ -454,7 +454,7 @@
             this.listBoxAssignedPlayers.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxAssignedPlayers.Name = "listBoxAssignedPlayers";
             this.listBoxAssignedPlayers.Size = new System.Drawing.Size(158, 264);
-            this.listBoxAssignedPlayers.TabIndex = 4;
+            this.listBoxAssignedPlayers.TabIndex = 9;
             // 
             // buttonShowAddPlayersDlg
             // 
@@ -462,7 +462,7 @@
             this.buttonShowAddPlayersDlg.Margin = new System.Windows.Forms.Padding(2);
             this.buttonShowAddPlayersDlg.Name = "buttonShowAddPlayersDlg";
             this.buttonShowAddPlayersDlg.Size = new System.Drawing.Size(127, 29);
-            this.buttonShowAddPlayersDlg.TabIndex = 3;
+            this.buttonShowAddPlayersDlg.TabIndex = 10;
             this.buttonShowAddPlayersDlg.Text = "Manage All Members";
             this.buttonShowAddPlayersDlg.UseVisualStyleBackColor = true;
             this.buttonShowAddPlayersDlg.Click += new System.EventHandler(this.buttonShowAddPlayersDlg_Click);
@@ -535,7 +535,7 @@
             this.buttonViewRounds.Location = new System.Drawing.Point(190, 86);
             this.buttonViewRounds.Name = "buttonViewRounds";
             this.buttonViewRounds.Size = new System.Drawing.Size(149, 40);
-            this.buttonViewRounds.TabIndex = 3;
+            this.buttonViewRounds.TabIndex = 4;
             this.buttonViewRounds.Text = "View Rounds";
             this.buttonViewRounds.UseVisualStyleBackColor = true;
             this.buttonViewRounds.Click += new System.EventHandler(this.buttonViewRounds_Click);
@@ -545,7 +545,7 @@
             this.buttonGenerateRounds.Location = new System.Drawing.Point(33, 86);
             this.buttonGenerateRounds.Name = "buttonGenerateRounds";
             this.buttonGenerateRounds.Size = new System.Drawing.Size(149, 40);
-            this.buttonGenerateRounds.TabIndex = 2;
+            this.buttonGenerateRounds.TabIndex = 3;
             this.buttonGenerateRounds.Text = "Generate Rounds";
             this.buttonGenerateRounds.UseVisualStyleBackColor = true;
             this.buttonGenerateRounds.Click += new System.EventHandler(this.buttonGenerateRounds_Click);
@@ -581,7 +581,7 @@
             this.buttonViewTeams.Margin = new System.Windows.Forms.Padding(2);
             this.buttonViewTeams.Name = "buttonViewTeams";
             this.buttonViewTeams.Size = new System.Drawing.Size(149, 40);
-            this.buttonViewTeams.TabIndex = 0;
+            this.buttonViewTeams.TabIndex = 2;
             this.buttonViewTeams.Text = "View Teams";
             this.buttonViewTeams.UseVisualStyleBackColor = true;
             this.buttonViewTeams.Click += new System.EventHandler(this.buttonViewTeams_Click);
@@ -626,7 +626,7 @@
             this.buttonViewPuttStandings.Location = new System.Drawing.Point(131, 59);
             this.buttonViewPuttStandings.Name = "buttonViewPuttStandings";
             this.buttonViewPuttStandings.Size = new System.Drawing.Size(108, 40);
-            this.buttonViewPuttStandings.TabIndex = 23;
+            this.buttonViewPuttStandings.TabIndex = 6;
             this.buttonViewPuttStandings.Text = "Putt Standings";
             this.buttonViewPuttStandings.UseVisualStyleBackColor = true;
             this.buttonViewPuttStandings.Click += new System.EventHandler(this.buttonViewPuttStandings_Click);
@@ -636,7 +636,7 @@
             this.buttonViewTeamStandings.Location = new System.Drawing.Point(245, 59);
             this.buttonViewTeamStandings.Name = "buttonViewTeamStandings";
             this.buttonViewTeamStandings.Size = new System.Drawing.Size(108, 40);
-            this.buttonViewTeamStandings.TabIndex = 10;
+            this.buttonViewTeamStandings.TabIndex = 7;
             this.buttonViewTeamStandings.Text = "Team Standings";
             this.buttonViewTeamStandings.UseVisualStyleBackColor = true;
             this.buttonViewTeamStandings.Click += new System.EventHandler(this.buttonViewTeamStandings_Click);
@@ -656,7 +656,7 @@
             this.buttonViewPointStandings.Location = new System.Drawing.Point(17, 59);
             this.buttonViewPointStandings.Name = "buttonViewPointStandings";
             this.buttonViewPointStandings.Size = new System.Drawing.Size(108, 40);
-            this.buttonViewPointStandings.TabIndex = 11;
+            this.buttonViewPointStandings.TabIndex = 5;
             this.buttonViewPointStandings.Text = "Point Standings";
             this.buttonViewPointStandings.UseVisualStyleBackColor = true;
             this.buttonViewPointStandings.Click += new System.EventHandler(this.buttonViewPointStandings_Click);
@@ -687,7 +687,7 @@
             this.buttonViewScoresByPlayer.Location = new System.Drawing.Point(32, 47);
             this.buttonViewScoresByPlayer.Name = "buttonViewScoresByPlayer";
             this.buttonViewScoresByPlayer.Size = new System.Drawing.Size(149, 40);
-            this.buttonViewScoresByPlayer.TabIndex = 7;
+            this.buttonViewScoresByPlayer.TabIndex = 3;
             this.buttonViewScoresByPlayer.Text = "View Scores By Player";
             this.buttonViewScoresByPlayer.UseVisualStyleBackColor = true;
             this.buttonViewScoresByPlayer.Click += new System.EventHandler(this.buttonViewScoresByPlayer_Click);
@@ -697,7 +697,7 @@
             this.buttonViewScoresByTeam.Location = new System.Drawing.Point(187, 47);
             this.buttonViewScoresByTeam.Name = "buttonViewScoresByTeam";
             this.buttonViewScoresByTeam.Size = new System.Drawing.Size(149, 40);
-            this.buttonViewScoresByTeam.TabIndex = 8;
+            this.buttonViewScoresByTeam.TabIndex = 4;
             this.buttonViewScoresByTeam.Text = "View Scores by Team";
             this.buttonViewScoresByTeam.UseVisualStyleBackColor = true;
             this.buttonViewScoresByTeam.Click += new System.EventHandler(this.buttonViewScoresByTeam_Click);
@@ -724,7 +724,7 @@
             0});
             this.numericJumpTo.Name = "numericJumpTo";
             this.numericJumpTo.Size = new System.Drawing.Size(47, 20);
-            this.numericJumpTo.TabIndex = 9;
+            this.numericJumpTo.TabIndex = 1;
             this.numericJumpTo.Value = new decimal(new int[] {
             1,
             0,
@@ -745,7 +745,7 @@
             this.buttonEnterScores.Location = new System.Drawing.Point(187, 52);
             this.buttonEnterScores.Name = "buttonEnterScores";
             this.buttonEnterScores.Size = new System.Drawing.Size(149, 40);
-            this.buttonEnterScores.TabIndex = 6;
+            this.buttonEnterScores.TabIndex = 2;
             this.buttonEnterScores.Text = "Enter Scores";
             this.buttonEnterScores.UseVisualStyleBackColor = true;
             this.buttonEnterScores.Click += new System.EventHandler(this.buttonEnterScores_Click);
@@ -756,7 +756,7 @@
             this.buttonClose.Margin = new System.Windows.Forms.Padding(2);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(69, 34);
-            this.buttonClose.TabIndex = 7;
+            this.buttonClose.TabIndex = 0;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);

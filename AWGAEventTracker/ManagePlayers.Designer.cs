@@ -117,7 +117,7 @@
             this.btnAddNewPlayer.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddNewPlayer.Name = "btnAddNewPlayer";
             this.btnAddNewPlayer.Size = new System.Drawing.Size(63, 25);
-            this.btnAddNewPlayer.TabIndex = 0;
+            this.btnAddNewPlayer.TabIndex = 9;
             this.btnAddNewPlayer.Text = "Add";
             this.btnAddNewPlayer.UseVisualStyleBackColor = true;
             this.btnAddNewPlayer.Click += new System.EventHandler(this.btnAddNewPlayer_Click);
@@ -267,7 +267,7 @@
             this.radioButtonSortLN.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonSortLN.Name = "radioButtonSortLN";
             this.radioButtonSortLN.Size = new System.Drawing.Size(76, 17);
-            this.radioButtonSortLN.TabIndex = 23;
+            this.radioButtonSortLN.TabIndex = 11;
             this.radioButtonSortLN.TabStop = true;
             this.radioButtonSortLN.Text = "Last Name";
             this.radioButtonSortLN.UseVisualStyleBackColor = true;
@@ -280,7 +280,7 @@
             this.radioButtonSortFN.Margin = new System.Windows.Forms.Padding(1);
             this.radioButtonSortFN.Name = "radioButtonSortFN";
             this.radioButtonSortFN.Size = new System.Drawing.Size(75, 17);
-            this.radioButtonSortFN.TabIndex = 22;
+            this.radioButtonSortFN.TabIndex = 10;
             this.radioButtonSortFN.TabStop = true;
             this.radioButtonSortFN.Text = "First Name";
             this.radioButtonSortFN.UseVisualStyleBackColor = true;
@@ -302,7 +302,7 @@
             this.textBoxEditID.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxEditID.Name = "textBoxEditID";
             this.textBoxEditID.Size = new System.Drawing.Size(77, 20);
-            this.textBoxEditID.TabIndex = 20;
+            this.textBoxEditID.TabIndex = 99;
             this.textBoxEditID.Visible = false;
             // 
             // buttonModifyPlayer
@@ -312,7 +312,7 @@
             this.buttonModifyPlayer.Margin = new System.Windows.Forms.Padding(1);
             this.buttonModifyPlayer.Name = "buttonModifyPlayer";
             this.buttonModifyPlayer.Size = new System.Drawing.Size(87, 25);
-            this.buttonModifyPlayer.TabIndex = 19;
+            this.buttonModifyPlayer.TabIndex = 18;
             this.buttonModifyPlayer.Text = "Modify Member";
             this.buttonModifyPlayer.UseVisualStyleBackColor = true;
             this.buttonModifyPlayer.Click += new System.EventHandler(this.buttonModifyPlayer_Click);
@@ -324,7 +324,7 @@
             this.buttonDeletePlayer.Margin = new System.Windows.Forms.Padding(1);
             this.buttonDeletePlayer.Name = "buttonDeletePlayer";
             this.buttonDeletePlayer.Size = new System.Drawing.Size(91, 25);
-            this.buttonDeletePlayer.TabIndex = 18;
+            this.buttonDeletePlayer.TabIndex = 19;
             this.buttonDeletePlayer.Text = "Delete Member";
             this.buttonDeletePlayer.UseVisualStyleBackColor = true;
             this.buttonDeletePlayer.Click += new System.EventHandler(this.buttonDeletePlayer_Click);
@@ -432,7 +432,7 @@
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.RowTemplate.Height = 33;
             this.dataGridView.Size = new System.Drawing.Size(570, 261);
-            this.dataGridView.TabIndex = 0;
+            this.dataGridView.TabIndex = 12;
             this.dataGridView.Click += new System.EventHandler(this.dataGridView_Click);
             // 
             // buttonClose
@@ -441,7 +441,7 @@
             this.buttonClose.Margin = new System.Windows.Forms.Padding(1);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(63, 25);
-            this.buttonClose.TabIndex = 9;
+            this.buttonClose.TabIndex = 20;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
