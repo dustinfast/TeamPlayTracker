@@ -96,6 +96,10 @@ namespace AWGAEventTracker
             buttonEnterScores.Enabled = bRoundsResult;
             buttonViewScoresByPlayer.Enabled = bRoundsResult;
             buttonViewScoresByTeam.Enabled = bRoundsResult;
+            buttonViewPointStandings.Enabled = bRoundsResult;
+            buttonViewPuttStandings.Enabled = bRoundsResult;
+            buttonViewTeamStandings.Enabled = bRoundsResult;
+
             if (bTeamsResult)
                 buttonGenerateRounds.Enabled = !bRoundsResult;
             else
