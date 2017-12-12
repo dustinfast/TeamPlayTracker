@@ -161,6 +161,10 @@ namespace AWGAEventTracker
         //Called when a user clicks a row in the players list
         private void dataGridView_Click(object sender, EventArgs e)
         {
+            //ensure click was on an actual row
+            if (dataGridView.SelectedRows.Count == 0)
+                return;
+
             //Populate the "Edit player" boxes with data from the selected gridview row
             textBoxEditID.Text = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
             textBoxEditFN.Text = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
