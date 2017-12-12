@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_2AD9F7BBBB3A4D73A202E79C6FEDE322"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3957F0D6ABE04C6C8CD1AA86ADEAE99B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -61,6 +67,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -127,6 +141,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2AD9F7BBBB3A4D73A202E79C6FEDE322"
+            {
+            "SourcePath" = "8:..\\..\\AWGAEventTracker\\bin\\x86\\Release\\TeamPlayHowTo.pdf"
+            "TargetName" = "8:TeamPlayHowTo.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_90D7AEA8AAAE4628A97FBC3772001316"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3957F0D6ABE04C6C8CD1AA86ADEAE99B"
             {
             "SourcePath" = "8:..\\..\\AWGAEventTracker\\icon.ico"
@@ -235,7 +269,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_62A64D29D97741869CDEC785D5973F2C"
                     {
-                    "Name" = "8:Team-Play"
+                    "Name" = "8:Team-Play Tracker"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -286,7 +320,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:AWGA Team Play Tracker"
         "ProductCode" = "8:{085796AF-1A84-4128-B6DD-3CBC58E0F9A6}"
-        "PackageCode" = "8:{6FF74EAF-B568-4F6D-AF01-1C69C7B90123}"
+        "PackageCode" = "8:{57FC275D-EC09-4B66-A34E-E9E7EFDD5D9C}"
         "UpgradeCode" = "8:{A40E4B59-31F5-423C-8297-7D3574829B2B}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -406,23 +440,9 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B36DCC441EBB414181C575DBF3DCE6CE"
-            {
-            "Name" = "8:Team-Play Tournament Tracker"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_73505751BFD44BF2B9A56F4AEB74CFC1"
-            "Folder" = "8:_8C2708BD01824BD791B902ECD1AC3314"
-            "WorkingFolder" = "8:_90D7AEA8AAAE4628A97FBC3772001316"
-            "Icon" = "8:_3957F0D6ABE04C6C8CD1AA86ADEAE99B"
-            "Feature" = "8:"
-            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C4C9AC43CB7245B7BB82198104ACD1C2"
             {
-            "Name" = "8:Team-Play Tournament Tracker"
+            "Name" = "8:Team-Play Tracker"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -432,6 +452,20 @@
             "Folder" = "8:_62A64D29D97741869CDEC785D5973F2C"
             "WorkingFolder" = "8:_90D7AEA8AAAE4628A97FBC3772001316"
             "Icon" = "8:_3957F0D6ABE04C6C8CD1AA86ADEAE99B"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D0B2E4EDF7194F189C9836C187FBE00C"
+            {
+            "Name" = "8:Team-Play Instructions"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_2AD9F7BBBB3A4D73A202E79C6FEDE322"
+            "Folder" = "8:_62A64D29D97741869CDEC785D5973F2C"
+            "WorkingFolder" = "8:_90D7AEA8AAAE4628A97FBC3772001316"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
