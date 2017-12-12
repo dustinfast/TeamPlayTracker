@@ -55,7 +55,8 @@ namespace AWGAEventTracker
 
                 //Add the player in this row to the output
                 //strOutput += dRow["handicap"].ToString() + ","; //playerhandicap
-                strOutput += dRow["playerLevel"].ToString() + " (" + dRow["handicap"].ToString() + "),"; //player level and handicap
+                //strOutput += dRow["playerLevel"].ToString() + " (" + dRow["handicap"].ToString() + "),"; //player level and handicap
+                strOutput += dRow["playerLevel"].ToString() + ","; //player level only
                 strOutput += dRow["fName"].ToString() + "," + dRow["lName"].ToString() + ","; //player name
                 strOutput += dRow["phone"].ToString() + "\n";
             }
