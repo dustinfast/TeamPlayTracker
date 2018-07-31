@@ -102,6 +102,10 @@ namespace AWGAEventTracker
 
         }
 
+        //Assigns each player level (A-D) based on handicap and randomly generates a team.
+        // Returns a TeamTry object containing the generated team and it's heuristic.
+        // Note: Performance can be improved by moving the player level assignment out of this
+        //       function - it only needs to be done once and can then be re-used.
         private TeamTry generateTeams(int eventid, List<Player> playerobjects)
         {
             //A copy of the player objects in g_lstAssignedPlayers, but this one is sorted by handicap (lowest to highest)
