@@ -1,4 +1,5 @@
-﻿// Developed by Dustin Fast (dustin.fast@outlook.com), Tricia Reilly (pereilly@alaska.edu), and Brooks Woods (woodsak49@hotmail.com)
+﻿/// Main.cs - the main application class for GolfTourneyTracker
+// Developed by Dustin Fast (dustin.fast@outlook.com) with contributions from Brooks Woods (woodsak49@hotmail.com)
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
