@@ -1,6 +1,6 @@
-# An AI solution to Team-Play Tournament Tracking
+# AI solutions for Team-Play Tournament Tracking
 
-A Windows based tool developed for the Alaska Women's Golf Association to facilitate management of "Team-Play" golf tournaments. Two key features of the application are the generation of balanced teams according to client-specified criteria, and the creation of unique player pairings across an arbitrary number of rounds of golf. These features were implemented with two common AI search-space algorithms, described below in *Notable Algorithms*.
+A Windows based tool was developed for the Alaska Women's Golf Association to facilitate management of "Team-Play" golf tournaments. Two key features required by the client were the generation of balanced teams (according to client-specified criteria), and the ability to create unique player pairings across an arbitrary number of rounds of golf. These features were implemented with two common AI search-space algorithms, described below in *AI Solutions*.
 
 ## Installation and Usage
 
@@ -23,13 +23,13 @@ Additionally, teams must be balanced to ensure a fair Team-Play experience. For 
  For each round groups of four-players each are arranged, again one from each skill level. Players may not play with members of their team until the last round, when everyone plays with members of their own team. If possible, no player should play in the same group with another player more than once over the course of the event. If this is unavoidable, the duplicate pairings should only occur near the end of the event. Further, no A-player may ever play with the same B-player twice, and no C-player may ever play with the same D-player twice.
 
 **Scoring**  
-Scoring for Team-Play tournaments is calculated at both the team and individual level: 
+Scoring for Team-Play tournaments is calculated at both the team and individual level:
  
 Teams compete against each other team. At the end of the event, the team with the best score, aggregated across all rounds, wins.  
 
 Individual players compete against each other player at their level (A-D). At the end of the tournament the player at each level with the best score, aggregated across all rounds, wins.
   
-## Notable Algorithms
+## AI Solutions
 
 **Random Search**  
 A Random Search algorithm evaluated with a statistical heuristic was implemented in `TeamAssignment.cs` for the purposes of generating balanced teams. "Balanced teams" may be defined as a configuration of player-to-team assignments giving the fairest (or nearly fairest, as Random Search does not guarantee an optimal solution) distribution of player-skill (by handicap) across teams.
