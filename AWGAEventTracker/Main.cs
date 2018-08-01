@@ -1,5 +1,8 @@
-﻿/// Main.cs - the main application class for GolfTourneyTracker
-// Developed by Dustin Fast (dustin.fast@outlook.com) with contributions from Brooks Woods (woodsak49@hotmail.com)
+﻿/// Main.cs - the main application class for the Team-Play Tournament Tracker.
+///
+/// Designed/Developed by Dustin Fast (dustin.fast@outlook.com)
+/// with contributions from Brooks Woods (woodsak49@hotmail.com), 2017.
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -86,8 +89,8 @@ namespace AWGAEventTracker
         //Called on user click Manage->Events
         private void eventsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Displays the "Manage Event" dialog by instantiating a new ManageEvents1 (the form name for this class) object
-            // and then calling it's ShowDialog function. 
+            //Displays the "Manage Event" dialog by instantiating a new ManageEvents1 
+            // object and then calling it's ShowDialog function. 
             ManageEvents1 dlgManageEvents = new ManageEvents1();
             dlgManageEvents.ShowDialog();
         }

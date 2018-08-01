@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// CreateNewEvent.cs - Event handlers for the Create New Event dialog box.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

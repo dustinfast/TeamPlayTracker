@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// TeamAssignment.cs - The balanced team generator.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,19 +15,20 @@ namespace AWGAEventTracker
 {
     class TeamAssignment
     {
-        //Generates 1000 different variations of teams and then chooses the "best" among them to be 
-        // the team assignments. "Best" is defined as having the lowest variance among the avarage player handicap per team.
-        //Before proceeding, ensures teams have not yet been generated for this event 
-        // and that the number of players assigned is divisible by four. Then generates 
-        // numPlayers/4 teams of four players each. Returns a bool denoting the status 
-        // of what the Generate Teams button should be. I.e. True = enabled, False = disabled.
-
         private struct TeamTry
         {
             public double nHeuristic;
             public List<Player> lstTeams;
         }
 
+        //Generates 1000 different variations of teams and then chooses the "best"
+        // among them for use as the the official team assignments. 
+        // "Best" is defined as the arrangment of teams having the overall lowest
+        // std deviation from the mean of all player handicaps.
+        // Before generating, ensures teams have not yet been generated for this event 
+        // and that the number of players assigned is divisible by four. Then generates 
+        // numPlayers/4 teams of four players each (one for each level, A-D). 
+        // Returns a bool denoting the Generate Teams button state (True = enabled, False = disabled)
         public bool generateBestTeams(int eventid, List<Player> playerobjects)
         {
             //Ensure teams for this eventID do not already exist
@@ -55,9 +60,6 @@ namespace AWGAEventTracker
                 MessageBox.Show("ERROR: The number of players assigned to this event (" + nPlayers.ToString() + ") must be greater than 0 and a multiple of 4.");
                 return true;
             }
-
-            //Container for the teams. Will contain members of all players in chunks of 4, denoting team assignment.
-            //List<Player> teams = new List<Player>();
 
             //do team gen 1000 times and pick the best
             SortedDictionary<double, List<Player>> dictPossibleTeams = new SortedDictionary<double, List<Player>>();

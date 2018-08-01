@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// EnterScores.cs - Event handlers for the Enter Scores dialog box.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

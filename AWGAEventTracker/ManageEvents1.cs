@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// ManageEvents1.cs - Handlers for the Manage Events Dialog box. 
+///
+/// Dustin Fast and Brooks Woods, 2017
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel; 
 using System.Data;
@@ -39,11 +43,14 @@ namespace AWGAEventTracker
         {
             ManagePlayers playersdlg = new ManagePlayers();
             playersdlg.ShowDialog();
-            populatePlayersLists(); //Repopulate players list, since data for the unassigned players may have changed.
+
+            //Repopulate players list, since data for the unassigned players may have changed.
+            populatePlayersLists();
         }
 
-        //Called when the Event Selector drop down box is clicked. We populate it here and not when the form loads 
-        // because the data may have changed in between then and now.
+        //Called when the Event Selector drop down box is clicked. 
+        // We populate it here and not when the form loads because the data
+        // may have changed between then and now.
         private void comboBoxEventSelector_Enter(object sender, EventArgs e)
         {
             //Populate drop down box with team-play events from the database
@@ -69,7 +76,7 @@ namespace AWGAEventTracker
             }
         }
 
-        //Called when the user changes the selected event. Calls populateEvent(), where the event is updated.
+        //Called when the user changes the selected event. Calls populateEvent().
         private void comboBoxEventSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             populateEvent();
@@ -110,10 +117,12 @@ namespace AWGAEventTracker
 
         }
 
-        //Populates the event details tab and also populates the g_selectedEvent.strAssignedPlayers 
+        //Populates the event details tab and g_selectedEvent.strAssignedPlayers 
         void populateEventDetails()
         {
-            string dbCmd = "SELECT * FROM Events WHERE eventName = '" + comboBoxEventSelector.Text + "'"; //note that before an event is created, it is checked to ensure no rounds of the same name exist
+            //Note: Before an event is created, it is checked to ensure no events 
+            // of the same name exist. Therefore, each event may be referenced by name.
+            string dbCmd = "SELECT * FROM Events WHERE eventName = '" + comboBoxEventSelector.Text + "'";
             OleDbCommand dbComm = new OleDbCommand(dbCmd, Globals.g_dbConnection);
             OleDbDataAdapter adapter = new OleDbDataAdapter(dbComm);
 
@@ -144,8 +153,9 @@ namespace AWGAEventTracker
             labelStartDate.Text = strStartDate.Substring(0, strStartDate.IndexOf(' '));
             labelEndDate.Text = strEndDate.Substring(0, strEndDate.IndexOf(' '));
 
-            g_selectedEvent.strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); //Populates the assigned players string
-            if (g_selectedEvent.strAssignedPlayers.Length != 0) //remove leading/trailing commas
+            //Populate the assigned players string and remove leading/training commas
+            g_selectedEvent.strAssignedPlayers = dataSet.Tables["Events"].Rows[0]["players"].ToString(); 
+            if (g_selectedEvent.strAssignedPlayers.Length != 0)
             {
                 g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(0, 1); //leading
                 g_selectedEvent.strAssignedPlayers = g_selectedEvent.strAssignedPlayers.Remove(g_selectedEvent.strAssignedPlayers.Length - 1, 1); //trailing
@@ -166,7 +176,8 @@ namespace AWGAEventTracker
             buttonDeleteEvent.Enabled = false;
         }
 
-        //Populates the Players tab lists with the assigned and unassigned players. Assumes g_selectedEvent.strAssignedPlayers is populated.
+        //Populates the Players tab lists with the assigned and unassigned players.
+        //Assumes: g_selectedEvent.strAssignedPlayers is populated.
         void populatePlayersLists()
         {
             //Clear existing lists
@@ -259,7 +270,9 @@ namespace AWGAEventTracker
                 g_selectedEvent.lstAssignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
-            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
+
+            //Update the player counts at the top of the Players:assigned/unassigned boxes
+            populatePlayersTabAssignmentCounts(); 
             populateEvent();
         }
 
@@ -278,7 +291,9 @@ namespace AWGAEventTracker
                 g_selectedEvent.lstUnassignedPlayers.Add(p);
                 populateAssignedPlayersString();
             }
-            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
+
+            //Update the player counts at the top of the Players:assigned/unassigned boxes
+            populatePlayersTabAssignmentCounts(); 
             populateEvent();
         }
 
@@ -296,7 +311,9 @@ namespace AWGAEventTracker
             }
             populateAssignedPlayersString();
             populatePlayersLists();
-            populatePlayersTabAssignmentCounts(); //update the count of the players at the top of the Players:assigned/unassigned boxes
+
+            //Update the player counts at the top of the Players:assigned/unassigned boxes
+            populatePlayersTabAssignmentCounts();
             populateEvent();
         }
 
@@ -309,7 +326,7 @@ namespace AWGAEventTracker
                 return;
             }
 
-            //Update events db table directly then update the event. This will cause the players lists to be rebuilt
+            //Update events db table directly then update the event (in turn, causing the players lists to be rebuilt)
             string strCmd = "UPDATE events SET players = '' where eventID = " + g_selectedEvent.nID;
             OleDbCommand command = new OleDbCommand(strCmd, Globals.g_dbConnection);
 
@@ -323,16 +340,20 @@ namespace AWGAEventTracker
             populateEvent();
         }
 
-        //Updates the count of the players at the top of the Players:assigned/unassigned boxes
+        //Update the player counts at the top of the Players:assigned/unassigned boxes
         private void populatePlayersTabAssignmentCounts()
         {
             labelAssignedCount.Text = listBoxAssignedPlayers.Items.Count.ToString();
             labelUnassignedCount.Text = listBoxUnassignedPlayers.Items.Count.ToString();
         }
 
-        //Populates g_selectedEvent.strAssignedPlayers from the data in the Players:AssignedList then writes the new string to the db
-        //Note that the string is stored in the database with a leading, delimiting, and trailing comma. Though
-        //the g_selectedEvent.strAssignedPlayers string only has delimiting commas. This is for convenience in using LIKE and IN SQL statements.
+        //Populates g_selectedEvent.strAssignedPlayers from the data in 
+        // Players:AssignedList, then writes the new string to the db.
+        //Note: The string is stored in the database with a leading, delimiting,
+        // and trailing comma. However, the g_selectedEvent.strAssignedPlayers 
+        // string only has delimiting commas. This is for convenience in using
+        // LIKE and IN SQL statements. 
+        //Note: Storing the players in this way in the DB violates 1NF.
         private void populateAssignedPlayersString()
         {
             //build assigned players string
@@ -371,9 +392,11 @@ namespace AWGAEventTracker
             if (dlgResult != DialogResult.Yes)
                 return;
 
-            //Calls a function (generateTeams()) that ensures no teams have been assigned for this event and that numPlayers is divisible by four. 
-            //Generates numPlayers/4 teams of four players each (one for each level, A-D)
-            //The function returns a bool denoting the state of what the Generate Teams button should be. True = enabled, False = disabled.
+            //Calls a function (generateTeams()) that ensures no teams have been
+            // assigned for this event and that numPlayers is divisible by four. 
+            // Generates numPlayers/4 teams of four players each.
+            // The function returns a bool denoting the state of what the Generate
+            // Teams button should be. True = enabled, False = disabled.
             TeamAssignment t = new TeamAssignment();
             bool bResult = t.generateBestTeams(g_selectedEvent.nID, g_selectedEvent.lstAssignedPlayers.ToList());
             buttonGenerateTeams.Enabled = bResult;
@@ -383,8 +406,8 @@ namespace AWGAEventTracker
             populateEvent();
         }
 
-        //Calls a function that builds a csv file from the selected events teams and opens it in localhost's default
-        //external program for csv files.
+        //Builds a csv file from the selected event's teams and opens it in 
+        // localhost's default external program for csv files.
         private void buttonViewTeams_Click(object sender, EventArgs e)
         {
             CSVHandlers h = new CSVHandlers();
@@ -457,9 +480,9 @@ namespace AWGAEventTracker
                 return "Unassigned";
         }
 
-        //For each player object, updates that object with that player's assigned level (A-D)
-        // as well as the event's correct team object with that player.
-        //Also updates the event's rounds/groups objects
+        //For each player object, updates it with that player's assigned level 
+        // (A-D), the event's correct team object with that player, and the 
+        // events rounds/groups objects.
         private void updateObjects()
         {
             //if teams don't exist, return
@@ -518,8 +541,8 @@ namespace AWGAEventTracker
                     g_selectedEvent.lstTeams[nteamNumber-1].playerD = (g_selectedEvent.lstAssignedPlayers[i] as Player);
             }
 
-            //In preperation for updating the event with round info, check if rounds
-            // exist. If not, return.
+            //In preperation for updating the event with round info, check if 
+            // rounds exist. If not, return.
             if (!doRoundsExistForSelectedEvent())
                 return;
 
@@ -539,8 +562,9 @@ namespace AWGAEventTracker
                 return;
             }
 
-            //Ini the data objects contained in the event's list of rounds, down to the group level,
-            // so we can modify their properties from the db info (below)
+            //Init the data objects contained in the event's list of rounds
+            // down to the group level so we can modify their properties from
+            // the db info (below)
             g_selectedEvent.lstRounds = new List<Round>(g_selectedEvent.nRounds);
             int nTeamCount = g_selectedEvent.lstAssignedPlayers.Count / 4;
             for (int i = 0; i < g_selectedEvent.nRounds; i++)
@@ -574,7 +598,8 @@ namespace AWGAEventTracker
             }
         }
 
-        //Parses all the player objects assigned to g_selectedEvent and returns the one with the specified ID
+        //Parses all the player objects assigned to g_selectedEvent and returns
+        // the one with the specified ID
         private Player getPlayerObjectBtyID(int id)
         {
             foreach (Player p in g_selectedEvent.lstAssignedPlayers)
@@ -602,10 +627,10 @@ namespace AWGAEventTracker
             }
         }
 
-        //Called on user click View Rounds
+        //Called on user click View Rounds - Generates a CSV file with all the
+        // round and group assignments, then displays it in Excel (or other default)
         private void buttonViewRounds_Click(object sender, EventArgs e)
         {
-            //Generates a CSV file with all the round and group assignments, then display it in Excel (or other default)
             CSVHandlers h = new CSVHandlers();
             h.buildAndOpenRoundsCSV(g_selectedEvent);
         }
@@ -618,16 +643,16 @@ namespace AWGAEventTracker
             dlg.ShowDialog();
         }
 
+        //Generates a CSV file with scores per player and displays it in Excel (or other default)
         private void buttonViewScoresByPlayer_Click(object sender, EventArgs e)
         {
-            //Generates a CSV file with all the scores per player then displays it in Excel (or similiar)
             CSVHandlers h = new CSVHandlers();
             h.buildAndOpenScoresByPlayerCSV(g_selectedEvent);
         }
 
         private void buttonViewScoresByTeam_Click(object sender, EventArgs e)
         {
-            //Generates a CSV file with all the scores per team then displays it in Excel (or similiar)
+            //Generates a CSV file with all the scores per team and displays it in Excel (or other default)
             CSVHandlers h = new CSVHandlers();
             h.buildAndOpenScoresByTeamCSV(g_selectedEvent);
         }

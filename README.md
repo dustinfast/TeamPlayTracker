@@ -9,7 +9,8 @@ To install this application, run the included `TeamPlayInstaller.msi` and follow
 For help setting up and managing events, see `TeamPlayHowTo.pdf`.
 
 **Developer**  
-Open the included solution file `AWGAEventTracker.sln` in Microsoft Visual Studio 2015 or higher. Persistent data is stored in `AWGA.mdb` with the data store's clear text password appearing in `main.cs`.
+Open the included solution file `AWGAEventTracker.sln` in Microsoft Visual Studio 2015 or higher.  
+Persistent data is stored in `data.mdb` with the data store's clear text password appearing in `main.cs`. (Note: the schmea of this data store has not been normalized.)
 
 ## "Team-Play" Tournament Description
 

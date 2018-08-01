@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// Globals.cs - Global application variables and functions.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -12,14 +16,11 @@ namespace AWGAEventTracker
 {
     class Globals
     {
-        //We will put things here that are global to the application, such as variables and utiliity functions.
-
         //DB connection object
         public static OleDbConnection g_dbConnection; 
 
-        //A handy function we'll need to strip the tick mark out of user entries that go inside SQL statements
-        // such as when a user enteres a new player name or points. The tick mark would break the insert statement, so we
-        // remove it by calling this function on the user input - DF
+        //Strips the ticks out of a string - useful for sterilizing user-input
+        //insterted into SQL statements.
         public static string removeTicksFromString(string strIn)
         {
             strIn.Replace("'", "");

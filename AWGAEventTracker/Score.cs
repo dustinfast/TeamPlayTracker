@@ -1,4 +1,10 @@
-﻿using System;
+﻿/// Score.cs - The Score class: An abstraction of a single round's score, 
+/// consisting of a putt score, a point score, and a flag denoting whether or
+/// not a substitution occured for the round.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -8,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AWGAEventTracker
 {
-    class Score //An abstraction of a single round's score, consisting of a putt score, a point score, and if a substitution occured.
+    class Score
     {
         private int nEventID;
         private int nPlayerID;

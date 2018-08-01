@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// Event.cs - The Event class: An abstration of a Team Play tournament Event.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;

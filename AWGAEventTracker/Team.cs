@@ -1,10 +1,15 @@
-﻿using System;
+﻿/// Score.cs - The Score class: An abstraction of a team, consists of a group of
+/// four players, one for each level (A-D).
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AWGAEventTracker //And abstraction of a team, which is a group of four players, one for each level (A-D)
+namespace AWGAEventTracker 
 {
     class Team
     {

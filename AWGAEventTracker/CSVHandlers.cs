@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// CSVHandlers.cs - Functions for outputting tournament data to CSV files.
+///
+/// Dustin Fast and Brooks Woods, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,9 +58,7 @@ namespace AWGAEventTracker
                 }
 
                 //Add the player in this row to the output
-                //strOutput += dRow["handicap"].ToString() + ","; //playerhandicap
-                //strOutput += dRow["playerLevel"].ToString() + " (" + dRow["handicap"].ToString() + "),"; //player level and handicap
-                strOutput += dRow["playerLevel"].ToString() + ","; //player level only
+                strOutput += dRow["playerLevel"].ToString() + ","; //player level
                 strOutput += dRow["fName"].ToString() + "," + dRow["lName"].ToString() + ","; //player name
                 strOutput += dRow["phone"].ToString() + "\n";
             }
@@ -138,7 +140,7 @@ namespace AWGAEventTracker
             //Start building the CSV output string
             int nPrevPlayerID = -1;
             int nRowCount = 0;
-            string strOutput = ""; // e.strName + " Scores\n\n"; //Title 
+            string strOutput = ""; 
 
             //build column headers
             strOutput += " ,Last Name,First Name,Team,Position,"; 
@@ -268,7 +270,6 @@ namespace AWGAEventTracker
                 {
                     nRowCount++;
                     strOutput += nPrevTeam + "," + nPointCount + "\n"; 
-                    //strOutput += nRowCount + "," + nPrevTeam + "," + nPointCount + "\n"; //outputs row numbers. Not used because they're confusing after sorting
                     nPointCount = 0;
                 }
                 nPrevTeam = nTeam;
@@ -277,7 +278,6 @@ namespace AWGAEventTracker
 
             //get the last team, since it's not output by the foreach loop, above
             strOutput += nTeam + "," + nPointCount + "\n";
-            //strOutput += ++nRowCount + "," + nTeam + "," + nPointCount + "\n"; //outputs row numbers. Not used because they're confusing after sorting
 
             //Write the output string to a file
             string strOutputFile = doFileWrite(e.strName + "TeamScores.csv", strOutput);

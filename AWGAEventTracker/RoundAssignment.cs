@@ -1,4 +1,14 @@
-﻿using System;
+﻿/// RoundAssignment.cs - The Round/Playgroup generator. Contains the constraint
+/// propagation alogorithm that generates rounds/playgroups (according to the below
+/// criteria). On success, the final round/playgroup assignments are written to the DB.
+/// Criteria: Rounds are kept unique for as long as possible, after that, B and
+/// C players may play in the same group again. A and B player matchups and C 
+/// and D matchups are always unique. I.e., an A player may never play in a group 
+/// with the same B player more than once.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
@@ -9,18 +19,14 @@ using System.Windows.Forms;
 namespace AWGAEventTracker
 {
     class RoundAssignment 
-    {
-        //Contains the functionality that generates rounds and groups and writes them to the DB. 
-        //The event object passed to the constructor is updated with the assignments as a result of this process.
-        //Rounds are kept unique for as long as possible, after that, B and C players are allowed to play in the same group again.
-        //Note that both A and B player matchups and C and D matchups are always unique. Ex: A players never play
-        //in a group with the same B player.
-        
+    {   
         Event eEvent; //the event passed to constructor
-        Event eBestEvent; //The event w the deepest node we were able to assign a player at without duplicates. 
-        int nTeamCount; 
+        Event eBestEvent; //The deepest node we were able to assign a player at without a constraint violation.
+        int nTeamCount;
 
         //Constructor
+        // Accepts an event object which, on success, is updated with the final
+        // round/playgroup assignments.
         public RoundAssignment(Event selectedevent)
         {
             eEvent = selectedevent;

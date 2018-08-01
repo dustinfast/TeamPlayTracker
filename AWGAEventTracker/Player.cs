@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// Player.cs - The Player class: An abstration of a Team-Play tournament player.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
@@ -8,7 +12,7 @@ using System.Windows.Forms;
 
 namespace AWGAEventTracker
 {
-    class Player //An abstraction of a player
+    class Player 
     {
         public int ID { get; set; }
         public double handicap { get; set; }

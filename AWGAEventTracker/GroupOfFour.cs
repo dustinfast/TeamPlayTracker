@@ -1,4 +1,9 @@
-﻿using System;
+﻿/// GroupOfFour.cs - The GroupOfFour class: An abstration of a Team-Play 
+/// tournament playgroup. Consists of one player per skill level (A-D).
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

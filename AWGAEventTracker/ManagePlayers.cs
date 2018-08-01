@@ -1,4 +1,9 @@
-﻿using System;
+﻿/// ManagePlayers.cs - Handlers for the Manage Players dialog box, where
+/// adding/removing/modifying players occurs.
+///
+/// Dustin Fast, 2017
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,10 +67,10 @@ namespace AWGAEventTracker
                 dataGridView.ReadOnly = true;
                 dataGridView.ClearSelection();
 
-                //Set the last used command, to be used later in refreshing the grid when we need to
+                //Note the last used command. Used later in refreshing the grid.
                 g_strLastSelectCmd = sqlselectcmd;
 
-                //update total player count
+                //Update total player count
                 labelTotalMemberCount.Text = "Total Members: " + dataGridView.Rows.Count;
 
             }
@@ -81,8 +86,10 @@ namespace AWGAEventTracker
             this.Close();
         }
 
-        // ADD NEW USER HANDLERS
-        //////////////////////////
+
+        ///////////////////////////
+        // ADD NEW USER HANDLERS //
+        ///////////////////////////
 
         //called on user click add new player
         private void btnAddNewPlayer_Click(object sender, EventArgs e)
@@ -139,7 +146,9 @@ namespace AWGAEventTracker
             }
         }
 
-        // MODIFY USER HANDLERS
+
+        //////////////////////////
+        // MODIFY USER HANDLERS //
         //////////////////////////
 
         //Called on user click sort by LN
@@ -218,7 +227,7 @@ namespace AWGAEventTracker
             dbCmd = "DELETE FROM Players WHERE playerID = " + textBoxEditID.Text;
             OleDbCommand command = new OleDbCommand(dbCmd, Globals.g_dbConnection);
 
-            // TODO Insert Try Black around this query execute
+            // TODO: ExectuteNonQuery needs a try/catch.
             if (command.ExecuteNonQuery() == 0)
             {
                 MessageBox.Show("ERROR: Could not delete user due to an unspecified database error.");
